@@ -1,0 +1,307 @@
+<link rel="stylesheet" href="bootstrap.css" />
+<link rel="stylesheet" href="recruitment.common.css" />
+<link rel="stylesheet" href="recruitment.manage.css" />
+<script type="text/javscript" src="jquery.js"></script>
+<script type="text/javscript" src="recruitment.common.js"></script>
+<script type="text/javscript" src="recruitment.manage.js"></script>
+<div>
+    <div class="container">
+        <div class="row noindex"></div>
+        <div class="page-content-wrapper page-content-wrapper_MOD" dir="rtl" style="direction:rtl">
+            <div class="container-fluid">
+                <section class="section">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-">
+                            <h1>
+                                <span class="d-flex align-items-center" style="color:#fff;font-weight:bold">
+                                    Headline
+                                </span>
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div class="modlistcontainer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="row pageCounterRow" style="clear:both">
+                                            <div class="col-10 col-sm-12 col-lg-10">
+                                                <button class="recBtnStyle"
+                                                    onclick="Recruitment.Manage.Additem(); return false;">
+                                                    Add Item
+                                                </button>
+                                            </div>
+                                            <div class="col-2 col-sm-12 col-lg-2">
+                                                <div>
+                                                    <input type="text"
+                                                        class="form-control form-control-md ListFilterTextBox"
+                                                        onchange="Recruitment.Manage.onFilterSelected()"
+                                                        onkeyup="Recruitment.Manage.onFilterSelected()"
+                                                        onfocusout="Recruitment.Manage.onFilterSelected()" type="search"
+                                                        data-filter="Keyword_MOD" placeholder="Search..." />
+                                                    <span class="fa fa-search"
+                                                        style="font-size:18px;vertical-align:middle;cursor:pointer;">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <div class="row pageCounterRow pageCounterRow_MOD">
+                                                <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                    <div style="padding-top:3%">
+                                                        Showing <span class="fromRecordNum_MOD">0</span> to
+                                                        <span class="toRecordNum_MOD">0</span> of
+                                                        <span class="resultsCount_MOD">0</span> entries
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 d-none d-lg-inline d-xl-inline text-center">
+                                                    <div style="white-space:nowrap">
+                                                        <label for="">
+                                                            Show entries
+                                                            <select id="ddlPageDisplayItemsLimit_MOD"
+                                                                arid-controls="PageDisplayItemsLimit_MOD"
+                                                                style="width:65px;"
+                                                                class="custom-select custom-select-sm form-control form-control-md">
+                                                                <option value="10">10</option>
+                                                                <option value="25">25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                    <div>
+                                                        <div class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                            <div class="firstPageLink firstPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowFirstPage()"
+                                                                title="First Page">
+                                                            </div>
+                                                            <div class="prevPageLink prevPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowPreviousPage()"
+                                                                title="Pevious Page">
+                                                            </div>
+                                                            <div class="curPageInfo curPageInfo_MOD page-link">Page 1
+                                                            </div>
+                                                            <div class="nextPageLink nextPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShownNextPage()"
+                                                                title="Next Page">
+                                                            </div>
+                                                            <div class="lastPageLink lastPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowLastPage()"
+                                                                title="Last Page">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div>
+                                                        <div class="row HeaderRowDiv">
+                                                            <div data-fieldName="ID"
+                                                                class="HeaderDiv col-md-1 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <div class="nestedHeaderDiv">#</div>
+                                                            </div>
+
+                                                            <div data-fieldName="Title"
+                                                                class="HeaderDiv col-md-2 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <div class="nestedHeaderDiv">Title</div>
+                                                            </div>
+
+                                                            <div data-fieldName="Description"
+                                                                class="HeaderDiv col-md-3 col-lg-3 col-xl-3 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <div class="nestedHeaderDiv">Description</div>
+                                                            </div>
+                                                            <div data-fieldName="Directorate"
+                                                                onclick="Recruitment.Manage.sortResults(this)"
+                                                                class="HeaderDiv col-md-2 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <div class="nestedHeaderDiv">
+                                                                    <div class="sortIconLTR fa fa-sort"></div>
+                                                                    Directorate
+                                                                </div>
+                                                            </div>
+                                                            <div data-fieldName="Directorate"
+                                                                onclick="Recruitment.Manage.sortResults(this)"
+                                                                class="HeaderDiv col-md-2 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <div class="nestedHeaderDiv">
+                                                                    <div class="sortIconLTR fa fa-sort"></div>
+                                                                    Directorate
+                                                                </div>
+                                                            </div>
+
+                                                            <div
+                                                                class="HeaderDiv col-md-2 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row HeaderRowDiv" id="byGridCols_MOD"
+                                                            style="display:none;">
+                                                            <div
+                                                                class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <input type="text" data-filter="RecId_MOD"
+                                                                    class="form-control form-control-md ListFilterTextBox"
+                                                                    onchange="Recruitment.Manage.onFilterSelected()"
+                                                                    onkeyup="Recruitment.Manage.onFilterSelected()"
+                                                                    onfocusout="Recruitment.Manage.onFilterSelected()"
+                                                                    style="width:90%;display:inline;" />
+                                                                <a href="javascript:void(0)"
+                                                                    class="fa fa-filter bluecolor"></a>
+                                                            </div>
+                                                            <div
+                                                                class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <input type="text" data-filter="Title"
+                                                                    class="form-control form-control-md ListFilterTextBox"
+                                                                    onchange="Recruitment.Manage.onFilterSelected()"
+                                                                    onkeyup="Recruitment.Manage.onFilterSelected()"
+                                                                    onfocusout="Recruitment.Manage.onFilterSelected()"
+                                                                    style="width:90%;display:inline;" />
+                                                                <a href="javascript:void(0)"
+                                                                    class="fa fa-filter bluecolor"></a>
+                                                            </div>
+                                                            <div
+                                                                class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <input type="text" data-filter="Description"
+                                                                    class="form-control form-control-md ListFilterTextBox"
+                                                                    onchange="Recruitment.Manage.onFilterSelected()"
+                                                                    onkeyup="Recruitment.Manage.onFilterSelected()"
+                                                                    onfocusout="Recruitment.Manage.onFilterSelected()"
+                                                                    style="width:90%;display:inline;" />
+                                                                <a href="javascript:void(0)"
+                                                                    class="fa fa-filter bluecolor"></a>
+                                                            </div>
+                                                            <div
+                                                                class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <input type="text" data-filter="Directorate"
+                                                                    class="form-control form-control-md ListFilterTextBox"
+                                                                    onchange="Recruitment.Manage.onFilterSelected()"
+                                                                    onkeyup="Recruitment.Manage.onFilterSelected()"
+                                                                    onfocusout="Recruitment.Manage.onFilterSelected()"
+                                                                    style="width:90%;display:inline;" />
+                                                                <a href="javascript:void(0)"
+                                                                    class="fa fa-filter bluecolor"></a>
+                                                            </div>
+                                                            <div
+                                                                class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                <span class="ClearChecks"
+                                                                    onclick="Recruitment.Manage.clearAllInputs('byGridCols_MOD')">Clear
+                                                                    Filters</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div id="divItems_MOD">
+                                                            <div
+                                                                style="display:block;text-align:center;height:100%;width:100%;opacity:0.8;padding-top:15%;top:30%;">
+                                                                Loading items info, please wait ... <img
+                                                                    src="ajax-loader.gif" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row pageCounterRow pageCounterRow_MOD">
+                                                <div class="col-sm-12 col-md-5">
+                                                    <div style="padding:3% 0">
+                                                        Showing <span class="fromRecordNum_MOD">0</span> to
+                                                        <span class="toRecordNum_MOD">0</span> of
+                                                        <span class="resultsCount_MOD">0</span> entries
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div>
+                                                        <div class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                            <div class="firstPageLink firstPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowFirstPage()"
+                                                                title="First Page">
+                                                            </div>
+                                                            <div class="prevPageLink prevPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowPreviousPage()"
+                                                                title="Pevious Page">
+                                                            </div>
+                                                            <div class="curPageInfo curPageInfo_MOD page-link">Page 1
+                                                            </div>
+                                                            <div class="nextPageLink nextPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShownNextPage()"
+                                                                title="Next Page">
+                                                            </div>
+                                                            <div class="lastPageLink lastPageLink_MOD page-link"
+                                                                onclick="Recruitment.Manage.ShowLastPage()"
+                                                                title="Last Page">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_del_MOD">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Confirm Deletion</h3>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailsContainter_del_MOD">
+                        <div class="DeleteRecContainer">
+                            <div style="margin:1%">
+                                <input type="hidden" id="hdnRecId_del" />
+                                <div>Title : </div>
+                                <div style="font-weight:bold;padding:1% 0; border-bottom:solid 1px #000;">
+                                    <span id="lblModTitle_del"></span>
+                                </div>
+                            </div>
+                            <div style="margin:1%;">
+                                <div>Description</div>
+                                <div style="font-weight:bold;padding:1%;">
+                                    <span id="lblModDescription_del"></span>
+                                </div>
+                            </div>
+
+                            <div style="margin:1%;">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal"
+                                    onclick="Recruitment.Manage.DeleteItem(); return false;">Confirm Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="NoRecordsFound_DeleteItem">
+                        No Records found matching the given search
+                    </div>
+                    <div class="RecAcknowledgement_Delete">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .ViewRecContainer,
+    .DeleteRecContainer {
+        font-size: 15px;
+    }
+
+    .RecAcknowledgement_Delete {
+        margin: 5%;
+        text-align:center;
+        
+    }
+</style>
