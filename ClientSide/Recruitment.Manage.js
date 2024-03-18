@@ -4,6 +4,7 @@ var Recruitment = Recruitment || {};
 (function () {
 
     'use strict';
+     
     Recruitment.Common = {
         Classifications: ['None', 'Normal', 'Important'],
         Directorates: ["D1", "D2", "D3"],
