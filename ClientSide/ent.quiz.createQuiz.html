@@ -1,0 +1,66 @@
+<script src="/SiteAssets/Quiz/ENT_Sharepoint.Common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.createQuiz.js" type="text/javascript"></script>
+<link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row noindex">
+        <div class="entQuizContainer">
+
+            <div class="entQuizLanguage">
+                <h3 class="QtnLabel">
+                    Select Language / Select Language
+                </h3>
+                <br />
+                <button class="modBtnStyle" onclick="return ENTQuiz.Manage.SetQuizLanguage(1); return false;">Arabic
+                </button>
+                <button class="modBtnStyle" onclick="return ENTQuiz.Manage.SetQuizLanguage(2); return false;">English
+                </button>
+                <button class="modBtnStyle" onclick="return ENTQuiz.Manage.SetQuizLanguage(3); return false;">Both
+                </button>
+            </div>
+
+            <div class="entCreateQuizContainer">
+
+                <div class="entQuizHeaderContainer">
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" dir="rtl" style="text-align:center;">
+                        <h3 class="QtnLabel">Quiz Questions List</h3>
+                    </div>
+                </div>
+                <div class="entCreateQuizQtnsContainer">
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" dir="rtl" style="text-align:center">
+                        <button class="btn btn-primary" value="Add Question"
+                            onclick="return ENTQuiz.Manage.AddQtnPlaceHolder();" style="margin:2% 0;"
+                            id="btnAddQuestion">Add Question</button>
+                        &nbsp; &nbsp;
+                        <button class="btn btn-primary" value="Add 5 Questions"
+                            onclick="return ENTQuiz.Manage.AddQtnPlaceHolder5();" style="margin:2% 0;"
+                            id="btnAddQuestion">Add 5 Questions</button>
+                    </div>
+                </div>
+                <div class="entQuizCreateSubmit">
+                    <button class="modBtnStyle"
+                        onclick="ENTQuiz.Manage.createQuiz(0); return false;">Save</button>&nbsp; &nbsp;
+                    &nbsp;
+                    <button class="modBtnStyle"
+                        onclick="ENTQuiz.AddImageChoices.cancelQuiz(); return false;">Cancel</button>&nbsp; &nbsp;
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .QtnAnswerRank {
+        height: 23px;
+        padding-top: 0;
+        padding-bottom: 0;
+        width: 50px;
+    }
+</style>

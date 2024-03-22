@@ -1,0 +1,39 @@
+<script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.addImageFiles.js" type="text/javascript"></script>
+<link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row noindex">
+        <div class="entQuizContainer">
+            <div class="entQuizDataLoaderMessage">
+                <div style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
+                    Loading Quiz Questions, pleae wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif" />
+                </div>
+            </div>
+
+            <div class="entCreateQuizContainer">
+                <input type="hidden" value="0" id="ent_modId" />
+
+                <div class="entQuizHeaderContainer">
+
+                </div>
+                <div class="entQuizQuestionsContainer">
+                    Loading Questions ....
+                </div>
+                <div class="entQuizSubmit">
+                   <button class="modBtnStyle" onclick="ENTQuiz.AddImageChoices.saveQuiz(); return false;">Save</button>&nbsp; &nbsp; &nbsp; 
+                   <button class="modBtnStyle" onclick="ENTQuiz.AddImageChoices.cancelQuiz(); return false;">Cancel</button>&nbsp; &nbsp; &nbsp; 
+                </div>
+            </div>
+        </div>
+        <style>
+            .entQuizHeaderContainer{
+                color:#fff;
+                font-weight: bold;
+                font-size: 15px;
+                background: #606060;
+                padding: 1%;
+            }
+        </style>
+    </div>
+</div>

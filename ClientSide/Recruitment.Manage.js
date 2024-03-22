@@ -124,7 +124,7 @@ var Recruitment = Recruitment || {};
                 }
             }
             else {
-                $(".page-content-wrapper_MOD").html("<div style='margin:5%;color:#990000'>" + data_items.ErrorMessage + "</div>");
+                $(".page-content-wrapper_MOD").html("<div style='margin:5%;color:coral'>" + data_items.ErrorMessage + "</div>");
             }
         },
         filterData: function () {

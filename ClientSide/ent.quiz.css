@@ -1,0 +1,1206 @@
+._AR,
+._EN {
+    margin: 4px 0;
+}
+
+._AR {
+    direction: rtl;
+    text-align: right;
+}
+
+._EN {
+    direction: ltr;
+    text-align: left;
+}
+
+.ErrorDiv {
+    color: coral;
+    font-weight: bold;
+}
+
+.detailsContainer_View_SVY {
+    margin: 0 1%;
+}
+
+.entQuizlistContainer {
+    padding: 10px 20px;
+}
+
+.entQuizDataLoaderMessage {
+    margin: 10%;
+}
+
+.QtnLabel {
+    font-weight: bold;
+    color: #fff;
+}
+
+.entQuizContainer,
+.entQuizResponseContainer {
+    margin: 0;
+    display: none;
+    font-size: 15px;
+}
+
+.entEditQuizContainer,
+.entCreateQuizContainer {
+    display: none;
+}
+
+.entQuizHeader {
+    color: #fff;
+    font-size: 35px;
+    background: #262626;
+    text-align: center;
+    margin-top: 1%;
+}
+
+.entQuizDescription {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    margin-top: 1%;
+}
+
+.entQuizResponseCountContainer {
+    margin: 2% 20%;
+    padding: 1%;
+    text-align: center;
+    border: Solid 2px #fff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.entQuizResponseCountHeader {
+    text-align: center;
+}
+
+.entQuizResponseCount {
+    text-align: center;
+    background-color: #A5A5A5;
+    margin: 0 40%;
+}
+
+.entCreateQuizQtnsContainer {
+    width: 100%;
+}
+
+.entQuizQuestionContainer,
+.entCreateQuizQtn {
+    margin: 1% 0;
+    padding: 1% 0;
+}
+
+.entCreateQuizQtnBranch {
+    border: 3px solid #666;
+    background-color: #ddd;
+    border-radius: .5em;
+    padding: 10px;
+    cursor: move;
+    padding: 5%;
+}
+
+.entCreateQuizQtnBranch.over {
+    border: 3px dotted #666;
+}
+
+.entQuizQuestionContainerBranched {
+    margin: 1% 0;
+    padding: 1% 0;
+}
+
+.entQuizQuestion {
+    padding: 1%;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #606060;
+    color: #fff;
+    margin-bottom: 1%;
+}
+
+.entQuizQuestionControl {
+    padding: 1%;
+}
+
+.entModQtnCtlValue {
+    color: #fff;
+    font-weight: bold;
+}
+
+.entQuizSubmit,
+.entQuizEditSubmit {
+    text-align: center;
+}
+
+.RatingByNumber {
+    padding: 5px 10px;
+    background-color: lightgray;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.RatingByNumberDisabled {
+    padding: 5px 10px;
+    background-color: lightgray;
+    cursor: not-allowed;
+    border-radius: 5px;
+}
+
+.RatingByNumber.ActiveRating,
+.RatingByNumberDisabled.ActiveRating {
+    background-color: rgb(0, 110, 190);
+}
+
+.RatingByEmoji,
+.RatingByEmojiDisabled {
+    padding: 5px 10px;
+    font-size: 5rem;
+    margin: 0 1%;
+}
+
+.RatingByEmoji {
+    cursor: pointer;
+}
+
+.RatingByEmojiDisabled {
+    cursor: not-allowed;
+}
+
+.RatingByEmoji.ActiveRating,
+.RatingByEmojiDisabled.ActiveRating {
+    color: #FFC001;
+}
+
+.MatrixCell {
+    color: #D9D9D9;
+}
+
+.MatrixCellHeader {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.MatrixCellHeader_EN {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.MatrixRow {
+    padding: 1% 0;
+}
+
+.MatrixRow:nth-child(odd) {
+    background-color: rgb(135, 135, 135);
+}
+
+.spanRangeControl {
+    font-weight: bold;
+    color: #D9D9D9;
+}
+
+.RankingQuestion {
+    color: #D9D9D9;
+}
+
+.NotValidData {
+    outline: solid 1px coral;
+}
+
+.ValidationErrorMessage {
+    color: coral;
+}
+
+.entQuizContainer[dir=ltr] {
+    text-align: left;
+    direction: ltr;
+}
+
+.entQuizContainer [dir=ltr] .row[class*=col-] {
+    text-align: left;
+    float: left !important;
+}
+
+.entQuizContainer[dir=rtl] {
+    direction: rtl;
+}
+
+.entQuizContainer[dir=rtl] .row[class*=col-] {
+    text-align: right;
+    float: right !important;
+}
+
+.branchStyle {
+    border: solid 2px;
+    display: none;
+    padding: 2% 0;
+    margin: 1% 0;
+    padding: 1%;
+}
+
+.DirectionRTL {
+    direction: rtl;
+    text-align: right;
+}
+
+.DirectionLTR {
+    direction: ltr;
+    text-align: left;
+}
+
+#txtModTitle_EN,
+#txtModDescription_EN,
+#txtModTitle_AR,
+#txtModDescription_AR {
+    width: 100%;
+}
+
+[data-fieldtype="QtnText_AR"],
+[data-fieldtype="QtnText_EN"] {
+    width: 100%;
+}
+
+/*////////////////////////////////////////////*/
+.page-content-wrapper {
+    direction: ltr;
+    color: #fff;
+}
+
+.ColDiv,
+.ColCenterDiv,
+.HeaderDiv,
+.FilterDiv,
+.FilterRightDiv,
+.HeaderRightDiv,
+.ColRightDiv {
+    vertical-align: top;
+    padding: .75rem;
+}
+
+.ColDiv,
+.ColRightDiv {
+    white-space: nowrap;
+}
+
+.ColCenterDiv {
+    text-align: center;
+}
+
+.ColRightDiv {
+    text-align: right;
+}
+
+.FilterRightDiv {
+    text-align: right;
+}
+
+.HeaderRowDiv,
+.HeaderRowRightDiv {
+    margin: 0;
+    color: #444;
+    font-weight: 500;
+    font-size: 16px;
+    white-space: no-wrap;
+    color: #fff;
+}
+
+.HeaderRowRightDiv {
+    text-align: right;
+}
+
+.HeaderDiv,
+.HeaderRightDiv {
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.HeaderDiv>div,
+.HeaderRightDiv>div {
+    border: solid 2px;
+    border-radius: 10px;
+    padding: 6px;
+    width: 85%;
+}
+
+.Width-5 {
+    width: 5%;
+}
+
+.Width-7 {
+    width: 7%;
+}
+
+.Width-8 {
+    width: 8%;
+}
+
+.Width-10 {
+    width: 10%;
+}
+
+.Width-15 {
+    width: 15%;
+}
+
+.Width-20 {
+    width: 20%;
+}
+
+.Width-25 {
+    width: 25%;
+}
+
+.Width-50 {
+    width: 50%;
+}
+
+.sortIconRTL {
+    float: right;
+    font-size: 20px;
+}
+
+.sortIconLTR {
+    float: left;
+    font-size: 20px;
+}
+
+.HeaderDiv {
+    cursor: pointer;
+}
+
+.itemActionIcon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.div-container1,
+.div-container2 {
+    vertical-align: top;
+    font-size: 14px;
+    border-bottom: solid 1px #dee2e6;
+    margin: 0;
+}
+
+.div-container2 {
+    background-color: #5F5D5F;
+}
+
+.div-container1:hover,
+.div-container2:hover {
+    background-color: aliceblue;
+    cursor: pointer;
+    color: #000;
+}
+
+.NoRecordsFound {
+    padding: 3%;
+    color: #fff;
+    font-size: 15px;
+}
+
+.curMonthInfo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    display: inline-block;
+    width: 25%;
+}
+
+.firstPageLink,
+.prevPageLink,
+.nextPageLink,
+.lastPageLink {
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 1%;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    padding: .25rem .75rem;
+}
+
+.firstPageLink,
+.prevPageLink {
+    visibility: hidden;
+}
+
+.firstPageLink::after {
+    content: "<<First";
+}
+
+.prevPageLink::after {
+    content: "<Prev";
+}
+
+.nextPageLink::after {
+    content: "Next>";
+}
+
+.lastPageLink::after {
+    content: "Last>>";
+}
+
+.page-link {
+    color: #000;
+}
+
+.curPageInfo {
+    display: inline-block;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    padding: .25rem .75rem;
+}
+
+.pageCounter {
+    justify-content: flex-end;
+}
+
+/* Tooltip text */
+.tooltipParent {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+    display: inline-block;
+}
+
+.tooltipParent .tooltiptext {
+    white-space: normal;
+    display: none;
+    width: 400px;
+    background-color: #484b52;
+    color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: left;
+    position: fixed;
+    z-index: 1001;
+}
+
+.tooltipParent:hover .tooltiptext {
+    display: block;
+    animation: hideMessage 1s ease 1s 1 forwards;
+}
+
+/* Tooltip Image  */
+.tooltipImageParent {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tooltipImageParent .tooltipImage {
+    white-space: normal;
+    display: none;
+    width: 600px;
+    color: #000;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: left;
+    position: fixed;
+    z-index: 1001;
+}
+
+.tooltipImageParent:hover .tooltipImage {
+    display: block;
+    animation: hideMessage 1s ease 1s 1 forwards;
+}
+
+.animateMessageField {
+    animation: hideMessage 5s ease 0s 1 forwards;
+}
+
+.MessageField .ErrorMessageField {
+    font-weight: bold;
+}
+
+@keyframes hideMessage2 {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.modal-content {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #777475;
+}
+
+.modal-body {
+    padding: 10px;
+}
+
+.fieldHeading {
+    color: #1b45bb;
+    display: block;
+    padding-top: 3%;
+}
+
+.addnlPadding {
+    padding-bottom: 2%;
+    overflow-wrap: break-word;
+}
+
+.datepicker {
+    display: inline-block;
+    width: 80%;
+    margin-right: 3%;
+}
+
+/* processingDialogBlock */
+.processingDialogBlock {
+    text-align: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    padding-top: 25%;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+/*Success / Error Messsage style */
+.postSummary {
+    margin: 3%;
+}
+
+.divPostSuccess {
+    color: darkcyan;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+
+.lblSuccess {
+    background-color: darkcyan;
+    animation: hideMessage 5s ease 2s 1 forwards;
+}
+
+.lblError {
+    background-color: red;
+}
+
+.lblSuccess,
+.lblError {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+
+@keyframes hideMessage {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Blinking effect */
+.blink {
+    animation-duration: 1s;
+    animation-iteration-count: 10;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+
+}
+
+.showNewIcon {
+    animation: hideMessage 1s ease 1s 6 forwards;
+    color: #8c1700;
+    position: absolute;
+    font-size: 16px;
+    margin-top: -2%;
+}
+
+.blink-default {
+    animation-name: anim-default;
+}
+
+.blink-primary {
+    animation-name: anim-primary;
+}
+
+.blink-success {
+    animation-name: anim-success;
+}
+
+.blink-info {
+    animation-name: anim-info;
+}
+
+.blink-warning {
+    animation-name: anim-warning;
+}
+
+.blink-danger {
+    animation-name: anim-danger;
+}
+
+@keyframes anim-default {
+    to {
+        color: #333;
+        background-color: #fff;
+    }
+}
+
+@keyframes anim-primary {
+    to {
+        color: #fff;
+        background-color: #337ab7;
+    }
+}
+
+@keyframes anim-success {
+    to {
+        color: #fff;
+        background-color: #5cb85c;
+    }
+}
+
+@keyframes anim-info {
+    to {
+        color: #fff;
+        background-color: #5bc0de;
+    }
+}
+
+@keyframes anim-warning {
+    to {
+        color: #fff;
+        background-color: #f0ad4e;
+    }
+}
+
+@keyframes anim-danger {
+    to {
+        color: #fff;
+        background-color: #d9534f;
+    }
+}
+
+
+/*Client side validation error style */
+span.field-validation-error {
+    color: red;
+}
+
+/* Modal dialog animation */
+.modal.fade .modal-dialog {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    left: 900px;
+    opacity: 0;
+    -webkit-transform: all 0.5s;
+    -moz-transform: all 0.5s;
+    -ms-transform: all 0.5s;
+    transform: all 0.5s;
+}
+
+.modal.fade.show .modal-dialog {
+    -webkit-transform: translate3d(-900px, 0, 0);
+    -moz-transform: translate3d(-900px, 0, 0);
+    -ms-transform: translate3d(-900px, 0, 0);
+    transform: translate3d(-900px, 0, 0);
+    opacity: 1;
+}
+
+.monthPicker {
+    display: inline-block;
+    width: 100px;
+    margin-right: 1%;
+}
+
+/* tab styles */
+.detailsnav .nav-item {
+    margin: 0 1% -1px 0;
+    background-color: powderblue;
+    border-radius: 5px 5px 0px 0px;
+}
+
+/*  Styles form lookup editing */
+.RowItemValue .ItemEditValue {
+    display: none;
+}
+
+.RowItemValue .ItemValue {
+    display: inline-block;
+}
+
+.RowEditItemValue .ItemValue {
+    display: none;
+}
+
+.RowEditItemValue .ItemEditValue {
+    display: inline-block;
+}
+
+.dot {
+    height: 13px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.pageCounterRow {
+    font-weight: bold;
+}
+
+/* Responsive */
+
+/*col-* - 0 (xs)
+col-sm-* - 576px
+col-md-* - 768px
+col-lg-* - 992px
+col-xl-* - 1200px
+
+*/
+
+@media(min-width:768px) {
+    .modal-lg {
+        max-width: 700px;
+    }
+}
+
+@media(min-width:992px) {
+    .modal-lg {
+        max-width: 970px;
+    }
+}
+
+@media(min-width:1200px) {
+    .modal-lg {
+        max-width: 1200px;
+    }
+}
+
+@media only screen and (min-width:576px) {
+    .firstPageLink::after {
+        content: "<<-";
+    }
+
+    .prevPageLink::after {
+        content: "<-";
+    }
+
+    .nextPageLink::after {
+        content: "->";
+    }
+
+    .lastPageLink::after {
+        content: "->>";
+    }
+}
+
+@media only screen and (min-width:768px) {
+
+    .ColCenterDiv,
+    .ColDiv {
+        text-align: right;
+        white-space: normal;
+    }
+
+    .ColCenterDiv::before,
+    .ColDiv::before {
+        content: attr(data-title);
+        float: left;
+        font-size: 1em;
+        color: blue;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .tooltipParent {
+        white-space: normal;
+        display: inline;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width:1075px) {
+    .pageCounterRow {
+        margin-top: 0%;
+    }
+}
+
+@media only screen and (max-width:1200px) {
+    .filterIcon {
+        height: 50px;
+    }
+}
+
+/* Month Picker */
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6 url('../Scripts/jquery/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50% repeat-x;
+    font-weight: normal;
+    color: #555555;
+}
+
+.btn-primary {
+    background-color: #1b45bb;
+}
+
+.text-info {
+    color: #1b45bb;
+}
+
+.ClearChecks {
+    font-size: 1rem;
+    text-align: right;
+    padding-right: 2%;
+    cursor: pointer;
+    color: #1b45bb;
+    float: right;
+}
+
+.ClearChecksRight {
+    font-size: 1rem;
+    text-align: right;
+    padding-right: 2%;
+    cursor: pointer;
+    color: #1b45bb;
+    float: left;
+}
+
+.bluecolor {
+    color: blue;
+}
+
+.graycolor {
+    color: #484b52;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+/* Side nav filters */
+.expandSideNav::before,
+.collapseSideNav::before {
+    background-color: cornflowerblue;
+    margin-left: 1%;
+    padding: 0% 0.5%;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.expandSideNav::before {
+    content: ' > ';
+}
+
+.collapseSideNav::before {
+    content: ' < ';
+}
+
+.expandSideNavbar,
+.collapseSideNavbar {
+    float: left;
+    transition-duration: 1s;
+}
+
+.expandSideNavbar {
+    margin-left: 0%;
+}
+
+.collapseSideNavbar {
+    margin-left: -20%;
+}
+
+.nestedFilterContainer {
+    height: 150px;
+    overflow: auto;
+    border: solid 1px darkgray;
+    padding: 5%;
+}
+
+/*  details Modal Dialog Styles */
+.detailsContainer,
+.detailsContainerRight {
+    display: block;
+}
+
+.detailsContainerRight {
+    text-align: right;
+}
+
+.detailsRow,
+.detailsAltRow {
+    padding: 2% 2%;
+    margin: 0.2% 0.2%;
+    color: #fff;
+}
+
+.detailsAltRow {
+    background-color: #515960;
+}
+
+.detailsRow {
+    background-color: #596167;
+}
+
+.detailKkey {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.detailsValue {
+    font-size: 14px;
+}
+
+.ErrorDiv {
+    color: coral;
+    padding: 10%;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;
+}
+
+/*Ent Branded styles */
+
+.lob-listcontainer {
+    padding: 10px 20px;
+}
+
+.HeaderRowDiv,
+.HeaderRowRightDiv {
+    color: #fff;
+}
+
+.ms-Pivot.ms-Pivot--tabs .ms-Pivot-link,
+.ms-Pivot-link:active:hover {
+    background-color: #9F9D9F;
+    color: #FFF;
+    padding: 0 5%;
+    font-size: 12px;
+    line-height: 30px;
+    height: 30px;
+}
+
+.ms-Pivit.ms-Pivot--tabs .ms-Pivot-link.is-selected {
+    background-color: #AAADAF;
+    outline: none !important;
+}
+
+.ms-Pivot-link.is-selected:before {
+    background-color: #f2f2f2;
+    outline: none !important;
+}
+
+.ms-Pivot-link:focus,
+.ms-Pivot-link:active,
+.ms-Pivot.is-selected:active {
+    outline: none !important;
+    background-color: yellow;
+}
+
+.ms-Pivot.ms-Pivot--tabs .ms-Pivot-link:focus:not(.is-selected):not(.ms-Pivot-link--overflow),
+.ms-Pivot.ms-Pivot--tabs .ms-Pivot-link:hover:not(.is-selected):not(.ms-Pivot-link--overflow) {
+    box-shadow: -1px 3px 3px 1px #000;
+}
+
+.ms-Pivot-link:active{
+    background-color: transparent !important;
+}
+
+.filtersContainer{
+    margin-bottom: 5%;
+    background-color: #9F9D9F;
+    border-radius: 10px;
+}
+.byGridCols{
+    padding: 2% 3%;
+    margin-bottom: 5%;
+    background-color: #9F9D9F;
+    border-radius: 10px;
+}
+.MoreFiltersContent{
+    display: none;
+}
+.MoreFiltersHeader {
+    padding: 1%;
+    font-weight: bold;
+}
+.MoreFiltersHeader div{
+    float: right;
+    font-size: 25px;
+}
+body{
+    font-size: 14px;
+}
+.row.noindex{
+    display: block;
+}
+.dashChartTitle{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #8F8D8F;
+    border-radius: 5px;
+}
+.TaskOverDue{
+    border: solid 2px coral;
+}
+
+.OverdueSign{
+    color: yellow;
+    position: absolute;
+    margin-left: -15%;
+}
+.DataLoadingStyle{
+    display: block;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8;
+    padding-top: 2%;
+    top: 30%;
+}
+.DataLoadingStyle img{
+    width: 100px;
+}
+
+.gradientLineBorder{
+    background-image: linear-gradient(45deg,#fff,transparent);
+    height: 5px;
+    display: none;
+}
+.divChartLegendStyle{
+    height: 300px;
+    overflow: auto;
+    direction: rtl;
+    text-align: right;
+    font-size: 16px;
+}
+.divChartLegendStyle i{
+    padding: 2%;
+}
+[dir="ltr"]{
+    text-align: left;
+}
+
+[dir="rtl"]{
+    text-align: right;
+}
+.ListFilterTextBox{
+    font-size: 15px;
+}
+button{
+    font-size: 15px !important;
+}
+select{
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+[type="button"]{
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px !important;
+}
+[type="text"], textarea, [type="file"]{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.ImageChoice{
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 2%;
+}
+
+.ImageChoice0{
+   width: 150px;
+   height: 150px;
+}
+
+.ImageChoice1{
+    width: 250px;
+    height: 250px;
+ }
+ .ImageChoice2{
+    width: 350px;
+    height: 350px;
+ }
+
+.ImageChoiceDisabled{
+    width: 150px;
+    height: 150px;
+    padding: 5px 10px;
+    cursor: not-allowed;
+ }
+
+.ImageChoice.ActoveRating, .ImageChoiceDisabled.ActiveRating{
+    border: solid 2px rgb(0,110,190);
+ }
+ .multiChkBoxStyle{
+    color: #D9D9D9;
+    padding: 1% 0;
+ }
+
+ .entQuizResponseWelcomeContainer, .entQuizResponseAcknowledgementCOntainer, .divAlreadySubmittedErrorCotainer, .entQuizLanguage{
+    display: none;
+    margin: 0 20%;
+    width: 50%;
+    margin: auto;
+    background: rgb(135,135,135);
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 2%;
+    text-align: center;
+    color: #fff;
+ }
+ .entQuizResponseAcknowledgementDefault, .divAlreadySubmittedError{
+    text-align: center;
+    font-size: 30px;
+    margin: 3%;
+    color: #fff;
+ } 
+
+ .modBtnStyle{
+    background: rgb(3,79,110);
+    color: #fff;
+    box-shadow: 4px 4px 4px #090909;
+    margin: 1%;
+    border: 0;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px !important;
+
+ }
+ .modBtnStyle:hover{
+    color: #000;
+ }
+ .ent-searchbox .ms-srch-sb > input {
+    border-radius: 0;
+ }
+    

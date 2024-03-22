@@ -1,0 +1,374 @@
+<link rel="stylesheet" href="/style library/libraries/bootstrap-4.6.0/css/bootstrap.css" />
+<script type="text/javscript" src="/style library/libraries/bootstrap-4.6.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/SiteAssets/Quiz/ent.quiz.css" />
+<script type="text/javscript" src="/SiteAssets/Quiz/ent.quiz.common.js"></script>
+<script type="text/javscript" src="/SiteAssets/Quiz/ent.quiz.manageAdmins.js"></script>
+
+<style>
+    .divAdminAddedConfirmation,
+    .divAdminChangeStatusAcknowledgement,
+    .divAdminAddingError {
+        font-size: 20px;
+        padding: 10%;
+        text-align: center;
+    }
+
+    .divAdminAddedConfirmation,
+    .divAdminChangeStatusAcknowledgement {
+        color: #fff;
+    }
+
+    .divAdminAddingError {
+        color: coral;
+    }
+</style>
+
+
+<div>
+    <div class="container">
+        <div class="row noindex">
+            <div class="page-content-wrapper page-content-wrapper_SVY" dir="rtl" style="direction:rtl">
+                <div class="container-fluid">
+                    <section class="section">
+                        <div>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <h1>
+                                    <span class="d-flex align-items-center" style="color:#fff;font-weight:bold">
+                                        Manage Admins
+                                    </span>
+                                </h1>
+                            </div>
+                            <div>
+                                <div class="modlistcontainer">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card-body">
+                                                <div>
+                                                    <div class="row pageCounterRow" style="clear:both">
+                                                        <div class="col-10 col-sm-12 col-lg-10">
+                                                            <button class="modBtnStyle"
+                                                                onclick="ENTQuiz.Manage.ShowAddAdmin(); return false;">
+                                                                Add Admin
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-2 col-sm-12 col-lg-2">
+                                                            <div>
+                                                                <input type="search"
+                                                                    class="form-control form-control-md ListFilterTextBox"
+                                                                    style="display:inline-block;width:65%;"
+                                                                    onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                    onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                    onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                    type="search" data-filter="Keyword_SVY"
+                                                                    placeholder="Search..." />
+                                                                <span class="fa fa-search"
+                                                                    style="font-size:18px;vertical-align:middle;cursor:pointer;">&nbsp;</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pageCounterRow pageCounterRow_SVY">
+                                                        <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                            <div style="padding-top:3%">
+                                                                Showing <span class="fromRecordNum_SVY">0</span> to
+                                                                <span class="toRecordNum_SVY">0</span> of
+                                                                <span class="resultsCount_SVY">0</span> entries
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-12 d-none d-lg-inline d-xl-inline text-center">
+                                                            <div style="white-space:nowrap">
+                                                                <label>
+                                                                    Show entries
+                                                                    <select id="ddlPageDisplayItemsLimit_SVY"
+                                                                        arid-controls="PageDisplayItemsLimit_SVY"
+                                                                        style="width:65px;"
+                                                                        class="custom-select custom-select-sm form-control form-control-md">
+                                                                        <option value="10">10</option>
+                                                                        <option value="25">25</option>
+                                                                        <option value="50">50</option>
+                                                                        <option value="100">100</option>
+                                                                    </select>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                            <div>
+                                                                <div
+                                                                    class="pageCouter pageCounter_SVY col-lg-12 pagination">
+                                                                    <div class="firstPageLink firstPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowFirstPage()"
+                                                                        title="First Page">
+                                                                    </div>
+                                                                    <div class="prevPageLink prevPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowPreviousPage()"
+                                                                        title="Pevious Page">
+                                                                    </div>
+                                                                    <div class="curPageInfo curPageInfo_SVY page-link">
+                                                                        Page
+                                                                        1
+                                                                    </div>
+                                                                    <div class="nextPageLink nextPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShownNextPage()"
+                                                                        title="Next Page">
+                                                                    </div>
+                                                                    <div class="lastPageLink lastPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowLastPage()"
+                                                                        title="Last Page">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div>
+                                                                <div class="row HeaderRowDiv">
+                                                                    <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                        onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                        data-fieldName="ID">Admin ID</div>
+                                                                    <div class="HeaderDiv col-md-3 col-lg-3 col-xl-3 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                        onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                        data-fieldName="DisplayName">DisplayName</div>
+                                                                    <div class="HeaderDiv col-md-5 col-lg-4 col-xl-4 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                        onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                        data-fieldName="Email">Email
+                                                                    </div>
+                                                                    <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                        onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                        data-fieldName="Department">Department</div>
+                                                                    <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                        onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                        data-fieldName="IsActive">Status</div>
+                                                                    <div
+                                                                        class="HeaderDiv col-md-4 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row HeaderRowDiv" id="byGridCols_SVY"
+                                                                    style="display:none;">
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="AdminId_SVY"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-3 col-lg-3 col-xl-3 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="AdminName_SVY"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-5 col-lg-4 col-xl-4 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="Email_SVY"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="Department_SVY"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <span class="ClearChecks"
+                                                                            onclick="ENTQuiz.Manage.clearAllInputs('byGridCols_SVY')">Clear
+                                                                            Filters</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div id="divItems_SVY">
+                                                                    <div
+                                                                        style="display:block;text-align:center;height:100%;width:100%;opacity:0.8;padding-top:15%;top:30%;">
+                                                                        Loading admins info, please wait ... <img
+                                                                            src="/SiteAssets/Quiz/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row pageCounterRow pageCounterRow_SVY">
+                                                        <div class="col-sm-12 col-md-5">
+                                                            <div style="padding:3% 0">
+                                                                Showing <span class="fromRecordNum_SVY">0</span> to
+                                                                <span class="toRecordNum_SVY">0</span> of
+                                                                <span class="resultsCount_SVY">0</span> entries
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-7">
+                                                            <div>
+                                                                <div
+                                                                    class="pageCouter pageCounter_SVY col-lg-12 pagination">
+                                                                    <div class="firstPageLink firstPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowFirstPage()"
+                                                                        title="First Page">
+                                                                    </div>
+                                                                    <div class="prevPageLink prevPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowPreviousPage()"
+                                                                        title="Pevious Page">
+                                                                    </div>
+                                                                    <div class="curPageInfo curPageInfo_SVY page-link">
+                                                                        Page
+                                                                        1
+                                                                    </div>
+                                                                    <div class="nextPageLink nextPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShownNextPage()"
+                                                                        title="Next Page">
+                                                                    </div>
+                                                                    <div class="lastPageLink lastPageLink_SVY page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowLastPage()"
+                                                                        title="Last Page">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_AddAdmin_SVY" dir="ltr">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add Admin</h3>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailsContainter_SVY">
+                        <div class="divSearchAdmin">
+                            <div style="margin:2%">
+                                <div class="QtnLabel">Employee : </div>
+                                <div>
+                                    <div>
+                                        <input type="text" id="txtEmpSearchText" style="width:50%;" />
+                                        <input type="hidden" id="txtSelectedEmpLogin" value="" />
+                                        <input type="button" value="Find"
+                                            onclick="return ENTQuiz.Manage.SearchEmployees();"
+                                            style="font-size:10px;padding:0;margin:0;">
+                                        <input type="button" value="Clear"
+                                            onclick="return ENTQuiz.Manage.ClearEmpSearch();"
+                                            style="font-size:10px;padding:0;">
+                                    </div>
+                                    <div class="divSearchList" style="display:none;">
+                                        <select id="ddlempSearchList" style="width:100%;overflow:auto;"
+                                            onchange="ENTQuiz.Manage.setSelectedEmployee()"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin:2%">
+                                <div class="QtnLabel">Department : </div>
+                                <div>
+                                    <select id="ddlDepartment" style="width:100px">
+                                        <option value="1">ENT</option>
+                                        <option value="2">IT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="margin:2%">
+                                <button class="btn btn-dark" onclick="return ENTQuiz.Manage.createAdmin()">Save
+                                    Admin</button>
+                                <button class="btn btn-dark" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <div class="divAdminAddedConfirmation" style="display:none;">
+                            Admin Saved successfully
+                        </div>
+                        <div class="divAdminAddingError" style="display:none;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_ChangeAdminStatus_SVY" dir="ltr">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Admin Status Change</h3>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailsContainter_SVY">
+                        <div class="divChangeAdminStatus">
+                            <input type="hidden" id="hdnAdminId" value="0" />
+                            <input type="hidden" id="hdnAdminDeptId" value="0" />
+                            <input type="hidden" id="hdnCurretStatus" value="" />
+                            <div style="margin:2%;background-color:#979495;padding:2%;">
+                                <div>Employee: </div>
+                                <div>
+                                    <span id="spnAdminName"></span>
+                                </div>
+                            </div>
+                            <div style="margin:2%;background-color:#979495;padding:2%;">
+                                <div>Department: </div>
+                                <div>
+                                    <span id="spnDeptName"></span>
+                                </div>
+                            </div>
+                            <div style="margin:2%;background-color:#979495;padding:2%;">
+                                <div>New Status: </div>
+                                <div>
+                                    <span id="spnNewStatus"></span>
+                                </div>
+                            </div>
+                            <div style="margin:2%">
+                                <button class="btn btn-dark"
+                                    onclick="return ENTQuiz.Manage.changeAdminStatus()">Confirm Status Change</button>
+                                <button class="btn btn-dark" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <div class="divAdminChangeStatusAcknowledgement" style="display:none;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
