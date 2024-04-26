@@ -7,7 +7,7 @@
 <div>
     <div class="container">
         <div class="row noindex">
-            <div class="page-content-wrapper page-content-wrapper_SVY" dir="rtl" style="direction:rtl">
+            <div class="page-content-wrapper page-content-wrapper_MOD" dir="rtl" style="direction:rtl">
                 <div class="container-fluid">
                     <section class="section">
                         <div>
@@ -33,25 +33,25 @@
                                                         </div>
                                                         <div class="col-2 col-sm-12 col-lg-2">
                                                             <div>
-                                                                <input type="search"
+                                                                <input 
                                                                     class="form-control form-control-md ListFilterTextBox"
                                                                     style="display:inline-block;width:65%;"
                                                                     onchange="ENTQuiz.Manage.onFilterSelected()"
                                                                     onkeyup="ENTQuiz.Manage.onFilterSelected()"
                                                                     onfocusout="ENTQuiz.Manage.onFilterSelected()"
-                                                                    type="search" data-filter="Keyword_SVY"
+                                                                    type="search" data-filter="Keyword_MOD"
                                                                     placeholder="Search..." />
                                                                 <span class="fa fa-search"
                                                                     style="font-size:18px;vertical-align:middle;cursor:pointer;">&nbsp;</span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row pageCounterRow pageCounterRow_SVY">
+                                                    <div class="row pageCounterRow pageCounterRow_MOD">
                                                         <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
                                                             <div style="padding-top:3%">
-                                                                Showing <span class="fromRecordNum_SVY">0</span> to
-                                                                <span class="toRecordNum_SVY">0</span> of
-                                                                <span class="resultsCount_SVY">0</span> entries
+                                                                Showing <span class="fromRecordNum_MOD">0</span> to
+                                                                <span class="toRecordNum_MOD">0</span> of
+                                                                <span class="resultsCount_MOD">0</span> entries
                                                             </div>
                                                         </div>
                                                         <div
@@ -59,8 +59,8 @@
                                                             <div style="white-space:nowrap">
                                                                 <label>
                                                                     Show entries
-                                                                    <select id="ddlPageDisplayItemsLimit_SVY"
-                                                                        arid-controls="PageDisplayItemsLimit_SVY"
+                                                                    <select id="ddlPageDisplayItemsLimit_MOD"
+                                                                        arid-controls="PageDisplayItemsLimit_MOD"
                                                                         style="width:65px;"
                                                                         class="custom-select custom-select-sm form-control form-control-md">
                                                                         <option value="10">10</option>
@@ -75,24 +75,24 @@
                                                         <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
                                                             <div>
                                                                 <div
-                                                                    class="pageCouter pageCounter_SVY col-lg-12 pagination">
-                                                                    <div class="firstPageLink firstPageLink_SVY page-link"
+                                                                    class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                                    <div class="firstPageLink firstPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowFirstPage()"
                                                                         title="First Page">
                                                                     </div>
-                                                                    <div class="prevPageLink prevPageLink_SVY page-link"
+                                                                    <div class="prevPageLink prevPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowPreviousPage()"
-                                                                        title="Pevious Page">
+                                                                        title="Previous Page">
                                                                     </div>
-                                                                    <div class="curPageInfo curPageInfo_SVY page-link">
+                                                                    <div class="curPageInfo curPageInfo_MOD page-link">
                                                                         Page
                                                                         1
                                                                     </div>
-                                                                    <div class="nextPageLink nextPageLink_SVY page-link"
+                                                                    <div class="nextPageLink nextPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShownNextPage()"
                                                                         title="Next Page">
                                                                     </div>
-                                                                    <div class="lastPageLink lastPageLink_SVY page-link"
+                                                                    <div class="lastPageLink lastPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowLastPage()"
                                                                         title="Last Page">
                                                                     </div>
@@ -128,11 +128,11 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="row HeaderRowDiv" id="byGridCols_SVY"
+                                                                <div class="row HeaderRowDiv" id="byGridCols_MOD"
                                                                     style="display:none;">
                                                                     <div
                                                                         class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
-                                                                        <input type="text" data-filter="QuizId_SVY"
+                                                                        <input type="text" data-filter="QuizId_MOD"
                                                                             class="form-control form-control-md ListFilterTextBox"
                                                                             onchange="ENTQuiz.Manage.onFilterSelected()"
                                                                             onkeyup="ENTQuiz.Manage.onFilterSelected()"
@@ -143,7 +143,7 @@
                                                                     </div>
                                                                     <div
                                                                         class="FilterDiv col-md-3 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
-                                                                        <input type="text" data-filter="Title_SVY"
+                                                                        <input type="text" data-filter="Title_MOD"
                                                                             class="form-control form-control-md ListFilterTextBox"
                                                                             onchange="ENTQuiz.Manage.onFilterSelected()"
                                                                             onkeyup="ENTQuiz.Manage.onFilterSelected()"
@@ -167,13 +167,13 @@
                                                                     <div
                                                                         class="FilterDiv col-md-4 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
                                                                         <span class="ClearChecks"
-                                                                            onclick="ENTQuiz.Manage.clearAllInputs('byGridCols_SVY')">Clear
+                                                                            onclick="ENTQuiz.Manage.clearAllInputs('byGridCols_MOD')">Clear
                                                                             Filters</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                                <div id="divItems_SVY">
+                                                                <div id="divItems_MOD">
                                                                     <div
                                                                         style="display:block;text-align:center;height:100%;width:100%;opacity:0.8;padding-top:15%;top:30%;">
                                                                         Loading items info, please wait ... <img
@@ -184,36 +184,36 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row pageCounterRow pageCounterRow_SVY">
+                                                    <div class="row pageCounterRow pageCounterRow_MOD">
                                                         <div class="col-sm-12 col-md-5">
                                                             <div style="padding:3% 0">
-                                                                Showing <span class="fromRecordNum_SVY">0</span> to
-                                                                <span class="toRecordNum_SVY">0</span> of
-                                                                <span class="resultsCount_SVY">0</span> entries
+                                                                Showing <span class="fromRecordNum_MOD">0</span> to
+                                                                <span class="toRecordNum_MOD">0</span> of
+                                                                <span class="resultsCount_MOD">0</span> entries
 
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 col-md-7">
                                                             <div>
                                                                 <div
-                                                                    class="pageCouter pageCounter_SVY col-lg-12 pagination">
-                                                                    <div class="firstPageLink firstPageLink_SVY page-link"
+                                                                    class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                                    <div class="firstPageLink firstPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowFirstPage()"
                                                                         title="First Page">
                                                                     </div>
-                                                                    <div class="prevPageLink prevPageLink_SVY page-link"
+                                                                    <div class="prevPageLink prevPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowPreviousPage()"
-                                                                        title="Pevious Page">
+                                                                        title="Previous Page">
                                                                     </div>
-                                                                    <div class="curPageInfo curPageInfo_SVY page-link">
+                                                                    <div class="curPageInfo curPageInfo_MOD page-link">
                                                                         Page
                                                                         1
                                                                     </div>
-                                                                    <div class="nextPageLink nextPageLink_SVY page-link"
+                                                                    <div class="nextPageLink nextPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShownNextPage()"
                                                                         title="Next Page">
                                                                     </div>
-                                                                    <div class="lastPageLink lastPageLink_SVY page-link"
+                                                                    <div class="lastPageLink lastPageLink_MOD page-link"
                                                                         onclick="ENTQuiz.Manage.ShowLastPage()"
                                                                         title="Last Page">
                                                                     </div>
@@ -235,7 +235,7 @@
     </div>
 
 
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_SVY" dir="ltr">
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_MOD" dir="ltr">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -245,7 +245,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="detailsContainter_View_SVY">
+                    <div class="detailsContainter_View_MOD">
                         <div class="entViewQuizContainer">
                             <div style="margin:1%">
                                 <div>Title : </div>
@@ -274,7 +274,7 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_Delete_SVY" dir="ltr">
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_Delete_MOD" dir="ltr">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -284,7 +284,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="detailsContainter_Delete_SVY">
+                    <div class="detailsContainter_Delete_MOD">
                         <div class="entDeleteQuizContainer">
                             <div style="margin:1%">
                                 <input type="hidden" id="hdnQuizId_Delete" />
@@ -319,7 +319,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_Close_SVY">
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_Close_MOD">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -329,7 +329,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="detailsContainter_Close_SVY">
+                    <div class="detailsContainter_Close_MOD">
                         <div class="entCloseQuizContainer">
                             <div style="margin:1%">
                                 <input type="hidden" id="hdnQuizId_Close" />
@@ -364,7 +364,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_ReOpen_SVY">
+    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_ReOpen_MOD">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -374,7 +374,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="detailsContainter_ReOpen_SVY">
+                    <div class="detailsContainter_ReOpen_MOD">
                         <div class="entReOpenQuizContainer">
                             <div style="margin:1%">
                                 <input type="hidden" id="hdnQuizId_ReOpen" />

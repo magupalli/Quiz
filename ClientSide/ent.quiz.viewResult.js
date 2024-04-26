@@ -478,9 +478,9 @@
                 return "";
             },
             ShowQuestionResponses: function (questionResponseBlock) {
-                $(".detailsContainer_View_SVY").html('');
-                (".detailsContainer_View_SVY").html('<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + ($(questionResponseBlock).find("div").html()) + '</div>');
-                $("#mslDialog_View_SVY").modal("show");
+                $(".detailsContainer_View_MOD").html('');
+                (".detailsContainer_View_MOD").html('<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + ($(questionResponseBlock).find("div").html()) + '</div>');
+                $("#mslDialog_View_MOD").modal("show");
 
             },
             renderQuiz: function () {

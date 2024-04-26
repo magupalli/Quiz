@@ -44,26 +44,26 @@
                     this.lastPage = parseInt(this.items.length / this.pageDisplayItemsLimit) + (this.items.length % this.pageDisplayItemsLimit != 0 ? 1 : 0);
 
                     if (this.currentPage < this.lastPage) {
-                        $(".nextPageLink_SVY").css({ "visibility": "visible" });
-                        $(".lastPageLink_SVY").css({ "visibility": "visible" });
+                        $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                        $(".lastPageLink_MOD").css({ "visibility": "visible" });
                     }
                     else {
-                        $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-                        $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+                        $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                        $(".lastPageLink_MOD").css({ "visibility": "hidden" });
                     }
 
-                    $(".pageCounterRow_SVY").css({ "visibility": "visible" });
+                    $(".pageCounterRow_MOD").css({ "visibility": "visible" });
                     this.renderItems(this.currentPage);
 
                 }
                 else {
 
-                    $("#divItems_SVY").html("<div class='NoRecorsFound'>No records found matching the given search</div>");
-                    $(".pageCounterRow_SVY").css({ "visibility": "hidden" });
+                    $("#divItems_MOD").html("<div class='NoRecorsFound'>No records found matching the given search</div>");
+                    $(".pageCounterRow_MOD").css({ "visibility": "hidden" });
                 }
             }
             else {
-                $(".page-content-wrapper_SVY").html("<div style='margin:5%;color:coral'>" + data_items.ErrorMessage + "</div>");
+                $(".page-content-wrapper_MOD").html("<div style='margin:5%;color:coral'>" + data_items.ErrorMessage + "</div>");
             }
         },
         getAdmins_Error: function () {
@@ -73,7 +73,7 @@
                 $(".modlistcontainer").html("<div class='ErrorDiv'>Sorry ! You do not have access to the requested resouce<br/> Please contact IT Helpdesk if need access </div>");
             }
             else {
-                $(".page-content-wrapper_SVY").html("<div class='ErrorDiv'>Sorry ! Error occured while fetching Admins info. Please try again after sometime <br/> If problem persists, contact IT Helpdesk if need access </div>");
+                $(".page-content-wrapper_MOD").html("<div class='ErrorDiv'>Sorry ! Error occured while fetching Admins info. Please try again after sometime <br/> If problem persists, contact IT Helpdesk if need access </div>");
 
             }
         },
@@ -83,34 +83,34 @@
             this.currentPage = 1;
             this.lastPage = 1;
 
-            $(".firstPageLink_SVY").css({ "visibility": "hidden" });
-            $(".prevPageLink_SVY").css({ "visibility": "hidden" });
+            $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+            $(".prevPageLink_MOD").css({ "visibility": "hidden" });
             if (this.items.length > 0) {
                 this.lastPage = parseInt(this.items.length / this.pageDisplayItemsLimit) + (this.items.left % this.pageDisplayItemsLimit != 0 ? 1 : 0);
 
-                $(".curPageInfo_SVY").css({ "visibility": "visible" });
+                $(".curPageInfo_MOD").css({ "visibility": "visible" });
 
                 if (this.currentPage < this.lastPage) {
-                    $(".nextPageLink_SVY").css({ "visibility": "visible" });
-                    $(".lastPageLink_SVY").css({ "visibility": "visible" });
+                    $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                    $(".lastPageLink_MOD").css({ "visibility": "visible" });
                 }
                 else {
-                    $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-                    $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+                    $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                    $(".lastPageLink_MOD").css({ "visibility": "hidden" });
                 }
 
                 this.renderItems(this.currentPage);
 
             }
             else {
-                $("#divItems_SVY").html("<div class='NoRecorsFound'>No records found matching the given search</div>");
-                $(".curPageInfo_SVY").css({ "visibility": "hidden" });
-                $(".nextPageInfo_SVY").css({ "visibility": "hidden" });
-                $(".lastPageInfo_SVY").css({ "visibility": "hidden" });
+                $("#divItems_MOD").html("<div class='NoRecorsFound'>No records found matching the given search</div>");
+                $(".curPageInfo_MOD").css({ "visibility": "hidden" });
+                $(".nextPageInfo_MOD").css({ "visibility": "hidden" });
+                $(".lastPageInfo_MOD").css({ "visibility": "hidden" });
 
-                $(".fromRecordNum_SVY").text(0);
-                $(".toRecordNum_SVY").text(0);
-                $(".resultsCount_SVY").text(0);
+                $(".fromRecordNum_MOD").text(0);
+                $(".toRecordNum_MOD").text(0);
+                $(".resultsCount_MOD").text(0);
             }
         },
         sortField: '',
@@ -156,15 +156,15 @@
         ShowFirstPage: function () {
 
             this.currentPage = 1;
-            $(".firstPageLink_SVY").css({ "visibility": "hidden" });
-            $(".prevPageLink_SVY").css({ "visibility": "hidden" });
+            $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+            $(".prevPageLink_MOD").css({ "visibility": "hidden" });
             if (this.currentPage < this.lastPage) {
-                $(".nextPageLink_SVY").css({ "visibility": "visible" });
-                $(".lastPageLink_SVY").css({ "visibility": "visible" });
+                $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                $(".lastPageLink_MOD").css({ "visibility": "visible" });
             }
             else {
-                $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-                $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+                $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                $(".lastPageLink_MOD").css({ "visibility": "hidden" });
             }
             this.renderItems(this.currentPage);
         },
@@ -172,20 +172,20 @@
             if (this.currentPage > 1) {
                 this.currentPage--;
                 if (this.currentPage > 1) {
-                    $(".firstPageLink_SVY").css({ "visibility": "visible" });
-                    $(".prevPageLink_SVY").css({ "visibility": "visible" });
+                    $(".firstPageLink_MOD").css({ "visibility": "visible" });
+                    $(".prevPageLink_MOD").css({ "visibility": "visible" });
                 }
                 else {
-                    $(".firstPageLink_SVY").css({ "visibility": "hidden" });
-                    $(".prevPageLink_SVY").css({ "visibility": "hidden" });
+                    $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+                    $(".prevPageLink_MOD").css({ "visibility": "hidden" });
                 }
                 if (this.currentPage < this.lastPage) {
-                    $(".nextPageLink_SVY").css({ "visibility": "visible" });
-                    $(".lastPageLink_SVY").css({ "visibility": "visible" });
+                    $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                    $(".lastPageLink_MOD").css({ "visibility": "visible" });
                 }
                 else {
-                    $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-                    $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+                    $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                    $(".lastPageLink_MOD").css({ "visibility": "hidden" });
                 }
                 this.renderItems(this.currentPage);
             }
@@ -195,17 +195,17 @@
 
             this.currentPage++;
 
-            $(".firstPageLink_SVY").css({ "visibility": "visible" });
-            $(".prevPageLink_SVY").css({ "visibility": "visible" });
+            $(".firstPageLink_MOD").css({ "visibility": "visible" });
+            $(".prevPageLink_MOD").css({ "visibility": "visible" });
 
 
             if (this.currentPage < this.lastPage) {
-                $(".nextPageLink_SVY").css({ "visibility": "visible" });
-                $(".lastPageLink_SVY").css({ "visibility": "visible" });
+                $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                $(".lastPageLink_MOD").css({ "visibility": "visible" });
             }
             else {
-                $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-                $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+                $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                $(".lastPageLink_MOD").css({ "visibility": "hidden" });
             }
             this.renderItems(this.currentPage);
 
@@ -214,11 +214,11 @@
         ShowLastPage: function () {
 
             this.currentPage = this.lastPage;
-            $(".firstPageLink_SVY").css({ "visibility": "visible" });
-            $(".prevPageLink_SVY").css({ "visibility": "visible" });
+            $(".firstPageLink_MOD").css({ "visibility": "visible" });
+            $(".prevPageLink_MOD").css({ "visibility": "visible" });
 
-            $(".nextPageLink_SVY").css({ "visibility": "hidden" });
-            $(".lastPageLink_SVY").css({ "visibility": "hidden" });
+            $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+            $(".lastPageLink_MOD").css({ "visibility": "hidden" });
 
             this.renderItems(this.currentPage);
         },
@@ -233,19 +233,19 @@
             this.fetched = false;
             var apiPath_items = this.apiPath + '/getAdmins';
             ENTQuiz.Manage.GetItems(apiPath_items);
-            $("#ddlPageDisplayItemsLimit_SVY").change(function () {
-                ENTQuiz.Manage.pageDisplayItemsLimit = parseInt($("#ddlPageDisplayItemsLimit_SVY").val());
+            $("#ddlPageDisplayItemsLimit_MOD").change(function () {
+                ENTQuiz.Manage.pageDisplayItemsLimit = parseInt($("#ddlPageDisplayItemsLimit_MOD").val());
                 ENTQuiz.Manage.lastPage = parseInt(ENTQuiz.Manage.items.length / ENTQuiz.Manage.pageDisplayItemsLimit) + (ENTQuiz.Manage.items.length % ENTQuiz.Manage.pageDisplayItemsLimit != 0 ? 1 : 0);
                 ENTQuiz.Manage.ShowFirstPage();
             });
         },
 
         onFilterSelected: function () {
-            this.filterAdminId = $("[data-filter='AdminId_SVY']").val().toLowerCase();
-            this.filterAdminName = $("[data-filter='AdminName_SVY']").val().toLowerCase();
-            this.filterEmail = $("[data-filter='Email_SVY']").val().toLowerCase();
-            this.filterDepartment = $("[data-filter='Department_SVY']").val().toLowerCase();
-            this.filterKeyword = $("[data-filter='Keyword_SVY']").val().toLowerCase();
+            this.filterAdminId = $("[data-filter='AdminId_MOD']").val().toLowerCase();
+            this.filterAdminName = $("[data-filter='AdminName_MOD']").val().toLowerCase();
+            this.filterEmail = $("[data-filter='Email_MOD']").val().toLowerCase();
+            this.filterDepartment = $("[data-filter='Department_MOD']").val().toLowerCase();
+            this.filterKeyword = $("[data-filter='Keyword_MOD']").val().toLowerCase();
             this.filterData();
         },
         selectAllChecks: function (columnname) {
@@ -278,17 +278,17 @@
         },
         renderItems: function (displayPagenum) {
             if (this.items != undefined && this.items.length > (displayPagenum - 1) * this.pageDisplayItemsLimit) {
-                $(".pageCounter_SVY").show();
+                $(".pageCounter_MOD").show();
                 var startIndex = (displayPagenum - 1) * this.pageDisplayItemsLimit;
                 var endIndex = startIndex + (this.pageDisplayItemsLimit - 1);
 
-                $(".fromRecordNum_SVY").text(startIndex + 1);
-                $(".resultsCount_SVY").text(this.items.length);
+                $(".fromRecordNum_MOD").text(startIndex + 1);
+                $(".resultsCount_MOD").text(this.items.length);
 
                 var htmlText = this.items.map(function (o, idx) {
                     if (idx < startIndex || idx > endIndex) return "";
 
-                    $(".toRecordNum_SVY").text(idx + 1);
+                    $(".toRecordNum_MOD").text(idx + 1);
 
                     var fmtStartDate;
                     if (!IsNullOrUndefined(e.StartDate))
@@ -340,8 +340,8 @@
                         </div>`;
 
                 }).join('');
-                $("#divItems_SVY").html(htmlText);
-                $(".curPageInfo_SVY").html("Page " + this.currentPage);
+                $("#divItems_MOD").html(htmlText);
+                $(".curPageInfo_MOD").html("Page " + this.currentPage);
             }
         },
 
@@ -374,7 +374,7 @@
         },
         ShowChangeStatus: function (adminId) {
             ENTQuiz.Manage.clearAdminStatusInfo();
-            $("#mdlDialog_ChangeAdminStatus_SVY").modal("show");
+            $("#mdlDialog_ChangeAdminStatus_MOD").modal("show");
 
             var apiPath_item = ENTQuiz.Manage.apiPath + "/getAdmin?adminId=" + adminId;
             $.ajax({
@@ -462,7 +462,7 @@
         showAddAdmin: function () {
             ENTQuiz.Manage.ClearEmpSearch();
             $("#divSearchAdmin").show();
-            $("#mdlDialog_Addadmin_SVY").modal('show');
+            $("#mdlDialog_Addadmin_MOD").modal('show');
 
             $(".divAdminAddedConfirmation").hide();
             $(".divAdminAddingError").html('');

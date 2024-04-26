@@ -41,73 +41,73 @@
             if (this.quizLanguage == 1) {
                 modPlaceHolder_TitleDescription =
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModTitle _AR> ' +
+                    '   <div class="col-sm-12 entModTitle _AR"> ' +
                     '       <div class="QtnLabel">Title : </div>' +
                     '       <div><input type="text" id="txtModTitle_AR" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDescription _AR> ' +
+                    '   <div class="col-sm-12 entModDescription _AR"> ' +
                     '       <div class="QtnLabel">Description : </div>' +
                     '       <div><textarea id="txtModDescription_AR" rows="5" ></textarea></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Directorate : </div>' +
                     '       <div>' + ENTQuiz.Manage.getDirectorateListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModClassification _AR> ' +
+                    '   <div class="col-sm-12 entModClassification _AR"> ' +
                     '       <div class="QtnLabel"> Classification : </div>' +
                     '       <div>' + ENTQuiz.Manage.getClassificationListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Passing score : </div>' +
                     '       <div><input class="entModQtnCtl" type="number" id="txtPassScore" value="1" min="1" placeholder="Pass score" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Show response after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewResponse" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Show Answers after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewAnswers" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Enable Random Order Questions : </div>' +
                     '       <div><input type="checkbox" id="chkRandomOrderQuestions" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Has Welcome Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasWelcomeMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Has Thankyou Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasThankyouMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Message ID : </div>' +
                     '       <div><input id="txtModMessageId"value="0" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode >=48 && event.charCode<=57"  /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"></div>' +
                     '   </div>' +
                     '</div>';
@@ -115,73 +115,73 @@
             else if (this.quizLanguage == 2) {
                 modPlaceHolder_TitleDescription =
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModTitle _EN> ' +
+                    '   <div class="col-sm-12 entModTitle _EN"> ' +
                     '       <div class="QtnLabel">Title : </div>' +
                     '       <div><input type="text" id="txtModTitle_EN" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDescription _EN> ' +
+                    '   <div class="col-sm-12 entModDescription _EN"> ' +
                     '       <div class="QtnLabel">Description : </div>' +
                     '       <div><textarea id="txtModDescription_EN" rows="5" ></textarea></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Directorate : </div>' +
                     '       <div>' + ENTQuiz.Manage.getDirectorateListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModClassification _EN> ' +
+                    '   <div class="col-sm-12 entModClassification _EN"> ' +
                     '       <div class="QtnLabel"> Classification : </div>' +
                     '       <div>' + ENTQuiz.Manage.getClassificationListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Passing score : </div>' +
                     '       <div><input class="entModQtnCtl" type="number" id="txtPassScore" value="1" min="1" placeholder="Pass score" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Show response after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewResponse" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Show Answers after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewAnswers" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Enable Random Order Questions : </div>' +
                     '       <div><input type="checkbox" id="chkRandomOrderQuestions" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Has Welcome Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasWelcomeMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Has Thankyou Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasThankyouMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _EN> ' +
+                    '   <div class="col-sm-12 entModDirectorate _EN"> ' +
                     '       <div class="QtnLabel">Message ID : </div>' +
                     '       <div><input id="txtModMessageId"value="0" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode >=48 && event.charCode<=57"  /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"></div>' +
                     '   </div>' +
                     '</div>';
@@ -189,90 +189,90 @@
             else if (this.quizLanguage == 3) {
                 modPlaceHolder_TitleDescription =
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModTitle _EN> ' +
+                    '   <div class="col-sm-6 entModTitle _EN"> ' +
                     '       <div class="QtnLabel">Title : </div>' +
                     '       <div><input type="text" id="txtModTitle_EN" /></div>' +
                     '   </div>' +
-                    '   <div class="col-sm-6 entModTitle _AR> ' +
+                    '   <div class="col-sm-6 entModTitle _AR"> ' +
                     '       <div class="QtnLabel">Title : </div>' +
                     '       <div><input type="text" id="txtModTitle_AR" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDescription _EN> ' +
+                    '   <div class="col-sm-6 entModDescription _EN"> ' +
                     '       <div class="QtnLabel">Description : </div>' +
                     '       <div><textarea id="txtModDescription_EN" rows="5" ></textarea></div>' +
                     '   </div>' +
-                    '   <div class="col-sm-6 entModDescription _AR> ' +
+                    '   <div class="col-sm-6 entModDescription _AR"> ' +
                     '       <div class="QtnLabel">Description : </div>' +
                     '       <div><textarea id="txtModDescription_AR" rows="5" ></textarea></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Directorate : </div>' +
                     '       <div>' + ENTQuiz.Manage.getDirectorateListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModClassification _EN></div> ' +
-                    '   <div class="col-sm-6 entModClassification _AR> ' +
+                    '   <div class="col-sm-6 entModClassification _EN"></div> ' +
+                    '   <div class="col-sm-6 entModClassification _AR"> ' +
                     '       <div class="QtnLabel"> Classification : </div>' +
                     '       <div>' + ENTQuiz.Manage.getClassificationListControl() + '</div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Passing score : </div>' +
                     '       <div><input class="entModQtnCtl" type="number" id="txtPassScore" value="1" min="1" placeholder="Pass score" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Show response after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewResponse" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Show Answers after submission : </div>' +
                     '       <div><input type="checkbox" id="chkModAllowViewAnswers" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Enable Random Order Questions : </div>' +
                     '       <div><input type="checkbox" id="chkRandomOrderQuestions" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Has Welcome Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasWelcomeMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Has Thankyou Message : </div>' +
                     '       <div><input type="checkbox" id="chkModHasThankyouMessage" class="entModQtnCtl" /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-6 entModDirectorate _EN></div> ' +
-                    '   <div class="col-sm-6 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-6 entModDirectorate _EN"></div> ' +
+                    '   <div class="col-sm-6 entModDirectorate _AR"> ' +
                     '       <div class="QtnLabel">Message ID : </div>' +
                     '       <div><input id="txtModMessageId"value="0" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode >=48 && event.charCode<=57"  /></div>' +
                     '   </div>' +
                     '</div>' +
                     '<div class="row">' +
-                    '   <div class="col-sm-12 entModDirectorate _AR> ' +
+                    '   <div class="col-sm-12 entModDirectorate _AR"> ' +
                     '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"></div>' +
                     '   </div>' +
                     '</div>';
@@ -988,7 +988,7 @@
                 Description_En: '',
                 RequestingDirectorate: 0,
                 Classification: 0,
-                PassSore: 1,
+                PassScore: 1,
                 AllowViewResponse: false,
                 AllowViewAnswers: true,
                 Language: 0,
@@ -1012,7 +1012,7 @@
             quiz.Description_En = $("#txtModDescription_EN").val();
             quiz.RequestingDirectorate = parseInt($("#ddlModDirectorate").val());
             quiz.Classification = parseInt($("#ddlModClassification").val());
-            quiz.PassSore = parseInt($("#txtPassScore").val());
+            quiz.PassScore = parseInt($("#txtPassScore").val());
             quiz.Language = this.quizLanguage;
             quiz.MessageId = ($("#txtModMessageId").val() != "" ? parseInt($("#txtModMessageId").val()) : 0);
             quiz.AllowViewResponse = $("#chkModAllowViewResponse").is(":checked");
@@ -1051,11 +1051,11 @@
             }
 
             else if (this.quizLanguage == 2) {
-                if (quiz.Title || quiz.Title_En == '') {
+                if (quiz.Title = '' || quiz.Title_En == '') {
                     ENTQuiz.Manage.isValidData = false;
                     $(".validationErrorPlaceHolderMain").html("Please provide Quiz Title");
                 }
-                if (quiz.Description || quiz.Description_En == '') {
+                if (quiz.Description = '' || quiz.Description_En == '') {
                     ENTQuiz.Manage.isValidData = false;
                     $(".validationErrorPlaceHolderMain").html("Please provide Quiz Description");
                 }
@@ -1124,7 +1124,7 @@
                 $(qtnItem).find(".validationErrorPlaceHolder").html("Please remove empty question place holders");
 
             }
-            else if (qtnDataTypeID == 0){
+            else if (qtnDataTypeID == 0) {
                 ENTQuiz.Manage.isValidData = false;
                 $(qtnItem).find(".validationErrorPlaceHolder").html("Datatype not selected");
 
@@ -1149,11 +1149,20 @@
             let QtnDataTypeValue = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
             let strSpecs = '';
 
-            if (QtnDataTypeValue == 5 || //Dropdown
-                QtnDataTypeValue == 6 || //RadioButtons
-                QtnDataTypeValue == 7 || //MultiCheckboxes
-                QtnDataTypeValue == 12 || //Ranking
-                QtnDataTypeValue == 13)  //Branching
+            /*
+               1 - RadioButtons
+               2 - ImageChoices
+               3 - Date
+               4 - DropDown
+               5 - MultiCheckboxes
+               6 - Ranking
+               
+               */
+
+            if (QtnDataTypeValue == 4 || //Dropdown
+                QtnDataTypeValue == 1 || //RadioButtons
+                QtnDataTypeValue == 5 || //MultiCheckboxes
+                QtnDataTypeValue == 6)  //Ranking
             {
                 if (this.quizLanguage == 1) {
                     let qtnOptions_AR = $(specsPlaceHolder).find('[data-fieldType="QtnOptions_AR"]').val().split('\n').filter(str => str);
@@ -1192,114 +1201,8 @@
                     }
                 }
             }
-            else if (QtnDataTypeValue == 8 || //RatingByNumbers
-                QtnDataTypeValue == 10)  //Slider
-            {
-                let qtnMinRankCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnMinRank"]');
-                let qtnMaxRankCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnMaxRank"]');
-                let qtnStepRankCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnStepRank"]');
-
-                if (qtnStepRankCtl != undefined && qtnStepRankCtl.length > 0 &&
-                    qtnMinRankCtl != undefined && qtnMinRankCtl.length > 0 &&
-                    qtnMaxRankCtl != undefined && qtnMaxRankCtl.length > 0) {
-                    try {
-                        strSpecs += '"min":' + parseInt($(qtnMinRankCtl).val()) + ',' +
-                            '"max":' + parseInt($(qtnMaxRankCtl).val()) + ',' +
-                            '"step":' + parseInt($(qtnStepRankCtl).val());
-                    }
-                    catch (ex) {
-                        this.isValidData = false;
-                        console.log("Min/Max Values missing");
-                        alert("Min/Max Values missing");
-
-                    }
-                }
-                else {
-                    this.isValidData = false;
-                    console.log("Min/Max Values missing");
-                    alert("Min/Max Values missing");
-
-                }
-            }
-            //MatrixQuestion
-            else if (QtnDataTypeValue == 9) {
-                if (this.quizLanguage == 1) {
-                    let qtnMatrixCols_AR = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixCols_AR"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixCols_AR != undefined && qtnMatrixCols_AR.length > 0) {
-                        strSpecs += '"Cols":{"ar":' + JSON.stringify(qtnMatrixCols_AR, null) + '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Columns info missing");
-                        alert("Columns info missing");
-                    }
-                    let qtnMatrixRows_AR = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixRows_AR"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixRows_AR != undefined && qtnMatrixRows_AR.length > 0) {
-                        strSpecs += '"Rows":{"ar":' + JSON.stringify(qtnMatrixRows_AR, null) + '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Rows info missing");
-                        alert("Rows info missing");
-                    }
-                }
-                else if (this.quizLanguage == 2) {
-                    let qtnMatrixCols_EN = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixCols_EN"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixCols_EN != undefined && qtnMatrixCols_EN.length > 0) {
-                        strSpecs += '"Cols":{"en":' + JSON.stringify(qtnMatrixCols_EN, null) + '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Columns info missing");
-                        alert("Columns info missing");
-                    }
-                    let qtnMatrixRows_EN = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixRows_EN"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixRows_EN != undefined && qtnMatrixRows_EN.length > 0) {
-                        strSpecs += '"Rows":{"en":' + JSON.stringify(qtnMatrixRows_EN, null) + '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Rows info missing");
-                        alert("Rows info missing");
-                    }
-                }
-                else if (this.quizLanguage == 3) {
-                    let qtnMatrixCols_AR = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixCols_AR"]').val().split('\n').filter(str => str);
-                    let qtnMatrixCols_EN = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixCols_EN"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixCols_AR != undefined && qtnMatrixCols_AR.length > 0 &&
-                        qtnMatrixCols_EN != undefined && qtnMatrixCols_EN.length > 0 &&
-                        qtnMatrixCols_AR.length == qtnMatrixCols_EN.length) {
-                        strSpecs += '"Cols":{' +
-                            '"ar":' + JSON.stringify(qtnMatrixCols_AR, null) +
-                            ',"en":' + JSON.stringify(qtnMatrixCols_EN, null) +
-                            '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Columns info missing / Number of Matrix columns not matching in both languages");
-                        alert("Columns info missing / Number of Matrix columns not matching in both languages");
-
-                    }
-                    let qtnMatrixRows_AR = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixRows_AR"]').val().split('\n').filter(str => str);
-                    let qtnMatrixRows_EN = $(specsPlaceHolder).find('[data-fieldType="QtnMatrixRows_EN"]').val().split('\n').filter(str => str);
-
-                    if (qtnMatrixRows_AR != undefined && qtnMatrixRows_AR.length > 0 &&
-                        qtnMatrixRows_EN != undefined && qtnMatrixRows_EN.length > 0 &&
-                        qtnMatrixRows_AR.length == qtnMatrixRows_EN.length) {
-                        strSpecs += '"Rows":{' +
-                            '"ar":' + JSON.stringify(qtnMatrixRows_AR, null) +
-                            ',"en":' + JSON.stringify(qtnMatrixRows_EN, null) +
-                            '},';
-                    } else {
-                        this.isValidData = false;
-                        console.log("Rows info missing / Number of Matrix rows not matching in both languages");
-                        alert("Rows info missing / Number of Matrix rows not matching in both languages");
-
-                    }
-                }
-            }
             //Imagechoices
-            else if (QtnDataTypeValue == 15) {
+            else if (QtnDataTypeValue == 2) {
                 let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
                 if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {
                     try {
@@ -1326,65 +1229,183 @@
             let strValidationSpecs = '"isRequired":false';
 
             //if not checkbox and Slider and Ranking
-            if (QtnDataTypeValue != 10 && QtnDataTypeValue != 12) {
-                let qtnIsRequiredCtl = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnIsRequired"]');
-                if (qtnIsRequiredCtl != undefined && qtnIsRequiredCtl.length > 0) {
-                    strValidationSpecs = '"isRequired":' + $(qtnIsRequiredCtl).is(":checked");
-                }
+            //if (QtnDataTypeValue != 8 && QtnDataTypeValue != 9) {
+            let qtnIsRequiredCtl = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnIsRequired"]');
+            if (qtnIsRequiredCtl != undefined && qtnIsRequiredCtl.length > 0) {
+                strValidationSpecs = '"isRequired":' + $(qtnIsRequiredCtl).is(":checked");
             }
-
-            if (QtnDataTypeValue == 1 || //Text
-                QtnDataTypeValue == 2)//MultiLineText
-            {
-                let qtnMaxchars = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnMaxChars"]');
-                if (qtnMaxchars != undefined && qtnMaxchars.length > 0) {
-                    strValidationSpecs = ',"maxChars":' + ($(qtnMaxchars).val() != '' ? $(qtnMaxchars).val() : 2000);
-                }
-                else {
-                    this.isValidData = false;
-                    console.log("Max chars missing");
-                    alert("Max chars missing");
-                }
-
-            }
-            //Date
-            else if (QtnDataTypeValue == 3) //MultiLineText
-            {
-                let QtnId_MinDateOption = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnMinDate"]:checked').val();
-                let QtnId_MaxDateOption = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnMaxDate"]:checked').val();
-
-                if (QtnId_MinDateOption != undefined) {
-                    if (QtnId_MinDateOption == 0)
-                        strValidationSpecs = ',"min":""';
-                    else if (QtnId_MinDateOption == 1)
-                        strValidationSpecs = ',"min":"Today"';
-                    else if (QtnId_MinDateOption == 2) {
-                        strValidationSpecs = ',"min":"' + $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnId_MinDateValue"]').val() + '"';
-                    }
-                }
-                else {
-                    this.isValidData = false;
-                    console.log("Min date validation missing");
-                }
-
-                if (QtnId_MaxDateOption != undefined) {
-                    if (QtnId_MaxDateOption == 0)
-                        strValidationSpecs = ',"max":""';
-                    else if (QtnId_MaxDateOption == 1)
-                        strValidationSpecs = ',"max":"Today"';
-                    else if (QtnId_MaxDateOption == 2) {
-                        strValidationSpecs = ',"max":"' + $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnId_MaxDateValue"]').val() + '"';
-                    }
-                }
-                else {
-                    this.isValidData = false;
-                    console.log("Max date validation missing");
-                }
-
-            }
+            //}
 
             return '{' + strValidationSpecs + '}';
 
+        },
+
+
+        getAnswerSpecsInfoOf: function (qtnItem) {
+            let specsPlaceHolder = $(qtnItem).find(".answerSpecsPlaceHolder");
+            let QtnDataTypeValue = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
+            let strSpecs = '';
+
+            /*
+               1 - RadioButtons
+               2 - ImageChoices
+               3 - Date
+               4 - DropDown
+               5 - MultiCheckboxes
+               6 - Ranking
+               
+               */
+
+            if (QtnDataTypeValue == 4 || //Dropdown
+                QtnDataTypeValue == 1) //RadioButtons
+            {
+                if (this.quizLanguage == 1) {
+                    let qtnAnswer_AR = $(qtnItem).find('[data-fieldType="QtnAnswer_AR"]').val();
+                    if (qtnAnswer_AR != undefined && qtnAnswer_AR.length != "") {
+                        strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                else if (this.quizLanguage == 2) {
+                    let qtnAnswer_EN = $(qtnItem).find('[data-fieldType="QtnAnswer_EN"]').val();
+                    if (qtnAnswer_EN != undefined && qtnAnswer_EN != "") {
+                        strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                else if (this.quizLanguage == 3) {
+                    let qtnAnswer_AR = $(qtnItem).find('[data-fieldType="QtnAnswer_AR"]').val();
+                    let qtnAnswer_EN = $(qtnItem).find('[data-fieldType="QtnAnswer_EN"]').val();
+                    if (qtnAnswer_AR != undefined && qtnAnswer_AR != "" &&
+                        qtnAnswer_EN != undefined && qtnAnswer_EN != "" ) {
+                        strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
+                        strSpecs += ',';
+                        strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing / Number of options not matching in both languages");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing/ Number of options not matching in both languages");
+                    }
+                }
+            }
+            // //Imagechoices
+            // else if (QtnDataTypeValue == 2) {
+            //     let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
+            //     if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {
+            //         try {
+            //             strSpecs += '"size":' + parseInt($(qtnImageSizeCtl).val());
+            //         }
+            //         catch (ex) {
+            //             this.isValidData = false;
+            //             console.log("Image size Value missing");
+            //             alert("Image size Value missing");
+            //         }
+            //     } else {
+            //         this.isValidData = false;
+            //         console.log("Image size Value missing");
+            //         alert("Image size Value missing");
+            //     }
+            // }
+
+            //Date
+            else if (QtnDataTypeValue == 3) {
+                let qtnAnswerCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnAnswer"]');
+                if (qtnAnswerCtl != undefined && qtnAnswerCtl.length > 0) {
+                    try {
+                        strSpecs += '"ans":"' + $(qtnAnswerCtl).val() + '"';
+                    }
+                    catch (ex) {
+                        this.isValidData = false;
+                        console.log("Answer Value missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder").html("Answer Missing");
+
+                    }
+                } else {
+                    this.isValidData = false;
+                    console.log("Answer Value missing");
+                    $(qtnItem).find(".validationErrorPlaceHolder").html("Answer Missing");
+
+                }
+            }
+
+            //MultiCheckboxes
+            else if (QtnDataTypeValue == 5) {
+                if (this.quizLanguage == 1) {
+                    let qtnAnswer_AR = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_AR"]').val().split('\n').filter(str => str);
+                    if (qtnAnswer_AR != undefined && qtnAnswer_AR.length > 0) {
+                        strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                else if (this.quizLanguage == 2) {
+                    let qtnAnswer_EN = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_EN"]').val().split('\n').filter(str => str);
+                    if (qtnAnswer_EN != undefined && qtnAnswer_EN.length > 0) {
+                        strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                else if (this.quizLanguage == 3) {
+                    let qtnAnswer_AR = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_AR"]').val().split('\n').filter(str => str);
+                    let qtnAnswer_EN = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_EN"]').val().split('\n').filter(str => str);
+                    if (qtnAnswer_AR != undefined && qtnAnswer_AR.length > 0 &&
+                        qtnAnswer_EN != undefined && qtnAnswer_EN.length > 0 &&
+                        qtnAnswer_AR.length == qtnAnswer_EN.length) {
+                        strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
+                        strSpecs += ',';
+                        strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing / Number of Answer not matching in both languages");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing/ Number of Answer not matching in both languages");
+                    }
+                }
+            }
+
+            //Ranking
+            else if (QtnDataTypeValue == 6) {
+                if (this.quizLanguage == 1 || this.quizLanguage == 3) {
+                    let qtnAnswer_AR_Rank_Ctls = $(specsPlaceHolder).find('[data-fieldType^="QtnAnswer_AR_Rank"]');
+                    let qtnAnswer_AR_Ranks = [];
+                    for(let i=0;i<qtnAnswer_AR_Rank_Ctls.length;i++){
+                        qtnAnswer_AR_Ranks.push($(qtnAnswer_AR_Rank_Ctls[i]).val());
+                    }
+                    if (qtnAnswer_AR_Rank_Ctls != undefined && qtnAnswer_AR_Rank_Ctls.length > 0) {
+                        strSpecs += '"ans":' + JSON.stringify(qtnAnswer_AR_Ranks, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                else if (this.quizLanguage == 2) {
+                    let qtnAnswer_EN_Rank_Ctls = $(specsPlaceHolder).find('[data-fieldType^="QtnAnswer_EN_Rank"]');
+                    let qtnAnswer_EN_Ranks = [];
+                    for(let i=0;i<qtnAnswer_EN_Rank_Ctls.length;i++){
+                        qtnAnswer_EN_Ranks.push($(qtnAnswer_EN_Rank_Ctls[i]).val());
+                    }
+                    if (qtnAnswer_EN_Rank_Ctls != undefined && qtnAnswer_EN_Rank_Ctls.length > 0) {
+                        strSpecs += '"ans":' + JSON.stringify(qtnAnswer_EN_Ranks, null);
+                    } else {
+                        this.isValidData = false;
+                        console.log("Answer Missing");
+                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
+                    }
+                }
+                console.log(strSpecs);
+            }
+            return '{' + strSpecs + '}';
         },
 
         cancelQuiz: function () {
