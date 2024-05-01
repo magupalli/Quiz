@@ -553,7 +553,7 @@
 
                 //Image Choices
                 else if (qtn.DataTypeID == 15) {
-                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.qtnImagechoices, function (imageFile) {
+                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.Imagechoices, function (imageFile) {
                         return imageFile.QuestionId == qtn.ID;
                     });
                     let Specs = $.parseJSON(qtn.Specs);
@@ -611,7 +611,7 @@
                     this.quiz.Questions.length > 0) {
 
                     let quizId = this.quiz.ID;
-                    $("#ent_modId").val(quizId);
+                    $("#ent_quizId").val(quizId);
                     $("#ent_deptId").val(this.quiz.DepartmentId);
 
                     $(".entQuizResponseContainer").show();
@@ -1030,7 +1030,7 @@
             },
             getQuizResponseFromForm: function () {
                 ENTQuiz.Response.isValidData = true;
-                let quizId = parseInt($("#ent_modId").val());
+                let quizId = parseInt($("#ent_quizId").val());
                 let deptId = parseInt($("#ent_deptId").val());
                 let modResponse = {
                     QuizID: quizId,

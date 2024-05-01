@@ -90,7 +90,7 @@
                                                                             1
                                                                         </div>
                                                                         <div class="nextPageLink nextPageLink_MOD page-link"
-                                                                            onclick="ENTQuiz.Manage.ShownNextPage()"
+                                                                            onclick="ENTQuiz.Manage.ShowNextPage()"
                                                                             title="Next Page">
                                                                         </div>
                                                                         <div class="lastPageLink lastPageLink_MOD page-link"
@@ -244,7 +244,7 @@
                                                                         1
                                                                     </div>
                                                                     <div class="nextPageLink nextPageLink_MOD page-link"
-                                                                        onclick="ENTQuiz.Manage.ShownNextPage()"
+                                                                        onclick="ENTQuiz.Manage.ShowNextPage()"
                                                                         title="Next Page">
                                                                     </div>
                                                                     <div class="lastPageLink lastPageLink_MOD page-link"
@@ -279,7 +279,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="detailsContainter_del_MOD">
-                            <div class="DeleteRecContainer">
+                            <div class="DeleteQuizContainer">
                                 <div style="margin:1%">
                                     <input type="hidden" id="hdnQuizId_del" />
                                     <div>Title : </div>
@@ -325,7 +325,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="detailsContainter_del_MOD">
-                            <div class="DeleteRecContainer">
+                            <div class="DeleteQuizContainer">
                                 <div style="margin:1%">
                                     <input type="hidden" id="hdnQuizId_close" />
                                     <div>Title : </div>
@@ -371,7 +371,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="detailsContainter_del_MOD">
-                            <div class="DeleteRecContainer">
+                            <div class="DeleteQuizContainer">
                                 <div style="margin:1%">
                                     <input type="hidden" id="hdnQuizId_ReOpen" />
                                     <div>Title : </div>
@@ -407,14 +407,21 @@
         </div>
     </div>
     <style>
-        .ViewRecContainer,
-        .DeleteRecContainer {
+        .entViewQuizContainer,
+        .entDeleteQuizContainer,
+        .entCloseQuizContainer,
+        .entReOpenQuizContainer {
             font-size: 15px;
+            color: #fff;
         }
 
-        .QuizAcknowledgement_Delete {
+        .QuizAcknowledgement_Delete,
+        .QuizAcknowledgement_Close,
+        .QuizAcknowledgement_ReOpen {
             margin: 5%;
             text-align: center;
+            font-size: 30px;
+            color: #fff;
 
         }
     </style>

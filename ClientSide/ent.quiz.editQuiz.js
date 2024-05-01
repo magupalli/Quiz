@@ -37,7 +37,7 @@
 
                 if (this.quiz != undefined) {
                     let quizId = this.quiz.ID;
-                    $("#ent_modId").val(quizId);
+                    $("#ent_quizId").val(quizId);
                     let htmlQuizHeader = '';
                     if (this.quizLanguage == 1) {
                         htmlQuizHeader =

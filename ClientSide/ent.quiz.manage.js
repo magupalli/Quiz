@@ -139,15 +139,19 @@
                 }
             });
             this.onFilterSelected();
-            $(".HeaderDiv").removeClass("descendingIcon");
-            $(".HeaderDiv").removeClass("ascendingIcon");
+
+            $(".sortIconLTR").removeClass("fa-sort-up");
+            $(".sortIconLTR").removeClass("fa-sort-down");
+            $(".sortIconLTR").addClass("fa-sort");
 
 
             if (asc) {
-                $(elem).addClass("ascendingIcon");
+                $(elem).find(".sortIconLTR").removeClass("fa-sort");
+                $(elem).find(".sortIconLTR").addClass("fa-sort-up");
             }
             else {
-                $(elem).addClass("descendingIcon");
+                $(elem).find(".sortIconLTR").removeClass("fa-sort");
+                $(elem).find(".sortIconLTR").addClass("fa-sort-down");
             }
 
         },
@@ -225,7 +229,6 @@
         filterQuizId: 0,
         filterDescription: '',
         filterLanguage: '',
-        filterStartDate: '',
         filterTitle: '',
         filterKeyword: '',
 
@@ -242,9 +245,9 @@
         },
 
         onFilterSelected: function () {
-            this.filterQuizId = $("[data-filter='QuizId_MOD']").val().toLowerCase();
-            this.filterTitle = $("[data-filter='Title_MOD']").val().toLowerCase();
-            this.filterLanguage = $("[data-filter='Language_MOD']").val().toLowerCase();
+            //this.filterQuizId = $("[data-filter='QuizId_MOD']").val().toLowerCase();
+            //this.filterTitle = $("[data-filter='Title_MOD']").val().toLowerCase();
+            //this.filterLanguage = $("[data-filter='Language_MOD']").val().toLowerCase();
             this.filterKeyword = $("[data-filter='Keyword_MOD']").val().toLowerCase();
             this.filterData();
         },
@@ -262,11 +265,14 @@
         },
         isMatchingResult: function (e) {
 
+            let fmtModifiedDate;
+            if (!IsNullOrUndefined(e.ModifiedDate)) fmtModifiedDate = new Date(e.ModifiedDate);
 
             return (this.filterKeyword == ''
-                || e.IDText.toLowerCase().indexOf(this.filterKeyword) >= 0
-                || e.Description.toLowerCase().indexOf(this.filterKeyword) >= 0
-                || e.Title.toLowerCase().indexOf(this.filterKeyword) >= 0
+                || ENTQuiz.Manage.getDirectorateName(e.RequestingDirectorate).toLowerCase().indexOf(this.filterKeyword) >= 0
+                || ENTQuiz.Manage.getClassificationName(e.Classification).toLowerCase().indexOf(this.filterKeyword) >= 0
+                || (e.language == 1 ? e.Title.toLowerCase().indexOf(this.filterKeyword) >= 0 : e.Title_En.toLowerCase().indexOf(this.filterKeyword) >= 0)
+                || fmtModifiedDate.format("ddd dd MMM yyyy").toLowerCase().indexOf(this.filterKeyword) >= 0
 
             );
         },
@@ -306,14 +312,12 @@
                             </div>
                             <div data-title="Directorate" class="ColCenterDiv col-sm-12 col-md-1 col-lg-2 col-xl-2" 
                                 onclick="ENTQuiz.Manage.ShowItem(${o.ID})> ${ENTQuiz.Manage.getDirectorateName(o.RequestingDirectorate)} </div>
+                            <div data-title="Classification" class="ColCenterDiv col-sm-12 col-md-1 col-lg-2 col-xl-2" 
+                                onclick="ENTQuiz.Manage.ShowItem(${o.ID})> ${ENTQuiz.Manage.getClassificationName(o.Classification)} </div>
                             <div data-title="Language" class="ColCenterDiv  col-md-4 col-lg-1 col-xl-1" 
                                 onclick="ENTQuiz.Manage.ShowItem(${o.ID})> 
                                 ${(o.Language == 1 ? "Arabic" : (o.Language == 2 ? "English" : (o.Language == 3 ? "Both" : "N/A")))}
-                                </div>
-                            <div data-title="Status" class="ColCenterDiv  col-md-4 col-lg-1 col-xl-1" 
-                                onclick="ENTQuiz.Manage.ShowItem(${o.ID})> 
-                                ${(o.Status == 0 ? "Draft" : (o.Status == 1 ? "Ready" : "N/A"))}
-                                </div>
+                                </div>                            
                             <div data-title="ModifiedDate" class="ColCenterDiv  col-md-4 col-lg-1 col-xl-1" 
                                 onclick="ENTQuiz.Manage.ShowItem(${o.ID})> 
                                 ${fmtModifiedDate.format("ddd dd MMM yyyy")}
@@ -321,16 +325,17 @@
                             <div data-title="Actions" class="ColDiv col-md-5 col-lg-3 col-xl-3" style="padding-left:2%">
                                 <a target="_blank" href="/SubmitResponsePreview?quizId=${o.ID}" style="color:#9DC3E6;font-size:14px;" title="Preview"> View </a> &nbsp; |  &nbsp;
                                 ${(o.Status == 0 ? `<a href="javascript:void(0);" onclick="ENTQuiz.Manage.EditItem(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="Edit">Edit</a> &nbsp; |  &nbsp;
-                                                    <a href="javascript:void(0);" onclick="ENTQuiz.Manage.configureBranching(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="Edit">Branching</a> &nbsp; |  &nbsp;
                                                     <a href="javascript:void(0);" onclick="ENTQuiz.Manage.addImageChoices(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="Edit">Images</a> &nbsp; |  &nbsp;
                                                     <a href="javascript:void(0);" onclick="ENTQuiz.Manage.ShowDeleteItem(${o.ID})" style="color:coral;font-size:14px;">Delete</a> &nbsp; |  &nbsp;
                                                     ` : '')}
-                                ${(o.Status == 1 ? `<a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewResults(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="View results" >Results</a> &nbsp; |  &nbsp;
+                                ${(o.Status == 1 ? `<a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewQuiz(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="Show Quiz" >View</a> &nbsp; |  &nbsp;
+                                                    <a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewResults(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="View results" >Results</a> &nbsp; |  &nbsp;
                                                     <a href="javascript:void(0);" onclick="ENTQuiz.Manage.SendMail(${o.ID},'${(o.Language == 1 ? o.Title : (o.Language == 2 ? o.Title_En : (o.Language == 3 ? o.Title + "/" + o.Title_En : "N/A")))}')" style="color:#9DC3E6;font-size:14px;" title="mail quiz link" >Link</a> &nbsp; |  &nbsp;
                                                     <a href="javascript:void(0);" onclick="ENTQuiz.Manage.ShowCloseItem(${o.ID})" style="color:coral;font-size:14px;" title="Close">Close</a> &nbsp; |  &nbsp;
                                 
                                                     ` : '')}
-                                ${(o.Status == 2 ? `<a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewResults(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="View results" >Results</a> &nbsp; |  &nbsp;
+                                ${(o.Status == 2 ? `<a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewQuiz(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="Show Quiz" >View</a> &nbsp; |  &nbsp;
+                                                    <a href="javascript:void(0);" onclick="ENTQuiz.Manage.ViewResults(${o.ID})" style="color:#9DC3E6;font-size:14px;" title="View results" >Results</a> &nbsp; |  &nbsp;
                                                     <a href="javascript:void(0);" onclick="ENTQuiz.Manage.ShowReOpenItem(${o.ID})" style="color:coral;font-size:14px;">ReOpen</a> &nbsp; |  &nbsp;
                                                     ` : '')}
                             </div>
@@ -344,8 +349,15 @@
         getDirectorateName: function (directorateId) {
             return ENTQuiz.Common.Directorates[directorateId];
         },
+
+        getClassificationName: function (classificationId) {
+            return ENTQuiz.Common.Classifications[classificationId];
+        },
         ViewResults: function (quizId) {
-            window.location = 'ViewResult.aspx?quizId=' + quizId;
+            window.location = 'ViewResultByPerson.aspx?quizId=' + quizId;
+        },
+        ViewQuiz: function (quizId) {
+            window.location = 'ViewQuiz.aspx?quizId=' + quizId;
         },
         EditItem: function (quizId) {
             location = "EditQuiz?quizId=" + quizId;

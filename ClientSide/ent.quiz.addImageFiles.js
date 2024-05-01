@@ -72,7 +72,7 @@
         renderAddImageChoices: function () {
             if (this.quiz != undefined) {
                 let quizId = this.quiz.ID;
-                $("#ent_modId").val(quizId);
+                $("#ent_quizId").val(quizId);
 
                 let htmlQuizHeader = '';
                 if (this.quizLanguage == 1) {
@@ -286,7 +286,7 @@
             ENTQuiz.AddImageChoices.ImageFileReaders = [];
             ENTQuiz.AddImageChoices.isValidData = true;
 
-            quiz.ID = parseInt($("#ent_modId").val());
+            quiz.ID = parseInt($("#ent_quizId").val());
 
             $(".entCreateQuizQtn").each(function (idx, qtnItem) {
                 let qtnInfo = ENTQuiz.AddImageChoices.getQuestionInfoOf(qtnItem);

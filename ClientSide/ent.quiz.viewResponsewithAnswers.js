@@ -431,7 +431,7 @@
 
                 //Image Choices
                 else if (qtn.DataTypeID == 15) {
-                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.qtnImagechoices, function (imageFile) {
+                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.Imagechoices, function (imageFile) {
                         return imageFile.QuestionId == qtn.ID;
                     });
 
@@ -468,7 +468,7 @@
                     this.quiz.Questions != undefined &&
                     this.quiz.Questions.length > 0) {
                     let quizId = this.quiz.ID;
-                    $("#ent_modId").val(quizId);
+                    $("#ent_quizId").val(quizId);
 
                     $(".entQuizResponseContainer").show();
 
