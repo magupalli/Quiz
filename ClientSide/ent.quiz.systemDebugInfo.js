@@ -35,7 +35,7 @@
                                 $(".entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.Thankyou);
                             if (ENTQuiz.Response.quiz.HasWelcomeMessage) {
                                 $(".entQuizResponseWelcome").html(ENTQuiz.Response.quizMessage.Welcome);
-                                $(".entQuizResponseWelcome").show();
+                                $(".entQuizResponseWelcomeContainer").show();
                             }
                             else {
                                 ENTQuiz.Response.proceedToQuiz();
@@ -112,7 +112,7 @@
                 else {
                     if (data_item == undefined) {
                         console.log("Selected Quiz does not exist anymore");
-                        $(".entSureyContainer").html("<div class='ErrorDiv'>Sorry ! Selected Quiz does not exist anymore<br />For additionl info, please contact IT Helpdesk</div>");
+                        $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Selected Quiz does not exist anymore<br />For additionl info, please contact IT Helpdesk</div>");
                     }
                     else {
                         $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Error occured while fetching Quiz questions. Please try again after some time. <br/> If Problem persists, contact IT Helpdesk</div><div style='margin:5%;color:coral'>" + data_item.ErrorMessage + "</div>");

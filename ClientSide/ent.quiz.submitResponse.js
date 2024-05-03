@@ -38,7 +38,7 @@
                                 $(".entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.Thankyou);
                             if (ENTQuiz.Response.quiz.HasWelcomeMessage) {
                                 $(".entQuizResponseWelcome").html(ENTQuiz.Response.quizMessage.Welcome);
-                                $(".entQuizResponseWelcome").show();
+                                $(".entQuizResponseWelcomeContainer").show();
                             }
                             else {
                                 ENTQuiz.Response.proceedToQuiz();
@@ -139,7 +139,7 @@
                 else {
                     if (data_item == undefined) {
                         console.log("Selected Quiz does not exist anymore");
-                        $(".entSureyContainer").html("<div class='ErrorDiv'>Sorry ! Selected Quiz does not exist anymore<br />For additionl info, please contact IT Helpdesk</div>");
+                        $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Selected Quiz does not exist anymore<br />For additionl info, please contact IT Helpdesk</div>");
                     }
                     else {
                         $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Error occured while fetching Quiz questions. Please try again after some time. <br/> If Problem persists, contact IT Helpdesk</div><div style='margin:5%;color:coral'>" + data_item.ErrorMessage + "</div>");
@@ -148,7 +148,7 @@
             },
             getQuestionControl: function (qtn) {
 
-                
+
                 /*
                 1 - RadioButtons
                 2 - ImageChoices
@@ -160,7 +160,7 @@
 
 
                 //Radiobuttons
-                 if (qtn.DataTypeID == 1) {
+                if (qtn.DataTypeID == 1) {
                     let Specs = $.parseJSON(qtn.Specs);
                     let validationAttributes = '';
                     let validationSpecs = {};
@@ -277,52 +277,29 @@
                     if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
                         validationSpecs = $.parseJSON(qtn.ValidationSpecs);
                         if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                        if (validationSpecs.min != undefined) validationAttributes += ' data-min="' + validationSpecs.min + '"';
-                        if (validationSpecs.max != undefined) validationAttributes += ' data-max="' + validationSpecs.max + '"';
+                        //if (validationSpecs.min != undefined) validationAttributes += ' data-min="' + validationSpecs.min + '"';
+                        //if (validationSpecs.max != undefined) validationAttributes += ' data-max="' + validationSpecs.max + '"';
                     }
 
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span><input class="entModQtnCtl" type="date" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" /></div>';
+                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span><input class="entModQtnCtl" type="date" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '"  ' + validationAttributes + ' /></div>';
 
                 }
-                //Checkbox
-                else if (qtn.DataTypeID == 4) {
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span><input class="entModQtnCtl" type="checkbox" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" /></div>';
-
-                }
-
                 //Dropdown
-                else if (qtn.DataTypeID == 5) {
+                else if (qtn.DataTypeID == 4) {
                     let Specs = $.parseJSON(qtn.Specs);
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
 
-
-                    let ctl = '<div><select class="entModQtnCtl" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" ' + validationAttributes + '> ';
+                    let ctl = '<div><select class="entModQtnCtl" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" > ';
                     let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                    ctl += '<option value="" >' + (ENTQuiz.Response.userLanguage == 1 ? '-select-' : '-select-') + '</option>';
+                    //ctl += '<option value="" >' + (ENTQuiz.Response.userLanguage == 1 ? '-select-' : '-select-') + '</option>';
                     for (let i = 0; i < optionsCount; i++) {
                         ctl += '<option value="' + i + '" >' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) + '</option>';
                     }
-                    ctl += '</select><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span></div>';
+                    ctl += '</select></div>';
 
                     return ctl;
                 }
-
-                
-
                 //MultiCheckboxes
-                else if (qtn.DataTypeID == 7) {
+                else if (qtn.DataTypeID == 5) {
                     let Specs = $.parseJSON(qtn.Specs);
 
                     let validationAttributes = '';
@@ -408,104 +385,8 @@
 
 
                 }
-
-                //RatingByNumbers
-                else if (qtn.DataTypeID == 8) {
-                    let Specs = $.parseJSON(qtn.Specs);
-                    let minRating = Specs.min;
-                    let maxRating = Specs.max;
-                    let stepRating = Specs.step;
-
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-
-                    let ctl = '<br/><div><input type="hidden" value="" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" ' + validationAttributes + ' />';
-
-                    for (let i = minRating; i <= maxRating; i = i + stepRating) {
-                        ctl += '<span class="RatingByNumber" data-ratinggroup="ent_mod_q' + qtn.ID + '" onclick="return ENTQuiz.Response.setRatingByNumber(this,' + qtn.ID + ', ' + i + ')">' + i + '</span> &nbsp; ';
-                    }
-                    ctl += "</div></br>"
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span>' + ctl + '</div>';
-
-                }
-
-                //MatrixQuestion
-                else if (qtn.DataTypeID == 9) {
-
-                    let matrix = $.parseJSON(qtn.Specs);
-                    let cols = (ENTQuiz.Response.userLanguage == 1 ? matrix.Cols.ar : matrix.Cols.en);
-                    let rows = (ENTQuiz.Response.userLanguage == 1 ? matrix.Rows.ar : matrix.Rows.en);
-
-                    let colsCount = cols.length;
-                    let rowsCount = rows.length;
-                    let questionColLengthCSS = ' col-sm-' + (12 - colsCount);
-
-                    if (colsCount <= 3) questionColLengthCSS = 'col-sm-6';
-
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-
-                    let ctl = '<div style="margin:auto;width:98%" >';
-                    ctl += '<div class="row">';
-                    ctl += '<span class="' + questionColLengthCSS + ' MatrixCell"></span>';
-                    for (let i = 0; i < colsCount; i++) {
-                        if (colsCount <= 3)
-                            ctl += '<span class="col-sm-2 MatrixCell MatrixCellHeader" style="text-align:center;">' + cols[i].trim() + '</span>';
-                        else
-                            ctl += '<span class="col-sm-1 MatrixCell ' + (ENTQuiz.Response.userLanguage == 1 ? ' MatrixCellHeader_AR ' : ' MatrixCellHeader_EN ') + ' " style="text-align:center;">' + cols[i].trim() + '</span>';
-                    }
-                    ctl += "</div>";
-                    for (let r = 0; r < rowsCount; r++) {
-                        ctl += '<div class="row MatrixRow" ' + validationAttributes + '>';
-                        ctl += '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_' + r + '_Error"></span></div>';
-
-                        for (let i = 0; i < colsCount; i++) {
-                            if (i == 0)
-                                ctl += '<span class="' + questionColLengthCSS + ' MatrixCell" style="color:#D9D9D9">' + rows[r].trim() + '</span>';
-
-                            if (colsCount <= 3)
-                                ctl += '<span class="col-sm-2 MatrixCell" style="text-align:center;">' + '<input type="radio" name="ent_mod_q' + qtn.ID + '_' + r + '" value="' + (i + 1) + '" /> ' + '</span>';
-                            else
-                                ctl += '<span class="col-sm-1 MatrixCell" style="text-align:center;">' + '<input type="radio" name="ent_mod_q' + qtn.ID + '_' + r + '" value="' + (i + 1) + '" /> ' + '</span>';
-                        }
-                        ctl += "</div>";
-                    }
-                    ctl += "</div>";
-                    return ctl;
-                }
-
-                //Slider
-                else if (qtn.DataTypeID == 10) {
-                    let Specs = $.parseJSON(qtn.Specs);
-                    let minRange = parseInt(Specs.min);
-                    let maxRange = parseInt(Specs.max);
-                    let stepRange = parseInt(Specs.step);
-
-                    return '<div style="width:80%;margin:auto;"><span class="spanRangeValue">' + (maxRange / 2) + '</span><input type="range" min="' + minRange + '"  max="' + maxRange + '"  step="' + stepRange + '" name="ent_mod_q' + qtn.ID + '" value="' + (maxRange / 2) + '" oninput="ENTQuiz.Response.ShowRangeValue(this)" class="RangeControl" /></div>';
-                }
-
-                //FileAttachment
-                else if (qtn.DataTypeID == 11) {
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-                    let ctl = '<input type="file" name="ent_mod_q' + qtn.ID + '"  ' + validationAttributes + ' />';
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q_' + qtn.ID + 'Error"></span>' + ctl + '</div>';
-                }
-
                 //RankingQuestion
-                else if (qtn.DataTypeID == 12) {
+                else if (qtn.DataTypeID == 6) {
                     let Specs = $.parseJSON(qtn.Specs);
 
                     let ctl = '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">';
@@ -528,72 +409,10 @@
                     return ctl;
                 }
 
-                //BranchingQuestion
-                else if (qtn.DataTypeID == 13) {
-                    let Specs = $.parseJSON(qtn.Specs);
-
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-
-                    let ctl = '<div ' + validationAttributes + '">';
-                    let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                    for (let i = 0; i < optionsCount; i++) {
-                        ctl += '<div style="margin:1%;color:#D9D9D9;"><input type="radio" name="ent_mod_q' + qtn.ID + '" data-valueID="' + i + '" value="' + i + '"  onclick="ENTQuiz.Response.setBranchVisibility(' + qtn.ID + ',this)" style="margin:0;" /> &nbsp; ' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) + '</div>';
-                    }
-                    ctl += "</div>";
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span>' + ctl + '</div>';
-                }
-
-                //5 - Emojis
-                else if (qtn.DataTypeID == 14) {
-
-                    let emojis = ["fas fa-frown", "far fa-frown", "far fa-meh", "far fa-smile", "fas fa-smile"];
-                    let emojisText_AR = ["Extremely Unsatisfied", "Below Expectation", "Meets Exepectations", "Above Expectations", "Extremely Satisfied"];
-                    let emojisText_EN = ["Extremely Unsatisfied", "Below Expectation", "Meets Exepectations", "Above Expectations", "Extremely Satisfied"];
-
-                    let validationAttributes = '';
-                    let validationSpecs = {};
-                    if (qtn.ValidationSpecs != undefined && qtn.ValidationSpecs != '') {
-                        validationSpecs = $.parseJSON(qtn.ValidationSpecs);
-                        if (validationSpecs.isRequired) validationAttributes += ' data-isRequired="true" ';
-                    }
-
-                    let ctl = '<br/><div><input type="hidden" value="" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '" ' + validationAttributes + ' />';
-
-                    for (let i = 0; i < 5; i++) {
-                        ctl += '<span class="' + emojis[i] + ' RatingByEmoji " data-ratinggroup="ent_mod_q' + qtn.ID + '" onclick="return ENTQuiz.Response.setRatingByNumber(this,' + qtn.ID + ', ' + i + ')" title="' + (ENTQuiz.Response.userLanguage == 1 ? emojisText_AR[i] : emojisText_EN[i]) + '"></span> &nbsp; ';
-                    }
-                    ctl += "</div><br />"
-                    return '<div><span class="ValidationErrorMessage" name="ent_mod_q' + qtn.ID + '_Error"></span>' + ctl + '</div>';
-                }
-
-                
-
                 return "";
             },
-            ShowRangeValue: function (ctlRange) {
-                $(ctlRange).preav().html($(ctlRange).val());
-            },
-            setBranchVisibility: function (qtnID, radBtn) {
-                $("div[data_branchID^='" + qtnID + "_']").hide();
-                if (radBtn.checked) {
-                    $("div[data_branchID^='" + qtnID + "_" + $(radBtn).data("valueid") + "']").show();
-                }
-
-            },
-            setRatingByNumber: function (btnRating, qtnID, ratingValue) {
-                $("#ent_mod_q" + qtnID).val(ratingValue);
-                $("span[data-ratinggroup='" + $(btnRating).data("ratinggroup") + "']").removeClass("ActiveRating");
-                $(btnRating).addClass('ActiveRating');
-                return false;
-            },
-
             setImageChoice: function (btnRating, qtnID, ratingValue) {
-                $("#ent_mod_q" + qtnID).val(ratingValue);
+                $("#ent_mod_q" + qtnID).val(ratingValue + 1);
                 $("img[data-imagegroup='" + $(btnRating).data("imagegroup") + "']").removeClass("ActiveRating");
                 $(btnRating).addClass('ActiveRating');
                 return false;
@@ -623,9 +442,6 @@
                         $(".entQuizResponseContainer").attr("dir", "ltr");
                     }
 
-                    if (!this.quiz.AllowCancel)
-                        $("[name='btnModCancel']").hide();
-
                     let htmlQuizHeader = '<div class="entQuizHeader">' +
                         (this.userLanguage == 1 ? this.quiz.Title : this.quiz.Title_En) +
                         '</div>' +
@@ -633,158 +449,302 @@
                         (this.userLanguage == 1 ? this.quiz.Description : this.quiz.Description_En) +
                         '</div>';
 
-
                     let qtnCntrDisplay = 0;
-                    let htmlQuizQuestions = this.quiz.Questions.map(function (o, idx) {
+                    let htmlQuizQuestions = '';
+                    if (this.quiz.RandomOrderQuestions) {
+                        this.shuffleQuestions();
+                    }
+                    htmlQuizQuestions = this.quiz.Questions.map(function (o, idx) {
 
-                        if (o.ParentBranchID == 0) {
-                            qtnCntrDisplay++;
-                            let htmlQuizQuestion = '';
-                            if (o.DataTypeID != 4) {
-                                htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
-                                    '<div class="entQuizQuestion">' + (qtnCntrDisplay) + ' . &nbsp; ' +
-                                    (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
-                                    '</div>' +
-                                    '<div class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" >' +
-                                    ENTQuiz.Response.getQuestionControl(o) +
-                                    '</div>' +
-                                    '</div>';
-                            }
-                            else {
+                        qtnCntrDisplay++;
+                        let htmlQuizQuestion = '';
 
-                                //checkbox
-                                htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
-                                    '<div class="entQuizQuestion" >' + (qtnCntrDisplay) + ' . &nbsp; ' +
-                                    '<span class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" style="padding:1%;" > ' +
-                                    ENTQuiz.Response.getQuestionControl(o) +
-                                    '</span>' +
-                                    (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
-                                    '<span class="ValidationErrorMessage" name="ent_mod_q_' + o.ID + 'Error"></span>' +
-                                    '</div>' +
-                                    '</div>';
-                            }
+                        htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
+                            '<div class="entQuizQuestion">' + (qtnCntrDisplay) + ' . &nbsp; ' +
+                            (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
+                            '</div>' +
+                            '<div class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" >' +
+                            ENTQuiz.Response.getQuestionControl(o) +
+                            '</div>' +
+                            '</div>';
 
-                            let htmlQuizQuestionBranches = '';
-                            if (o.DataTypeID == 13) {
-                                let Specs = $.parseJSON(o.Specs);
+                        return htmlQuizQuestion;
 
-                                let branchQuestions = $.grep(ENTQuiz.Response.quiz.Questions, function (qtn) {
-                                    return qtn.ParentBranchID == o.ID;
-                                });
-
-                                if (branchQuestions != undefined && branchQuestions.length > 0) {
-                                    let optionsCount = (ENTQuiz.Response.userLanguage ? Specs.ar.length : Specs.en.length);
-                                    for (let i = 0; i < optionsCount; i++) {
-                                        let branchValueQuestions = $.grep(branchQuestions, function (qtn) { return qtn.ParentBranchValueID == i; });
-                                        if (branchValueQuestions != undefined && branchValueQuestions.length > 0) {
-                                            htmlQuizQuestionBranches += '<div class="branchStyle" data-branchID="' + o.ID + '_' + i + '" >';
-
-                                            for (let j = 0; j < branchValueQuestions.length; j++) {
-                                                htmlQuizQuestionBranches += '<div class="'((j + 1) != branchValueQuestions.length ? 'entQuizQuestionContainer' : 'entQuizQuestionContainerBranched') + '">' +
-                                                    '<div class="quizQuestion">(' + (qtnCntrDisplay) + '.' + (j + 1) + '). &nbsp; ' +
-                                                    (ENTQuiz.Response.userLanguage == 1 ? branchValueQuestions[j].Question : branchValueQuestions[j].Question_En) +
-                                                    '</div>' +
-                                                    '<div class="entQuizQuestionControl" data-qtnid="' + branchValueQuestions[j].ID + '" data-datatypeid="' + branchValueQuestions[j].DataTypeID + '" >' +
-                                                    ENTQuiz.Response.getQuestionControl(branchValueQuestions[j]) +
-                                                    '</div>' +
-                                                    '</div>';
-                                            }
-                                            htmlQuizQuestionBranches += "</div>";
-                                        }
-                                    }
-                                }
-                            }
-
-                            return htmlQuizQuestion + htmlQuizQuestionBranches;
-                        }
 
                     }).join('');
+
                     $('.entQuizHeaderContainer').html(htmlQuizHeader);
                     $('.entQuizQuestionsContainer').html(htmlQuizQuestions);
 
                 }
             },
+            shuffleQuestions: function () {
+                var curIdx = this.quiz.Questions.length, randomIdx;
+                while (curIdx != 0) {
+                    randomIdx = Math.floor(Math.random() * curIdx);
+                    curIdx--;
+                    [this.quiz.Questions[curIdx], this.quiz.Questions[randomIdx]] =
+                        [this.quiz.Questions[randomIdx], this.quiz.Questions[curIdx]];
+                }
+            },
             isValidData: true,
-            FileReaders: [],
             submitQuiz: function (respStatus) {
                 //console.log("Submit invoked");
                 ENTQuiz.Response.isSubmitted = false;
 
-                let modResponse = ENTQuiz.Response.getQuizResponseFromForm();
-                modResponse.ResponseStatus = respStatus;
-                ENTQuiz.Response.modResponse = modResponse;
+                let quizResponse = ENTQuiz.Response.getQuizResponseFromForm();
+                quizResponse.ResponseStatus = respStatus;
+                ENTQuiz.Response.quizResponse = quizResponse;
 
                 if (ENTQuiz.Response.isValidData) {
-                    for (let i = 0; i < ENTQuiz.Response.FileReaders.length; i++) {
-                        //ENTQuiz.Response.FileReaders[i].reader.readAsBinaryString(ENTQuiz.Response.FileReaders[i].File)                  
-                        //ENTQuiz.Response.FileReaders[i].reader.readAsArrayBuffer(ENTQuiz.Response.FileReaders[i].File)                   
-                        ENTQuiz.Response.FileReaders[i].reader.readAsDataURL(ENTQuiz.Response.FileReaders[i].File);
-                    }
 
-                    ENTQuiz.Response.submitQuizwithFiles();
+                    let apiPath_item = this.apiPath + '/submitQuizResponse';
+                    ENTQuiz.Response.isSubmitted = true;
+                    $.ajax({
+                        type: 'POST',
+                        url: apiPath_item,
+                        data: ENTQuiz.Response.quizResponse,
+                        headers: {
+                            Accept: "application/json;odata=verbose"
+                        },
+                        async: true,
+
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data_items) {
+                            $(".entQuizContainer").hide();
+                            if (ENTQuiz.Response.quiz.HasThankyouMessage) {
+                                $(".entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.ThankyouMessage);
+                                $("#btnThankyou").show();
+                                $("#btnShowScore").show();
+                            }
+                            else {
+                                $(".entQuizResponseAcknowledgement").html("Processing result. Please wait ...")
+                                ENTQuiz.Response.ProcessQuizResponse();
+
+                            }
+                            $(".entQuizResponseAcknowledgementContainer").show();
+                        },
+                        error: function (errordata) {
+                            console.log(errordata);
+
+                            if (errordata.responseJSON.ExceptionType == "ENTHubQuiz.QuizAPI.ViewModels.CustomException") {
+                                $(".entQuizContainer").html("<div class='ErrorDiv'>" + errordata.responseJSON.ExceptionMessage + "</div>");
+                            }
+                            else {
+                                $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Error occured while submitting response. Please try again after some time. <br /> If problem persists, contact IT heldesk</div>");
+
+                            }
+                        }
+
+                    });
+
+
                 }
                 else {
                     console.log("Data Validations failed");
                 }
             },
-            isSubmitted: false,
-            modResponse: {},
-            submitQuizWithFiles: function () {
 
-                if (!ENTQuiz.Response.isSubmitted) {
-                    let isAllFilesLoaded = true;
-                    for (let i = 0; i < ENTQuiz.Response.FileReaders.length; i++) {
-                        isAllFilesLoaded = ENTQuiz.Response.FileReaders[i].isLoaded;
-                        if (!isAllFilesLoaded) break;
+            quizResult: {},
+            fetchedResponse: false,
+            getScore: function (quizResponse) {
+                let score = 0;
+                for (let i = 0; i < quizResponse.QuizQuestionResponses.length; i++) {
+                    let isCorrect = true;
+                    isCorrect = this.validateQuizQuestionResponse(quizResponse.QuizQuestionResponses[i]);
+                    if (isCorrect) score++;
+
+                }
+                return score;
+            },
+            validateQuizQuestionResponse: function (quizQuestionResponse) {
+                let isCorrect = false;
+                let qtnList = $.grep(ENTQuiz.Response.quiz.Questions, function (data_item) { return data_item.ID == quizQuestionResponse.ID });
+                if (qtnList != null && qtnList.length > 0) {
+                    let qtn = qtnList[0];
+                    //Radiobutton 
+                    if (qtn.DataTypeID == 1) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined ? parseInt(quizQuestionResponse.QuestionResponse) : -1;
+                        let answer = $.parseJSON(qtn.Answer);
+                        if (qtnResponse >= 0)
+                            isCorrect = (ENTQuiz.Response.quiz.Language == 1 ? (Specs.ar[qtnResponse].trim() == answer.ar.trim() ? true : false) : (Specs.en[qtnResponse].trim() == answer.en.trim() ? true : false));
+                        return isCorrect;
+
                     }
-                    if (isAllFilesLoaded) {
-                        let apiPath_item = this.apiPath + '/submitQuizResponse';
-                        ENTQuiz.Response.isSubmitted = true;
-                        $.ajax({
-                            type: 'POST',
-                            url: apiPath_item,
-                            data: ENTQuiz.Response.modResponse,
-                            headers: {
-                                Accept: "applicaiton/json;odata=verbose"
-                            },
-                            async: true,
-                            binaryStringRequestBody: true,
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function (data_items) {
-                                $(".entQuizContainer").hide();
-                                if (ENTQuiz.Response.quiz.HasThankyouMessage) {
-                                    $("entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.ThankyouMessage);
-                                }
-                                else {
-                                    if (ENTQuiz.Response.userLanguage == 1) {
-                                        $(".entQuizResponseAcknowledgement").html("<div class='entQuizResponseAcknowledgementDefault'><img src='/SiteAssets/Quiz/images/ThankyouImage.png' width='100px' /><br />(Arabic) Thank you <br />Your response submitted successfully</div>");
-                                        $("[name='btnThankyou']").text("Arabic-Thankyou");
+                    //ImageChoice 
+                    else if (qtn.DataTypeID == 2) {
+                        //let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined && quizQuestionResponse.QuestionResponse != "" ? parseInt(quizQuestionResponse.QuestionResponse) : "";
+
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+
+                            let oAnswer = $.parseJSON(qtn.Answer);
+                            let answer = parseInt(oAnswer.ans);
+                            isCorrect = (qtnResponse == (answer));
+                        }
+
+                        return isCorrect;
+                    }
+                    //Date 
+                    else if (qtn.DataTypeID == 3) {
+                        let qtnResponse = '';
+                        qtnResponse = quizQuestionResponse.QuestionResponse;
+
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+
+                            let answer = $.parseJSON(qtn.Answer);
+                            let date_answer = answer.ans;
+                            isCorrect = (qtnResponse.trim() == date_answer.trim());
+                        }
+                        return isCorrect;
+                    }
+                    //Dropdown 
+                    else if (qtn.DataTypeID == 4) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = parseInt(quizQuestionResponse.QuestionResponse);
+
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+
+                            let answer = $.parseJSON(qtn.Answer);
+                            isCorrect = (ENTQuiz.Response.quiz.Language == 1 ? (Specs.ar[qtnResponse].trim() == answer.ar.trim() ? true : false) : (Specs.en[qtnResponse].trim() == answer.en.trim() ? true : false));
+                        }
+                        return isCorrect;
+                    }
+
+                    //MultiCheckboxes 
+                    else if (qtn.DataTypeID == 5) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = [];
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined && quizQuestionResponse.QuestionResponse != "" ? parseInt(quizQuestionResponse.QuestionResponse) : [];
+
+                        let isAllCorrect = true;
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+
+                            let answer = $.parseJSON(qtn.Answer);
+                            let answer_optionsCount = (ENTQuiz.Response.quiz.Language == 1 ? answer.ar.length : answer.en.length);
+                            if (answer_optionsCount != qtnResponse.length) isAllCorrect = false;
+                            else {
+                                for (let q = 0; q < qtnResponse.length; q++) {
+                                    if (ENTQuiz.Response.quiz.Language == 1) {
+                                        if (Specs.ar[qtnResponse[q]].trim() != answer.ar[q].trim()) {
+                                            isAllCorrect = false;
+                                            break;
+                                        }
                                     }
                                     else {
-                                        $(".entQuizResponseAcknowledgement").html("<div class='entQuizResponseAcknowledgementDefault'><img src='/SiteAssets/Quiz/images/ThankyouImage.png' width='100px' /><br />Thank you <br />Your response submitted successfully</div>");
-
+                                        if (Specs.en[qtnResponse[q]].trim() != answer.en[q].trim()) {
+                                            isAllCorrect = false;
+                                            break;
+                                        }
                                     }
-                                }
-                                $(".entQuizResponseAcknowledgementContainer").show();
-                            },
-                            error: function (errordata) {
-                                console.log(errordata);
-
-                                if (errordata.responseJSON.ExceptionType == "ENTHubQuiz.QuizAPI.ViewModels.CustomException") {
-                                    $(".entQuizContainer").html("<div class='ErrorDiv'>" + errordata.responseJSON.ExceptionMessage + "</div>");
-                                }
-                                else {
-                                    $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Error occured while submitting response. Please try again after some time. <br /> If problem persists, contact IT heldesk</div>");
-
                                 }
                             }
 
-                        });
+                        }
+                        return isAllCorrect;
+                    }
+
+                    //RankingQuestion 
+                    else if (qtn.DataTypeID == 6) {
+
+                        let qtnResponse = [];
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined && quizQuestionResponse.QuestionResponse != "" ? parseInt(quizQuestionResponse.QuestionResponse) : [];
+
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+
+                            let answer = $.parseJSON(qtn.Answer);
+                            if (qtnResponse == undefined || qtnResponse.length != answer.ans.length)
+                                return false
+                            else {
+                                for (let a = 0; a < answer.ans.length; a++) {
+                                    if (qtnResponse[a].RowResponse != answer.ans[a])
+                                        return false;
+                                }
+                            }
+                            return true;
+                        }
                     }
                 }
+
+                return false;
             },
+            ProcessQuizResponse: function () {
+                this.fetchedResponse = false;
+                if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
+                    let quizId = ENTQuiz.Common.getUrlParams("quizId");
+                    let apiPath_item = this.apiPath + '/getQuizResponseOnly?quizId=' + quizId;
+                    $.ajax({
+
+                        url: apiPath_item,
+                        data: {
+                            absolutePath: location.pathname
+                        },
+                        headers: {
+                            Accept: "application/json;odata=verbose"
+                        },
+                        async: true,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        success: function (data_item) {
+                            if (data_item != undefined && data_item.ErrorCode == undefined) {
+                                ENTQuiz.Response.quizResult = data_item;
+                                ENTQuiz.Response.fetchedResponse = true;
+
+                                if (ENTQuiz.Response.quiz == null) {
+                                    $(".entQuizContainer").html("<div class='ErrorDiv'>No Active quiz found with given Id</div>");
+                                }
+                                else if (ENTQuiz.Response.quizResult.quizResponses == undefined ||
+                                    ENTQuiz.Response.quizResult.quizResponses.length == 0) {
+                                    $(".entQuizContainer").html("<div class='ErrorDiv'>No Response found with given Id</div>");
+                                }
+                                else {
+                                    let score = ENTQuiz.Response.getScore(ENTQuiz.Response.quizResult.quizResponses[0]);
+                                    if (score >= ENTQuiz.Response.quiz.PassScore) {
+                                        $(".entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.Pass);
+                                    }
+                                    else {
+                                        $(".entQuizResponseAcknowledgement").html(ENTQuiz.Response.quizMessage.Fail);
+                                    }
+                                    $("#btnThankyou").show();
+                                    $("#btnShowScore").show();
+                                }
+
+                            }
+                            else {
+                                $(".entQuizContainer").html("<div class='ErrorDiv'> Sorry ! Error occured while fetching Quiz Questions. Please try again after some time. <br/> If problem persists, contact IT helpdesk.</div><div style='margin:5%;color:#coral;'>" + data_item.ErrorMessage + "</div>");
+
+                            }
+                        },
+                        error: function (errordata) {
+                            console.log(errordata);
+
+                            if (errordata.responseJSON.ExceptionType == "ENTHubQuiz.QuizAPI.ViewModels.CustomException") {
+                                $(".entQuizContainer").html("<div class='ErrorDiv'>" + errordata.responseJSON.ExceptionMessage + "</div>");
+                            }
+                            else {
+                                $(".entQuizContainer").html("<div class='ErrorDiv'> Sorry ! Error occured while fetching Quiz Questions. Please try again after some time. <br/> If problem persists, contact IT helpdesk.</div>");
+
+                            }
+                        }
+
+                    });
+                }
+                else {
+                    console.log("Quiz not selected");
+                    $(".entQuizContainer").html("<div class='ErrorDiv'> Quiz not selected.  <br/> for additional info, please contact IT helpdesk.</div>");
+
+                }
+            },
+            isSubmitted: false,
+            quizResponse: {},
+
             constants: {
                 Required: {
                     ar: "Arabic - *Required",
@@ -811,27 +771,32 @@
                 let errorMsg = "";
                 let qtnCtl_Error = $(item).find('[name="ent_mod_q_' + qtnId + 'Error"]');
 
-                //Textbox //MultilineTextBox
+                //RadioButton //MultipleCheckbox 
                 if (qtnDataTypeID == 1 ||
-                    qtnDataTypeID == 2) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q_' + qtnId + '"]');
-
+                    qtnDataTypeID == 5) {
+                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
                     $(qtnCtl).removeClass("NotValidData");
                     if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
+                        let isrequired = $(qtnCtl).parent().parent().parent().parent().parent().data("isrequired");
                         if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
                             ENTQuiz.Response.isValidData = false;
                             errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
                             $(qtnCtl).addClass("NotValidData");
                         }
-                        let maxChars = $(qtnCtl).data("maxchars");
-                        if (maxChars != undefined && maxChars != "" &&
-                            parseInt(maxChars) > 0 &&
-                            qtnResponse != undefined && qtnResponse.trim() != "" &&
-                            qtnResponse.length > parseInt(maxChars)) {
+                    }
+                    $(qtnCtl_Error).html(errorMsg);
+                }
+
+                //ImageChoices
+                else if (qtnDataTypeID == 2) {
+                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
+                    $(qtnCtl).parent().parent().removeClass("NotValidData");
+                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
+                        let isrequired = $(qtnCtl).data("isrequired");
+                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
                             ENTQuiz.Response.isValidData = false;
-                            errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.ExceededMaxChars.ar : ENTQuiz.Response.constants.ExceededMaxChars.en);
-                            $(qtnCtl).addClass("NotValidData");
+                            errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en) + "<br />";
+                            $(qtnCtl).parent().parent().addClass("NotValidData");
                         }
                     }
                     $(qtnCtl_Error).html(errorMsg);
@@ -848,276 +813,41 @@
                             errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en) + "<br />";
                             $(qtnCtl).addClass("NotValidData");
                         }
-                        let minDate = $(qtnCtl).data("min");
-                        if (minDate.trim() != "") {
-
-                            if (qtnResponse == undefined || qtnResponse.trim() == "") {
-                                ENTQuiz.Response.isValidData = false;
-                                errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.MinDate.ar : ENTQuiz.Response.constants.MinDate.en); + "<br />";
-                                $(qtnCtl).addClass("NotValidData");
-                            }
-                            else {
-                                try {
-                                    let dateValue = new Date(qtnResponse);
-                                    let minDateValue = new Date();
-                                    if (minDate.trim() != "Today") {
-                                        minDateValue = new Date(minDate.trim());
-                                    }
-                                    maxDateValue.setHours(0, 0, 0, 0);
-                                    if (dateValue < minDateValue) {
-                                        ENTQuiz.Response.isValidData = false;
-                                        errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.MinDate.ar : ENTQuiz.Response.constants.MinDate.en); + "<br />";
-                                        $(qtnCtl).addClass("NotValidData");
-                                    }
-
-                                }
-                                catch (ex) {
-                                    ENTQuiz.Response.isValidData = false;
-                                    errorMsg = "Inavlid Date <br />";
-                                    $(qtnCtl).addClass("NotValidData");
-
-                                }
-                            }
-                        }
-                        let maxDate = $(qtnCtl).data("max");
-                        if (maxDate.trim() != "") {
-
-                            if (qtnResponse == undefined || qtnResponse.trim() == "") {
-                                ENTQuiz.Response.isValidData = false;
-                                errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.MaxDate.ar : ENTQuiz.Response.constants.MaxDate.en); + "<br />";
-                                $(qtnCtl).addClass("NotValidData");
-                            }
-                            else {
-                                try {
-                                    let dateValue = new Date(qtnResponse);
-                                    let maxDateValue = new Date();
-                                    if (maxDate.trim() != "Today") {
-                                        maxDateValue = new Date(maxDate.trim());
-                                    }
-                                    maxDateValue.setHours(23, 59, 59, 999);
-                                    if (dateValue > maxDateValue) {
-                                        ENTQuiz.Response.isValidData = false;
-                                        errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.MaxDate.ar : ENTQuiz.Response.constants.MaxDate.en); + "<br />";
-                                        $(qtnCtl).addClass("NotValidData");
-                                    }
-
-                                }
-                                catch (ex) {
-                                    ENTQuiz.Response.isValidData = false;
-                                    errorMsg = "Inavlid Date <br />";
-                                    $(qtnCtl).addClass("NotValidData");
-
-                                }
-                            }
-                        }
 
                         $(qtnCtl_Error).html(errorMsg);
                     }
                 }
-
-                //Checkbox
-                else if (qtnDataTypeID == 4) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(item).removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == ""
-                            || qtnResponse.trim().toLowerCase() == "false" || qtnResponse.trim() == "0")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
-                            $(item).addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-
-                //DropDown
-                else if (qtnDataTypeID == 5) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
-                            $(qtnCtl).addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-
-                //RadioButton //MultipleCheckbox 
-                else if (qtnDataTypeID == 6 ||
-                    qtnDataTypeID == 7) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).parent().parent().parent().parent().parent().data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
-                            $(qtnCtl).addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-                //Branching
-                else if (qtnDataTypeID == 13) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).parent().parent().data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg = (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
-                            $(qtnCtl).addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-
-                //FileAttachment
-                else if (qtnDataTypeID == 11) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse == false)) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en);
-                            $(qtnCtl).addClass("NotValidData");
-                        }
-                        $(qtnCtl_Error).html(errorMsg);
-                    }
-                }
-                //RatingByNumbers // Ratings By 5-Emojis
-                else if (qtnDataTypeID == 8 ||
-                    qtnDataTypeID == 14) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).parent().parent().removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en) + "<br />";
-                            $(qtnCtl).parent().parent().addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-
-                //MatrixQuestion
-                else if (qtnDataTypeID == 9) {
-                    let matrixResponses = $.parseJSON(qtnResponse);
-                    let rows = $(item).find(".MatrixRows");
-                    let rowsCount = rows.length;
-                    for (let r = 0; r < rowsCount; r++) {
-                        let rowItem = $(rows[r]);
-                        $(rowItem).removeClass("NotValidData");
-                        let qtnCtl_Error = $(rowItem).find(".ValidationErrorMessage");
-                        if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                            errorMsg = '';
-                            let isrequired = $(rowItem).data("isrequired");
-                            let rowResponse = $.grep(matrixResponses, function (matrixResponse) {
-                                return matrixResponse.RowID == r;
-                            });
-                            if (isrequired && (rowResponse == undefined ||
-                                rowResponse.length == 0 ||
-                                rowResponse[0].RowResponse.trim() == "" ||
-                                rowResponse[0].RowResponse.trim() == "-1")) {
-                                ENTQuiz.Response.isValidData = false;
-                                errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en) + "<br />";
-                                $(rowItem).addClass("NotValidData");
-                            }
-                            $(qtnCtl_Error).html(errorMsg);
-                        }
-                    }
-                }
-
-                //ImageChoices
-                else if (qtnDataTypeID == 15) {
-                    let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                    $(qtnCtl).parent().parent().removeClass("NotValidData");
-                    if (qtnCtl_Error != undefined && qtnCtl_Error.length > 0) {
-                        let isrequired = $(qtnCtl).data("isrequired");
-                        if (isrequired && (qtnResponse == undefined || qtnResponse.trim() == "")) {
-                            ENTQuiz.Response.isValidData = false;
-                            errorMsg += (ENTQuiz.Response.userLanguage == 1 ? ENTQuiz.Response.constants.Required.ar : ENTQuiz.Response.constants.Required.en) + "<br />";
-                            $(qtnCtl).parent().parent().addClass("NotValidData");
-                        }
-                    }
-                    $(qtnCtl_Error).html(errorMsg);
-                }
-
-                //TODO : Pending validation error for other type of controls
 
             },
             getQuizResponseFromForm: function () {
                 ENTQuiz.Response.isValidData = true;
                 let quizId = parseInt($("#ent_quizId").val());
                 let deptId = parseInt($("#ent_deptId").val());
-                let modResponse = {
+                let quizResponse = {
                     QuizID: quizId,
                     DepartmentId: deptId,
                     QuizQuestionResponses: [],
-                    Files: [],
                     Language: ENTQuiz.Response.userLanguage,
                     ResponseStatus: 0,
                 };
-                ENTquiz.Response.FileReaders = [];
 
                 $(".entQuizQuestionControl").each(function (idx, item) {
                     let qtnDataTypeID = $(item).data("datatypeid");
                     let qtnId = $(item).data("qtnid");
                     let qtnResponse = "";
 
-                    //TextBox
-                    if (qtnDataTypeID == 1) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                        }
-                    }
-                    //MultilineTextBox
-                    else if (qtnDataTypeID == 2) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                        }
-                    }
-
-                    //Date
-                    else if (qtnDataTypeID == 3) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                        }
-                    }
-
-                    //Checkbox
-                    else if (qtnDataTypeID == 4) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = "" + $(qtnCtl).is(":checked");
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, $(item).parent());
-
-                        }
-                    }
-
-                    //Dropdown
-                    else if (qtnDataTypeID == 5) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                        }
-                    }
+                    /*
+                        1 - RadioButtons
+                        2 - ImageChoices
+                        3 - Date
+                        4 - DropDown
+                        5 - MultiCheckboxes
+                        6 - Ranking
+                        
+                    */
 
                     //Radiobuttons
-                    else if (qtnDataTypeID == 6) {
+                    if (qtnDataTypeID == 1) {
                         let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]:checked');
                         if (qtnCtl != undefined && qtnCtl.length > 0) {
                             qtnResponse = $(qtnCtl).val();
@@ -1126,8 +856,34 @@
 
                     }
 
+                    //ImageChoices
+                    else if (qtnDataTypeID == 2) {
+                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
+                        if (qtnCtl != undefined && qtnCtl.length > 0) {
+                            qtnResponse = $(qtnCtl).val();
+                        }
+                        ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
+
+                    }
+                    //Date
+                    else if (qtnDataTypeID == 3) {
+                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
+                        if (qtnCtl != undefined && qtnCtl.length > 0) {
+                            qtnResponse = $(qtnCtl).val();
+                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
+                        }
+                    }
+                    //Dropdown
+                    else if (qtnDataTypeID == 4) {
+                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
+                        if (qtnCtl != undefined && qtnCtl.length > 0) {
+                            qtnResponse = $(qtnCtl).val();
+                            //ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
+                        }
+                    }
+
                     //MultiCheckboxes
-                    else if (qtnDataTypeID == 7) {
+                    else if (qtnDataTypeID == 5) {
                         let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]:checked');
                         if (qtnCtl != undefined && qtnCtl.length > 0) {
                             $(qtnCtl).each(function (idx, chk) {
@@ -1138,93 +894,8 @@
                             ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
                         }
                     }
-
-                    //RatingByNumbers //Rating By 5-Emojis
-                    else if (qtnDataTypeID == 8 || qtnDataTypeID == 14) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                            ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                        }
-                    }
-
-
-                    //MatrixQuestion
-                    else if (qtnDataTypeID == 9) {
-                        let rows = $(item).find(".MatrixRow");
-                        let rowsCount = rows.length;
-
-                        for (let i = 0; i < rowsCount; i++) {
-                            if (i > 0) qtnResponse += ',';
-                            let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '_' + i + '"]:checked');
-                            if (qtnCtl != undefined && qtnCtl.length > 0) {
-                                qtnResponse += JSON.stringify({
-                                    RowID: i,
-                                    RowResponse: $(qtnCtl).val()
-                                }, null);
-                            }
-                            else {
-                                qtnResponse += JSON.stringify({
-                                    RowID: i,
-                                    RowResponse: "-1"
-                                }, null);
-
-                            }
-                        }
-                        qtnResponse = '[' + qtnResponse + ']';
-                        ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-
-                    }
-                    //Slider
-                    else if (qtnDataTypeID == 10) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                        }
-                    }
-                    //FileAttachment
-                    else if (qtnDataTypeID == 11) {
-                        //fetch file data
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            if (qtnCtl[0].file != undefined && qtnCtl[0].files.length > 0) {
-                                qtnResponse = true;
-                                let fileCtlFile = qtnCtl[0].files[0];
-                                modResponse.Files.push({
-                                    QuestionId: qtnId,
-                                    FileName: fileCtlFile.name,
-                                    FileContentAsString: '',
-                                    Size: qtnCtl[0].files[0].size
-                                });
-                                let reader = new FileReader();
-                                ENTQuiz.Response.FileReaders.push({
-                                    reader: reader,
-                                    isLoaded: false,
-                                    File: fileCtlFile,
-                                    QuestionId: qtnId,
-                                });
-                                reader.onload = function () {
-                                    let fileItem = $.grep(modResponse.Files, function (file) {
-                                        return file.QuestionId == qtnId;
-                                    });
-                                    let fileReaderItem = $.grep(ENTQuiz.Response.FileReaders, function (file) {
-                                        return file.QuestionId == qtnId;
-                                    });
-
-                                    fileItem[0].FileContentAsString = reader.result.toString();
-                                    fileReaderItem[0].isLoaded = true;
-                                    ENTQuiz.Response.submitQuizWithFiles();
-                                }
-                            }
-                            else {
-                                qtnResponse = false;
-                            }
-                        }
-                        ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-                    }
-
                     //RankingQuestion
-                    else if (qtnDataTypeID == 12) {
+                    else if (qtnDataTypeID == 6) {
                         let rows = $(item).find(".RankingQuestion");
                         let rowsCount = rows.length;
 
@@ -1240,43 +911,25 @@
                         }
                         qtnResponse = '[' + qtnResponse + ']';
                     }
-                    //Branching
-                    else if (qtnDataTypeID == 13) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]:checked');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                        }
-                        ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
 
-                    }
-                    //ImageChoices
-                    else if (qtnDataTypeID == 15) {
-                        let qtnCtl = $(item).find('[name="ent_mod_q' + qtnId + '"]');
-                        if (qtnCtl != undefined && qtnCtl.length > 0) {
-                            qtnResponse = $(qtnCtl).val();
-                        }
-                        ENTQuiz.Response.getValidationError(qtnDataTypeID, qtnId, qtnResponse, item);
-
-                    }
-
-                    modResponse.QuizQuestionResponses.push({
+                    quizResponse.QuizQuestionResponses.push({
                         ID: qtnId,
                         DataTypeID: qtnDataTypeID,
                         QuestionResponse: qtnResponse
                     });
 
                 });
-                return modResponse;
+                return quizResponse;
             },
             cancelQuiz: function () {
                 if (ENTQuiz.Common.getUrlParams("IsDlg") != undefined) {
                     SP.SOD.executeFunc('sp.js', 'SP.ClientContext', function () {
                         SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.Cancel, null);
+                        window.location = _spPageContextInfo.webAbsoluteUrl;
                     });
                 }
-                else {
-                    window.location = _spPageContextInfo.webAbsoluteUrl;
-                }
+
+                window.location = _spPageContextInfo.webAbsoluteUrl;
             },
         };
     })();

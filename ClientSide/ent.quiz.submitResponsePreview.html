@@ -1,104 +1,142 @@
-<html>
+<script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.submitResponsePreview.js" type="text/javascript"></script>
+<link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
 
-<head>
-    <script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
-    <script src="/SiteAssets/Quiz/ent.quiz.submitResponsePreview.js" type="text/javascript"></script>
-    <link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
-</head>
-
-<body>
-    <div class="container">
-        <div class="row index">
-            <div class="entQuizContainer">
-                <div class="entQuizDataLoaderMessage">
-                    <div
-                        style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
-                        Loading Quiz Questions, please wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif"
-                            alt="" />
-                    </div>
-                </div>
-
-                <div class="entQuizLanguage">
-                    <h3>Select Language</h3>
-                    <br />
-                    <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(1); return false;">Arabic</button>
-                    <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(2); return false;">English</button>
-                </div>
-
-                <div class="entQuizResponseContainer">
-                    <input type="hidden" value="0" id="ent_quizId" />
-                    <input type="hidden" value="0" id="ent_deptId" />
-
-                    <div class="entQuizHeaderContainer"></div>
-                    <div class="entQuizQuestionsContainer">
-                        Loading Questions ...
-                    </div>
-
-                    <div class="entQuizSubmit">
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.submitQuiz(1); return false;">Submit</button> &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>&nbsp;
-                        &nbsp;
-                        &nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.ShowPublishQuiz(); return false;" style="display:none;"
-                            id="btnPublishQuiz">Publish Quiz</button>&nbsp;
-                    </div>
+<div class="container">
+    <div class="row index">
+        <div class="entQuizContainer">
+            <div class="entQuizDataLoaderMessage">
+                <div style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
+                    Loading Quiz Questions, please wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif" alt="" />
                 </div>
             </div>
 
-            <div class="entQuizResponsePublishConfirmationContainer" style="display:none">
-                <div class="entQuizResponsePublishConfirmation">
-                    Are you sure you wish to publish this quiz ?
-                </div>
-                <div style="text-align:center">
-                    <button class="modBtnStyle" 
-                        onclick="ENTSuvey.Response.cancelQuiz(); return false;">Cancel</button>&nbsp; &nbsp;
-                    <button class="modBtnStyle" name="btnThankyou"
-                        onclick="ENTSuvey.Response.BackToQuizView(); return false;">Back to Quiz </button>&nbsp; &nbsp;
-                    <button class="modBtnStyle" name="btnThankyou"
-                        onclick="ENTSuvey.Response.publishQuiz(); return false;">Publish</button>&nbsp; &nbsp;
-                </div>
+            <div class="entQuizLanguage">
+                <h3>Select Language</h3>
+                <br />
+                <button class="modBtnStyle"
+                    onclick="return ENTQuiz.Response.SetUserLanguage(1); return false;">Arabic</button>
+                <button class="modBtnStyle"
+                    onclick="return ENTQuiz.Response.SetUserLanguage(2); return false;">English</button>
             </div>
-            <div class="entQuizResponseAcknowledgementContainer" style="display:none">
-                <div class="entQuizResponseAcknowledgement"></div>
-                <div style="text-align:center">
-                    <button class="modBtnStyle" name="btnThankyou"
-                        onclick="ENTSuvey.Response.cancelQuiz(); return false;">OK</button>
+
+            <div class="entQuizResponseContainer">
+                <input type="hidden" value="0" id="ent_quizId" />
+                <input type="hidden" value="0" id="ent_deptId" />
+
+                <div class="entQuizHeaderContainer"></div>
+                <div class="entQuizQuestionsContainer">
+                    Loading Questions ...
                 </div>
-            </div>
-            <div class="entQuizResponseWelcomeContainer" style="display:none">
-                <div class="entQuizResponseWelcome"></div>
-                <div style="text-align:center">
+
+                <div class="entQuizSubmit">
                     <button class="modBtnStyle"
-                        onclick="ENTSuvey.Response.proceedToQuiz(); return false;">Continue</button>
+                        onclick="return ENTQuiz.Response.submitQuiz(1); return false;">Submit</button> &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button class="modBtnStyle"
+                        onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>&nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button class="modBtnStyle" onclick="return ENTQuiz.Response.ShowPublishQuiz(); return false;"
+                        style="display:none;" id="btnPublishQuiz">Publish Quiz</button>&nbsp;
+                        <button class="modBtnStyle" onclick="return ENTQuiz.Response.editQuiz(); return false;"
+                        style="display:none;" id="btnEditQuiz">Edit Quiz</button>&nbsp;
+                        <button class="modBtnStyle" onclick="return ENTQuiz.Response.viewQuiz(); return false;"
+                        style="display:none;" id="btnViewQuiz">View Quiz</button>&nbsp;
                 </div>
             </div>
         </div>
+
+        <div class="entQuizResponsePublishConfirmationContainer" style="display:none">
+            <div class="entQuizResponsePublishConfirmation">
+                Are you sure you wish to publish this quiz ?
+            </div>
+            <div style="text-align:center">
+                <button class="modBtnStyle"
+                    onclick="ENTSuvey.Response.cancelQuiz(); return false;">Cancel</button>&nbsp; &nbsp;
+                <button class="modBtnStyle" name="btnThankyou"
+                    onclick="ENTSuvey.Response.BackToQuizView(); return false;">Back to Quiz </button>&nbsp; &nbsp;
+                <button class="modBtnStyle" name="btnThankyou"
+                    onclick="ENTSuvey.Response.publishQuiz(); return false;">Publish</button>&nbsp; &nbsp;
+            </div>
+        </div>
+        <div class="entQuizResponseAcknowledgementContainer" style="display:none">
+            <div class="entQuizResponseAcknowledgement"></div>
+            <div style="text-align:center">
+                <button class="modBtnStyle" name="btnThankyou"
+                    onclick="ENTSuvey.Response.cancelQuiz(); return false;">OK</button>
+
+                <button class="modBtnStyle" 
+                onclick="ENTSuvey.Response.showScore(); return false;">Show Score</button>
+            </div>
+        </div>
+        <div class="entQuizResponseWelcomeContainer" style="display:none">
+            <div class="entQuizResponseWelcome"></div>
+            <div style="text-align:center">
+                <button class="modBtnStyle" onclick="ENTSuvey.Response.proceedToQuiz(); return false;">Continue</button>
+            </div>
+        </div>
+
+        <div class="entQuizResponseContainer_Preview" style="display:none;">
+            <input type="hidden" value="0" id="ent_quizId2" />
+
+            <div class="entQuizHeaderContainer_Preview"></div>
+            <div class="entQuizScoreContainer_Preview">               
+            </div>
+            <div class="entQuizQuestionsContainer_Preview">   
+                Loading Questions ....            
+            </div>
+            <div class="entQuizSubmit_Preview">                
+                <button class="modBtnStyle"
+                    onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>
+            </div>
+        </div>
+        
     </div>
-    <style>
-        .entQuizResponsePublishConfirmationContainer{
-            width:50%;
-            margin:auto;
-            background-color: rgb(135,135,135);
-            border-radius: 10px;
-            padding: 1%;
-            margin-top: 2%;
+</div>
+<style>
+    .entQuizResponsePublishConfirmationContainer {
+        width: 50%;
+        margin: auto;
+        background-color: rgb(135, 135, 135);
+        border-radius: 10px;
+        padding: 1%;
+        margin-top: 2%;
 
-        }
-        .entQuizResponsePublishConfirmation{
-            margin: 5%;
-            color: #fff;
-            font-weight: bold;
-            font-size: 30px;
-            text-align: center;
-        }
-    </style>
-</body>
+    }
 
-</html>
+    .entQuizResponsePublishConfirmation {
+        margin: 5%;
+        color: #fff;
+        font-weight: bold;
+        font-size: 30px;
+        text-align: center;
+    }
+</style>
+<style>
+    .entQuizPassScore,.entQuizScore,.entQuizResultPass,.entQuizResultFail{
+        text-align: center;
+        font-weight: bold;
+        padding: 1%;
+        font-size: 22px;
+        text-transform: uppercase;
+        border-radius: 10px;
+    }
+    .entQuizPassScore{
+        color: limegreen;
+        text-decoration: underline;        
+    }
+    .entQuizScore{
+        color: #ff0;
+    }
+    .entQuizResultPass{
+        color: limegreen;
+        background-color: #fff;
+    }
+
+    .entQuizResultFail{
+        color: coral;
+        background-color: #fff;
+    }
+</style>

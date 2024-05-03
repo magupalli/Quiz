@@ -456,7 +456,7 @@ var Recruitment = Recruitment || {};
                     type: "POST",
                     url: apiPath_item,
                     headers: {
-                        Accept: "applicaiton/json;odata=verbose"
+                        Accept: "application/json;odata=verbose"
                     },
                     async: true,
                     xhrFields: {

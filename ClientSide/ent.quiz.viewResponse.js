@@ -447,7 +447,7 @@
                     }
                     let ctl = '<br/><div> <input type="hidden" value="" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '"  />';
                     if (qtnImagechoices.length > 0) {
-                        for (let i = 0; i < ENTQuiz.Response.quiz.ImaggeChoices.length; i++) {
+                        for (let i = 0; i < ENTQuiz.Response.quiz.ImageChoices.length; i++) {
                             ctl += '<img class="ImageChoiceDisabled" ' +
                                 (qtnResponse != -1 && qtnResponse == qtnImagechoices[i].FileIdx ? 'ActiveRating' : '') +
                                 ' src="data:image/jpg;base64,' + qtnImagechoices[i].FileContentAsBytes + '" title="' + qtnImagechoices[i].FileName + '"  data-imagegroup="ent_mod_q' + qtn.ID + '"  /> &nbsp; ';
