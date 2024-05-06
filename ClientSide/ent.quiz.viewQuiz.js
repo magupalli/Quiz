@@ -44,13 +44,13 @@
                             '<div class="row">' +
                             '   <div class="col-sm-12 entModTitle _AR">' +
                             '       <div class="QtnLabel"> Title </div>' +
-                            '       <div > <input type="text" id="txtModTitle_AR" value="' + this.quiz.Title + '"/></div>' +
+                            '       <div > <input type="text" readonly id="txtModTitle_AR" value="' + this.quiz.Title + '"/></div>' +
                             '   </div>' +
                             '</div>' +
                             '<div class="row">' +
                             '   <div class="col-sm-12 entModDescription _AR">' +
                             '       <div class="QtnLabel"> Description </div>' +
-                            '       <div > <textarea  id="txtModDescription_AR" >' + this.quiz.Description + '</textarea></div>' +
+                            '       <div > <textarea id="txtModDescription_AR" >' + this.quiz.Description + '</textarea></div>' +
                             '   </div>' +
                             '</div>' +
                             '<div class="row">' +
@@ -106,13 +106,7 @@
                             '       <div class="QtnLabel"> Message ID </div>' +
                             '       <div> <input id="txtModMessageId" value="' + (this.quiz.MessageId) + '" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                             '   </div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                            '   <div class="col-sm-12 entModDirectorate _AR">' +
-                            '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"> </div>' +
-                            '   </div>' +
-                            '</div>' +
-                            '';
+                            '</div>';
                     }
                     else if (this.quizLanguage == 2) {
                         htmlQuizHeader =
@@ -181,13 +175,7 @@
                             '       <div class="QtnLabel"> Message ID </div>' +
                             '       <div> <input id="txtModMessageId" value="' + (this.quiz.MessageId) + '" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                             '   </div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                            '   <div class="col-sm-12 entModDirectorate _AR">' +
-                            '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"> </div>' +
-                            '   </div>' +
-                            '</div>' +
-                            '';
+                            '</div>';
                     }
                     else if (this.quizLanguage == 3) {
                         htmlQuizHeader =
@@ -273,13 +261,7 @@
                             '       <div class="QtnLabel"> Message ID </div>' +
                             '       <div> <input id="txtModMessageId" value="' + (this.quiz.MessageId) + '" placeholder="MessageID" type="number" min="0" onkeypress="return event.charCode>=48 && event.charCode<=57" /></div>' +
                             '   </div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                            '   <div class="col-sm-12 entModDirectorate _AR">' +
-                            '       <div class="validationErrorPlaceHolderMain validationErrorPlaceHolder"> </div>' +
-                            '   </div>' +
-                            '</div>' +
-                            '';
+                            '</div>';
                     }
                     $(".entCreateQuizHeaderContainer").html(htmlQuizHeader);
 
@@ -290,7 +272,7 @@
                             if (ENTQuiz.Manage.quizLanguage == 1) {
                                 qtnPlaceHolder =
                                     '<div class="entCreateQuizQtn" data-QtnId="' + o.ID + '">' +
-                                    '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
+                                    //'<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
                                     '   <div class="row">' +
                                     '       <div class="col-sm-12 _AR">' +
                                     '           <div class="QtnLabel"> Question</div>' +
@@ -320,7 +302,7 @@
                             else if (ENTQuiz.Manage.quizLanguage == 2) {
                                 qtnPlaceHolder =
                                     '<div class="entCreateQuizQtn" data-QtnId="' + o.ID + '">' +
-                                    '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
+                                    //'<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
                                     '   <div class="row">' +
                                     '       <div class="col-sm-12 _EN">' +
                                     '           <div class="QtnLabel"> Question</div>' +
@@ -350,7 +332,7 @@
                             else if (ENTQuiz.Manage.quizLanguage == 3) {
                                 qtnPlaceHolder =
                                     '<div class="entCreateQuizQtn" data-QtnId="' + o.ID + '">' +
-                                    '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
+                                    //'<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;position:absolute;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
                                     '   <div class="row">' +
                                     '       <div class="col-sm-6 _EN">' +
                                     '           <div class="QtnLabel"> Question</div>' +
@@ -390,13 +372,17 @@
                     }
                     $(".entCreateQuizContainer").show();
                 }
+
+                $("input").prop("disabled", "disabled");
+                $("textarea").prop("disabled", "disabled");
+                $("select").prop("disabled", "disabled");
             },
             apiPath: "",
             initializePage: function () {
                 this.fetched = false;
                 if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
                     let quizId = ENTQuiz.Common.getUrlParams("quizId");
-                    let apiPath_item = this.apiPath + '/getQuiz_Edit?quizId=' + quizId + '&absolutePath=' + location.pathname;
+                    let apiPath_item = this.apiPath + '/getQuiz_View?quizId=' + quizId + '&absolutePath=' + location.pathname;
 
                     this.getQuizFromDB(apiPath_item);
                 }
@@ -1570,147 +1556,7 @@
                     $(specsPlaceHolder).html(specsControls);
                 }
             },
-            removeQuestion: function (qtnHandle) {
-                $(qtnHandle).parent()[0].outerHTML = '';
-            },
 
-            AddQtnPlaceHolder: function () {
-
-                let qtnPlaceHolder = '';
-                (++this.QtnIdcntr);
-                //Arabic
-                if (this.quizLanguage == 1) {
-                    qtnPlaceHolder =
-                        '<div class="entCreateQuizQtn" data-QtnId="' + (-(this.QtnIdcntr)) + '"> ' +
-                        '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
-                        '   <div class="row" style="clear:both"> ' +
-                        '       <div class="col-sm-12 _AR"> ' +
-                        '           <div class="QtnLabel"> Question </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnText_AR" /> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-12 _AR"> ' +
-                        '           <div class="QtnLabel"> Order </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnOrder" value="' + this.QtnIdcntr + '"/> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-12 _AR"> ' +
-                        '           <div class="QtnLabel"> DataType </div> ' +
-                        '           <div> ' +
-                        '               <select data=fieldType="QtnDataType" onchange="ENTQuiz.Manage.renderSpecDetailsControl(' + (-(this.QtnIdcntr)) + ')" >' +
-                        '               ' + ENTQuiz.Manage.getQuestionDataTypeOptions() +
-                        '               </select>' +
-                        '           </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="specsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="answerSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationerrorPlaceHolder _AR" > ' +
-                        '   </div>' +
-                        '</div>';
-
-
-                }
-                //English
-                else if (this.quizLanguage == 2) {
-                    qtnPlaceHolder =
-                        '<div class="entCreateQuizQtn" data-QtnId="' + (-(this.QtnIdcntr)) + '"> ' +
-                        '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
-                        '   <div class="row" style="clear:both"> ' +
-                        '       <div class="col-sm-12 _EN"> ' +
-                        '           <div class="QtnLabel"> Question </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnText_EN" /> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-12 _EN"> ' +
-                        '           <div class="QtnLabel"> Order </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnOrder" value="' + this.QtnIdcntr + '"/> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-12 _EN"> ' +
-                        '           <div class="QtnLabel"> DataType </div> ' +
-                        '           <div> ' +
-                        '               <select data=fieldType="QtnDataType" onchange="ENTQuiz.Manage.renderSpecDetailsControl(' + (-(this.QtnIdcntr)) + ')" >' +
-                        '               ' + ENTQuiz.Manage.getQuestionDataTypeOptions() +
-                        '               </select>' +
-                        '           </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="specsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="answerSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationerrorPlaceHolder" > ' +
-                        '   </div>' +
-                        '</div>';
-
-                }
-                //Both
-                else if (this.quizLanguage == 3) {
-                    qtnPlaceHolder =
-                        '<div class="entCreateQuizQtn" data-QtnId="' + (-(this.QtnIdcntr)) + '"> ' +
-                        '<div class="fa fa-times-circle" style="color:coral;float:right;margin:1% 1%;cursor:pointer;z-index:100;" onclick="ENTQuiz.Manage.removeQuestion(this);"></div>' +
-                        '   <div class="row" style="clear:both"> ' +
-                        '       <div class="col-sm-6 _EN"> ' +
-                        '           <div class="QtnLabel"> Question </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnText_EN" /> </div> ' +
-                        '       </div>' +
-                        '       <div class="col-sm-6 _AR"> ' +
-                        '           <div class="QtnLabel"> Question </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnText_AR" /> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-6 _EN"> </div>' +
-                        '       <div class="col-sm-6 _AR"> ' +
-                        '           <div class="QtnLabel"> Order </div> ' +
-                        '           <div> <input type="text" data-fieldType="QtnOrder" value="' + this.QtnIdcntr + '"/> </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="row" > ' +
-                        '       <div class="col-sm-6 _EN"> </div>' +
-                        '       <div class="col-sm-6 _AR"> ' +
-                        '           <div class="QtnLabel"> DataType </div> ' +
-                        '           <div> ' +
-                        '               <select data=fieldType="QtnDataType" onchange="ENTQuiz.Manage.renderSpecDetailsControl(' + (-(this.QtnIdcntr)) + ')" >' +
-                        '               ' + ENTQuiz.Manage.getQuestionDataTypeOptions() +
-                        '               </select>' +
-                        '           </div> ' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="specsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="answerSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationSpecsPlaceHolder" > ' +
-                        '   </div>' +
-                        '   <div class="validationerrorPlaceHolder _AR" > ' +
-                        '   </div>' +
-                        '</div>';
-
-                }
-
-                $(".entCreateQuizQtnsContainer").append(qtnPlaceHolder);
-                $("#btnAddQuestion").blur();
-                return false;
-            },
-            AddQtnPlaceHolder5: function () {
-                for (let i = 0; i < 5; i++) {
-                    ENTQuiz.Manage.AddQtnPlaceHolder();
-                }
-                $("#btnAddQuestion5").blur();
-                return false;
-            },
             getQuestionDataTypeOptions: function () {
                 /*
                         1 - RadioButtons
@@ -1749,483 +1595,20 @@
                     '   ENTQuiz.Manage.renderSpecDetailsControlWithValue(' + o.ID + ');' +
                     '</script>';
             },
-            createQuiz: function (creationStatus) {
-                let quiz = ENTQuiz.Manage.getQuizInfoFromForm(creationStatus);
-                if (ENTQuiz.Manage.hasEmptyPlaceHolders) return false;
-
-                let apiPath_item = this.apiPath + '/createQuiz?absolutePath=' + location.pathname;
-                if (this.isValidData) {
-                    $.ajax({
-                        type: 'POST',
-                        url: apiPath_item,
-                        data: quiz,
-                        headers: {
-                            Accept: "application/json;odata=verbose"
-                        },
-                        async: true,
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        success: function (data_items) {
-                            alert("Quiz saved successfully");
-                            window.location = "ManageQuizs.aspx";
-                        },
-                        error: function (errordata) {
-                            console.log("Error while submitting response");
-                            console.log(errordata);
-
-                        }
-                    });
-                }
-            },
-
-
-            getQuizInfoFromForm: function (creationStatus) {
-                let quiz = {
-                    ID: 0,
-                    Title: '',
-                    Title_En: '',
-                    Description: '',
-                    Description_En: '',
-                    RequestingDirectorate: 0,
-                    Classification: 0,
-                    PassScore: 1,
-                    AllowViewResponse: false,
-                    AllowViewAnswers: true,
-                    Language: 0,
-
-                    Questions: [],
-                    ImageFiles: [],
-
-                    Status: 0,
-                    MessageId: 0,
-                    HasWelcomeMessage: false,
-                    HasThankyouMessage: false,
-                    RandomOrderQuestions: false,
-                };
-
-                ENTQuiz.Manage.isValidData = true;
-
-
-                quiz.Title = $("#txtModTitle_AR").val();
-                quiz.Title_En = $("#txtModTitle_EN").val();
-                quiz.Description = $("#txtModDescription_AR").val();
-                quiz.Description_En = $("#txtModDescription_EN").val();
-                quiz.RequestingDirectorate = parseInt($("#ddlModDirectorate").val());
-                quiz.Classification = parseInt($("#ddlModClassification").val());
-                quiz.PassScore = parseInt($("#txtPassScore").val());
-                quiz.Language = this.quizLanguage;
-                quiz.MessageId = ($("#txtModMessageId").val() != "" ? parseInt($("#txtModMessageId").val()) : 0);
-                quiz.AllowViewResponse = $("#chkModAllowViewResponse").is(":checked");
-                quiz.AllowViewAnswers = $("#chkModAllowViewAnswers").is(":checked");
-                quiz.RandomOrderQuestions = $("#chkRandomOrderQuestions").is(":checked");
-                quiz.HasWelcomeMessage = $("#chkModHasWelcomeMessage").is(":checked");
-                quiz.HasThankyouMessage = $("#chkModHasThankyouMessage").is(":checked");
-
-                $(".entCreateQuizQtn").each(function (idx, qtnItem) {
-                    let qtnInfo = ENTQuiz.Manage.getQuestionInfoOf(qtnItem);
-                    quiz.Questions.push(qtnInfo);
-                });
-
-                if (this.quizLanguage == 1) {
-                    if (quiz.Title == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Title");
-                    }
-                    if (quiz.Description == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Description");
-                    }
-
-                }
-
-                else if (this.quizLanguage == 2) {
-                    if (quiz.Title_En == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Title");
-                    }
-                    if (quiz.Description_En == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Description");
-                    }
-
-                }
-
-                else if (this.quizLanguage == 2) {
-                    if (quiz.Title == '' || quiz.Title_En == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Title");
-                    }
-                    if (quiz.Description == '' || quiz.Description_En == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(".validationErrorPlaceHolderMain").html("Please provide Quiz Description");
-                    }
-
-                }
-                if (quiz.MessageId == 0) {
-                    ENTQuiz.Manage.isValidData = false;
-                    $(".validationErrorPlaceHolderMain").html("Please provide Message Id");
-
-                }
-
-                if (quiz.Questions.length == 0) {
-                    ENTQuiz.Manage.isValidData = false;
-                    $(".validationErrorPlaceHolderMain").html("Please add questions before saving the quiz");
-
-                }
-
-                return quiz;
-
-            },
-
-            isValidData: true,
-
-            getQuestionInfoOf: function (qtnItem) {
-                let qtnID = 0;
-                let qtnText = '';
-                let qtnText_En = '';
-                let qtnDataTypeID = 0;
-                let qtnOrder = 0;
-                let qtnSpecs = '';
-                let qtnValidationSpecs = '';
-                let qtnAnswerSpecs = '';
-
-                qtnID = parseInt($(qtnItem).data("qtnid"));
-
-                if (this.quizLanguage == 1) {
-                    qtnText = $(qtnItem).find('[data-fieldType="QtnText_AR"]').val();
-
-                    if (qtnText.trim() == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(qtnItem).find(".validationErrorPlaceHolder").html("Please provide question text");
-
-                    }
-                }
-                else if (this.quizLanguage == 2) {
-                    qtnText_En = $(qtnItem).find('[data-fieldType="QtnText_EN"]').val();
-
-                    if (qtnText_En.trim() == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(qtnItem).find(".validationErrorPlaceHolder").html("Please provide question text");
-
-                    }
-                }
-                else if (this.quizLanguage == 3) {
-                    qtnText = $(qtnItem).find('[data-fieldType="QtnText_AR"]').val();
-                    qtnText_En = $(qtnItem).find('[data-fieldType="QtnText_EN"]').val();
-
-                    if (qtnText.trim() == '' || qtnText_En.trim() == '') {
-                        ENTQuiz.Manage.isValidData = false;
-                        $(qtnItem).find(".validationErrorPlaceHolder").html("Please provide question text");
-
-                    }
-                }
-                qtnDataTypeID = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
-
-
-                if (qtnText.trim() == '' && qtnText_En.trim() == '') {
-                    ENTQuiz.Manage.isValidData = false;
-                    $(qtnItem).find(".validationErrorPlaceHolder").html("Please remove empty question place holders");
-
-                }
-                else if (qtnDataTypeID == 0) {
-                    ENTQuiz.Manage.isValidData = false;
-                    $(qtnItem).find(".validationErrorPlaceHolder").html("Datatype not selected");
-
-                }
-                qtnOrder = parseInt($(qtnItem).find('[data-fieldType="QtnOrder"]').val());
-
-                qtnSpecs = ENTQuiz.Manage.getSpecsInfoOf(qtnItem);
-                qtnValidationSpecs = '{"isRequired": true}';
-                qtnAnswerSpecs = ENTQuiz.Manage.getAnswerSpecsInfoOf(qtnItem);
-                return {
-                    ID: qtnID,
-                    Question: qtnText,
-                    Question_En: qtnText_En,
-                    DataTypeID: qtnDataTypeID,
-                    Specs: qtnSpecs,
-                    Answer: qtnAnswerSpecs,
-                    ValidationSpecs: qtnValidationSpecs,
-                    Order: qtnOrder,
-                };
-            },
-            getSpecsInfoOf: function (qtnItem) {
-                let specsPlaceHolder = $(qtnItem).find(".specsPlaceHolder");
-                let QtnDataTypeValue = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
-                let strSpecs = '';
-
-                /*
-                   1 - RadioButtons
-                   2 - ImageChoices
-                   3 - Date
-                   4 - DropDown
-                   5 - MultiCheckboxes
-                   6 - Ranking
-                   
-                   */
-
-                if (QtnDataTypeValue == 4 || //Dropdown
-                    QtnDataTypeValue == 1 || //RadioButtons
-                    QtnDataTypeValue == 5 || //MultiCheckboxes
-                    QtnDataTypeValue == 6)  //Ranking
-                {
-                    if (this.quizLanguage == 1) {
-                        let qtnOptions_AR = $(specsPlaceHolder).find('[data-fieldType="QtnOptions_AR"]').val().split('\n').filter(str => str);
-                        if (qtnOptions_AR != undefined && qtnOptions_AR.length > 0) {
-                            strSpecs += '"ar":' + JSON.stringify(qtnOptions_AR, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Options Missing");
-                            alert("Options Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 2) {
-                        let qtnOptions_EN = $(specsPlaceHolder).find('[data-fieldType="QtnOptions_EN"]').val().split('\n').filter(str => str);
-                        if (qtnOptions_EN != undefined && qtnOptions_EN.length > 0) {
-                            strSpecs += '"en":' + JSON.stringify(qtnOptions_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Options Missing");
-                            alert("Options Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 3) {
-                        let qtnOptions_AR = $(specsPlaceHolder).find('[data-fieldType="QtnOptions_AR"]').val().split('\n').filter(str => str);
-                        let qtnOptions_EN = $(specsPlaceHolder).find('[data-fieldType="QtnOptions_EN"]').val().split('\n').filter(str => str);
-                        if (qtnOptions_AR != undefined && qtnOptions_AR.length > 0 &&
-                            qtnOptions_EN != undefined && qtnOptions_EN.length > 0 &&
-                            qtnOptions_AR.length == qtnOptions_EN.length) {
-                            strSpecs += '"ar":' + JSON.stringify(qtnOptions_AR, null);
-                            strSpecs += ',';
-                            strSpecs += '"en":' + JSON.stringify(qtnOptions_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Options Missing / Number of options not matching in both languages");
-                            alert("Options Missing / Number of options not matching in both languages");
-
-                        }
-                    }
-                }
-                //Imagechoices
-                else if (QtnDataTypeValue == 2) {
-                    let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
-                    if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {
-                        try {
-                            strSpecs += '"size":' + parseInt($(qtnImageSizeCtl).val());
-                        }
-                        catch (ex) {
-                            this.isValidData = false;
-                            console.log("Image size Value missing");
-                            alert("Image size Value missing");
-                        }
-                    } else {
-                        this.isValidData = false;
-                        console.log("Image size Value missing");
-                        alert("Image size Value missing");
-                    }
-                }
-
-                return '{' + strSpecs + '}';
-            },
-
-            getValidationSpecsInfoOf: function (qtnItem) {
-                let validationSpecsPlaceHolder = $(qtnItem).find(".validationSpecsPlaceHolder");
-                let QtnDataTypeValue = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
-                let strValidationSpecs = '"isRequired":false';
-
-                //if not checkbox and Slider and Ranking
-                //if (QtnDataTypeValue != 8 && QtnDataTypeValue != 9) {
-                let qtnIsRequiredCtl = $(validationSpecsPlaceHolder).find('[data-fieldtype="QtnIsRequired"]');
-                if (qtnIsRequiredCtl != undefined && qtnIsRequiredCtl.length > 0) {
-                    strValidationSpecs = '"isRequired":' + $(qtnIsRequiredCtl).is(":checked");
-                }
-                //}
-
-                return '{' + strValidationSpecs + '}';
-
-            },
-
-
-            getAnswerSpecsInfoOf: function (qtnItem) {
-                let specsPlaceHolder = $(qtnItem).find(".answerSpecsPlaceHolder");
-                let QtnDataTypeValue = parseInt($(qtnItem).find('[data-fieldType="QtnDataType"]').val());
-                let strSpecs = '';
-
-                /*
-                   1 - RadioButtons
-                   2 - ImageChoices
-                   3 - Date
-                   4 - DropDown
-                   5 - MultiCheckboxes
-                   6 - Ranking
-                   
-                   */
-
-                if (QtnDataTypeValue == 4 || //Dropdown
-                    QtnDataTypeValue == 1) //RadioButtons
-                {
-                    if (this.quizLanguage == 1) {
-                        let qtnAnswer_AR = $(qtnItem).find('[data-fieldType="QtnAnswer_AR"]').val();
-                        if (qtnAnswer_AR != undefined && qtnAnswer_AR != "") {
-                            strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-
-                    else if (this.quizLanguage == 2) {
-                        let qtnAnswer_EN = $(qtnItem).find('[data-fieldType="QtnAnswer_EN"]').val();
-                        if (qtnAnswer_EN != undefined && qtnAnswer_EN != "") {
-                            strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 3) {
-                        let qtnAnswer_AR = $(qtnItem).find('[data-fieldType="QtnAnswer_AR"]').val();
-                        let qtnAnswer_EN = $(qtnItem).find('[data-fieldType="QtnAnswer_EN"]').val();
-                        if (qtnAnswer_AR != undefined && qtnAnswer_AR != "" &&
-                            qtnAnswer_EN != undefined && qtnAnswer_EN != "") {
-                            strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
-                            strSpecs += ',';
-                            strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing / Number of options not matching in both languages");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing/ Number of options not matching in both languages");
-                        }
-                    }
-                }
-                //Imagechoices
-                else if (QtnDataTypeValue == 2) {
-                    let qtnAnswerCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnAnswer"]');
-                    if (qtnAnswerCtl != undefined && qtnAnswerCtl.length > 0) {
-                        try {
-                            strSpecs += '"ans":' + parseInt($(qtnAnswerCtl).val());
-                        }
-                        catch (ex) {
-                            this.isValidData = false;
-                            console.log("Answer Value missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-
-                        }
-                    } else {
-                        this.isValidData = false;
-                        console.log("Answer Value missing");
-                        $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-
-                    }
-                }
-
-                //Date
-                else if (QtnDataTypeValue == 3) {
-                    let qtnAnswerCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnAnswer"]');
-                    if (qtnAnswerCtl != undefined && qtnAnswerCtl.length > 0) {
-                        try {
-                            strSpecs += '"ans":"' + $(qtnAnswerCtl).val() + '"';
-                        }
-                        catch (ex) {
-                            this.isValidData = false;
-                            console.log("Answer Value missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder").html("Answer Missing");
-
-                        }
-                    } else {
-                        this.isValidData = false;
-                        console.log("Answer Value missing");
-                        $(qtnItem).find(".validationErrorPlaceHolder").html("Answer Missing");
-
-                    }
-                }
-
-                //MultiCheckboxes
-                else if (QtnDataTypeValue == 5) {
-                    if (this.quizLanguage == 1) {
-                        let qtnAnswer_AR = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_AR"]').val().split('\n').filter(str => str);
-                        if (qtnAnswer_AR != undefined && qtnAnswer_AR.length > 0) {
-                            strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 2) {
-                        let qtnAnswer_EN = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_EN"]').val().split('\n').filter(str => str);
-                        if (qtnAnswer_EN != undefined && qtnAnswer_EN.length > 0) {
-                            strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 3) {
-                        let qtnAnswer_AR = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_AR"]').val().split('\n').filter(str => str);
-                        let qtnAnswer_EN = $(specsPlaceHolder).find('[data-fieldType="QtnAnswer_EN"]').val().split('\n').filter(str => str);
-                        if (qtnAnswer_AR != undefined && qtnAnswer_AR.length > 0 &&
-                            qtnAnswer_EN != undefined && qtnAnswer_EN.length > 0 &&
-                            qtnAnswer_AR.length == qtnAnswer_EN.length) {
-                            strSpecs += '"ar":' + JSON.stringify(qtnAnswer_AR, null);
-                            strSpecs += ',';
-                            strSpecs += '"en":' + JSON.stringify(qtnAnswer_EN, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing / Number of Answer not matching in both languages");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing/ Number of Answer not matching in both languages");
-                        }
-                    }
-                }
-
-                //Ranking
-                else if (QtnDataTypeValue == 6) {
-                    if (this.quizLanguage == 1 || this.quizLanguage == 3) {
-                        let qtnAnswer_AR_Rank_Ctls = $(specsPlaceHolder).find('[data-fieldType^="QtnAnswer_AR_Rank"]');
-                        let qtnAnswer_AR_Ranks = [];
-                        for (let i = 0; i < qtnAnswer_AR_Rank_Ctls.length; i++) {
-                            qtnAnswer_AR_Ranks.push($(qtnAnswer_AR_Rank_Ctls[i]).val());
-                        }
-                        if (qtnAnswer_AR_Rank_Ctls != undefined && qtnAnswer_AR_Rank_Ctls.length > 0) {
-                            strSpecs += '"ans":' + JSON.stringify(qtnAnswer_AR_Ranks, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-                    else if (this.quizLanguage == 2) {
-                        let qtnAnswer_EN_Rank_Ctls = $(specsPlaceHolder).find('[data-fieldType^="QtnAnswer_EN_Rank"]');
-                        let qtnAnswer_EN_Ranks = [];
-                        for (let i = 0; i < qtnAnswer_EN_Rank_Ctls.length; i++) {
-                            qtnAnswer_EN_Ranks.push($(qtnAnswer_EN_Rank_Ctls[i]).val());
-                        }
-                        if (qtnAnswer_EN_Rank_Ctls != undefined && qtnAnswer_EN_Rank_Ctls.length > 0) {
-                            strSpecs += '"ans":' + JSON.stringify(qtnAnswer_EN_Ranks, null);
-                        } else {
-                            this.isValidData = false;
-                            console.log("Answer Missing");
-                            $(qtnItem).find(".validationErrorPlaceHolder")("Answer Missing");
-                        }
-                    }
-                    console.log(strSpecs);
-                }
-                return '{' + strSpecs + '}';
-            },
 
             cancelQuiz: function () {
-                window.location = 'Managequizs.aspx';
+                window.location = 'ManageQuizs.aspx';
             },
-            AddImageFiles: function(){
-                if(ENTQuiz.Common.getUrlParams("quizId") != undefined ){
+
+            showQuizPreview: function () {
+                if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
                     let quizId = ENTQuiz.Common.getUrlParams("quizId");
-                    window.location = 'AddImageFiles.aspx?quizId='+ quizId;
+
+                    window.location = 'SubmitResponsePreview.aspx?quizId=' + quizId;
                     return false;
                 }
-            }
+            },
+
 
         };
     })();
