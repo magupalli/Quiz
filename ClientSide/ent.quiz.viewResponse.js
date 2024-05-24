@@ -402,7 +402,7 @@
                             }
                         }
                     }
-                    
+                    //TODO : Pending to update below code
 
                     let ctl = '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">';
 
