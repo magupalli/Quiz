@@ -431,7 +431,7 @@
 
                 //Image Choices
                 else if (qtn.DataTypeID == 15) {
-                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.Imagechoices, function (imageFile) {
+                    let qtnImageChoices = $.grep(ENTQuiz.Response.quiz.ImageChoices, function (imageFile) {
                         return imageFile.QuestionId == qtn.ID;
                     });
 
@@ -446,11 +446,11 @@
 
                     }
                     let ctl = '<br/><div> <input type="hidden" value="" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '"  />';
-                    if (qtnImagechoices.length > 0) {
+                    if (qtnImageChoices.length > 0) {
                         for (let i = 0; i < ENTQuiz.Response.quiz.ImageChoices.length; i++) {
                             ctl += '<img class="ImageChoiceDisabled" ' +
-                                (qtnResponse != -1 && qtnResponse == qtnImagechoices[i].FileIdx ? 'ActiveRating' : '') +
-                                ' src="data:image/jpg;base64,' + qtnImagechoices[i].FileContentAsBytes + '" title="' + qtnImagechoices[i].FileName + '"  data-imagegroup="ent_mod_q' + qtn.ID + '"  /> &nbsp; ';
+                                (qtnResponse != -1 && qtnResponse == qtnImageChoices[i].FileIdx ? 'ActiveRating' : '') +
+                                ' src="data:image/jpg;base64,' + qtnImageChoices[i].FileContentAsBytes + '" title="' + qtnImageChoices[i].FileName + '"  data-imagegroup="ent_mod_q' + qtn.ID + '"  /> &nbsp; ';
                         }
                     }
                     else {

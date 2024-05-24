@@ -733,7 +733,7 @@ public class QuizDBHelper
 
     public static bool UpdateQuizImageChoices(Quiz quiz, string absolutePath)
     {
-        var tblImagechoices = GetImageChoicesTable(quiz);
+        var tblImageChoices = GetImageChoicesTable(quiz);
         using (var connection = DBConnection.QuizDBConnection())
         {
             try
@@ -749,7 +749,7 @@ public class QuizDBHelper
                     cmd.Parameters.AddWithValue("@quizId", quizId);
                     cmd.Parameters.AddWithValue("@username", UserHelper.CurrentUserName);
                     cmd.Parameters.AddWithValue("@absolutePath", absolutePath);
-                    cmd.Parameters.AddWithValue("@ImageChoices_Table", tblImagechoices);
+                    cmd.Parameters.AddWithValue("@ImageChoices_Table", tblImageChoices);
 
                     cmd.ExecuteNonQuery()
 

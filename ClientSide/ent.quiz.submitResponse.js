@@ -244,7 +244,7 @@
                 }
                 //Image Choices
                 else if (qtn.DataTypeID == 2) {
-                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.Imagechoices, function (imageFile) {
+                    let qtnImageChoices = $.grep(ENTQuiz.Response.quiz.ImageChoices, function (imageFile) {
                         return imageFile.QuestionId == qtn.ID;
                     });
                     let Specs = $.parseJSON(qtn.Specs);
@@ -258,9 +258,9 @@
                     }
 
                     let ctl = '<br/><div> <input type="hidden" value="" name="ent_mod_q' + qtn.ID + '" id="ent_mod_q' + qtn.ID + '"  ' + validationAttributes + ' />';
-                    if (qtnImagechoices.length > 0) {
-                        for (let i = 0; i < qtnImagechoices.length; i++) {
-                            ctl += '<img src="data:image/jpg;base64,' + qtnImagechoices[i].FileContentAsBytes + '" title="' + qtnImagechoices[i].FileName + '" class="ImageChoice imageSize' + imageSize + '" data-imagegroup="ent_mod_q' + qtn.ID + '" onclick="return ENTquiz.Response.setImageChoice(this,' + qtn.ID + ',' + qtnimageChoices[i].FileIdx + ')" /> &nbsp; ';
+                    if (qtnImageChoices.length > 0) {
+                        for (let i = 0; i < qtnImageChoices.length; i++) {
+                            ctl += '<img src="data:image/jpg;base64,' + qtnImageChoices[i].FileContentAsBytes + '" title="' + qtnImageChoices[i].FileName + '" class="ImageChoice imageSize' + imageSize + '" data-imagegroup="ent_mod_q' + qtn.ID + '" onclick="return ENTquiz.Response.setImageChoice(this,' + qtn.ID + ',' + qtnimageChoices[i].FileIdx + ')" /> &nbsp; ';
                         }
                     }
                     else {

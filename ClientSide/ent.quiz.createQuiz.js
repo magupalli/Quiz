@@ -1201,7 +1201,7 @@
                     }
                 }
             }
-            //Imagechoices
+            //ImageChoices
             else if (QtnDataTypeValue == 2) {
                 let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
                 if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {
@@ -1294,7 +1294,7 @@
                     }
                 }
             }
-            // //Imagechoices
+            // //ImageChoices
             // else if (QtnDataTypeValue == 2) {
             //     let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
             //     if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {

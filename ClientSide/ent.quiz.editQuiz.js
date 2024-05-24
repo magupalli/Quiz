@@ -523,11 +523,11 @@
                             });
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Options : </div>' +
                                 '       <div > <textarea data-fieldType="QtnOptions_EN" rows="5">' + htmlChoices_en + '</textarea></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Options : </div>' +
                                 '       <div > <textarea data-fieldType="QtnOptions_AR" rows="5">' + htmlChoices_ar + '</textarea></div>' +
                                 '   </div>' +
@@ -621,10 +621,10 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 ctlHTML_EN +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 ctlHTML_AR +
                                 '   </div>' +
                                 '</div>';
@@ -753,11 +753,11 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <input type="text" data-fieldType="QtnAnswer_EN" value="' + (QtnAnswer != undefined && QtnAnswer != "" ? QtnAnswer.en : "") + '" /></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <input type="text" data-fieldType="QtnAnswer_AR" value="' + (QtnAnswer != undefined && QtnAnswer != "" ? QtnAnswer.ar : "") + '" /></div>' +
                                 '   </div>' +
@@ -844,9 +844,9 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 ctlHTML +
                                 '   </div>' +
                                 '</div>';
@@ -897,11 +897,11 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <textarea data-fieldType="QtnAnswer_EN"  rows="5" >' + htmlChoices_en + '</textarea></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <textarea data-fieldType="QtnAnswer_AR"  rows="5" >' + htmlChoices_ar + '</textarea></div>' +
                                 '   </div>' +
@@ -1085,11 +1085,11 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Options : </div>' +
                                 '       <div > <textarea data-fieldType="QtnOptions_EN" rows="5"></textarea></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Options : </div>' +
                                 '       <div > <textarea data-fieldType="QtnOptions_AR" rows="5"></textarea></div>' +
                                 '   </div>' +
@@ -1168,10 +1168,10 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 ctlHTML_EN +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 ctlHTML_AR +
                                 '   </div>' +
                                 '</div>';
@@ -1438,11 +1438,11 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <input type="text" data-fieldType="QtnAnswer_EN" value="" /></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <input type="text" data-fieldType="QtnAnswer_AR" value="" /></div>' +
                                 '   </div>' +
@@ -1515,9 +1515,9 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 ctlHTML +
                                 '   </div>' +
                                 '</div>';
@@ -1554,11 +1554,11 @@
 
                             specsControls +=
                                 '<div class="row">' +
-                                '   <div class="col-sm-6" _EN">' +
+                                '   <div class="col-sm-6 _EN">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <textarea data-fieldType="QtnAnswer_EN"  rows="5" ></textarea></div>' +
                                 '   </div>' +
-                                '   <div class="col-sm-6" _AR">' +
+                                '   <div class="col-sm-6 _AR">' +
                                 '       <div class="QtnLabel"> Answer : </div>' +
                                 '       <div > <textarea data-fieldType="QtnAnswer_AR"  rows="5" ></textarea></div>' +
                                 '   </div>' +
@@ -2006,7 +2006,7 @@
                         }
                     }
                 }
-                //Imagechoices
+                //ImageChoices
                 else if (QtnDataTypeValue == 2) {
                     let qtnImageSizeCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnImageSize"]');
                     if (qtnImageSizeCtl != undefined && qtnImageSizeCtl.length > 0) {
@@ -2100,7 +2100,7 @@
                         }
                     }
                 }
-                //Imagechoices
+                //ImageChoices
                 else if (QtnDataTypeValue == 2) {
                     let qtnAnswerCtl = $(specsPlaceHolder).find('[data-fieldtype="QtnAnswer"]');
                     if (qtnAnswerCtl != undefined && qtnAnswerCtl.length > 0) {

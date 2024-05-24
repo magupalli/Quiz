@@ -436,20 +436,20 @@
 
                 //Image Choices
                 else if (qtn.DataTypeID == 15) {
-                    let qtnImagechoices = $.grep(ENTQuiz.Response.quiz.Imagechoices, function (imageFile) {
+                    let qtnImageChoices = $.grep(ENTQuiz.Response.quiz.ImageChoices, function (imageFile) {
                         return imageFile.QuestionId == qtn.ID;
                     });
 
                     if (modQuestionResponses.length > 0) {
-                        if (qtnImagechoices.length > 0) {
-                            for (let i = 0; i <= qtnImagechoices.length; i++) {
+                        if (qtnImageChoices.length > 0) {
+                            for (let i = 0; i <= qtnImageChoices.length; i++) {
                                 let selectedRatingCount = $.grep(modQuestionResponses, function (omodQuestionResponse) {
                                     return omodQuestionResponse.QuestionResponse == '' + i;
                                 }).length;
                                 let selectedRatingPercent = (selectedRatingCount * 100.0 / modQuestionResponses.length).toFixed(2);
 
                                 qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                    '<div> <img src="data:image/jpg;base64,' + qtnImagechoices[i].FileContentAsBytes + '" title="' + qtnImagechoices[i].FileName + '" class="ImageChoiceDisabled" /> ' + '   ' +
+                                    '<div> <img src="data:image/jpg;base64,' + qtnImageChoices[i].FileContentAsBytes + '" title="' + qtnImageChoices[i].FileName + '" class="ImageChoiceDisabled" /> ' + '   ' +
                                     selectedRatingCount + ' (' + selectedRatingPercent + '%) </div>' +
                                     '<div class="quizHBarB">' +
                                     (selectedRatingPercent > 0 ? '<div class="quizHBar" style="width:' + selectedRatingPercent + '%;"></div>' : '&nbsp;') +
