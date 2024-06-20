@@ -382,41 +382,214 @@
                     }
 
                     let answer = $.parseJSON(qtn.Answer);
-                    let answer_optionsCount =(ENTQuiz.Response.Language==1?answer.ar.length:answer.en.length);
+                    let answer_optionsCount = (ENTQuiz.Response.Language == 1 ? answer.ar.length : answer.en.length);
 
                     let isAllCorrect = true;
-                    if(answer_optionsCount!=qtnResponse.length) isAllCorrect=false;
+                    if (answer_optionsCount != qtnResponse.length) isAllCorrect = false;
                     else {
-                        for(let q=0;q<qtnResponse.length;q++){
-                            if(ENTQuiz.Response.userLanguage==1){
-                                if(Specs.ar[qtnResponse[q]].trim() != answer.ar[q].trim()){
-                                    isAllCorrect=false;
+                        for (let q = 0; q < qtnResponse.length; q++) {
+                            if (ENTQuiz.Response.userLanguage == 1) {
+                                if (Specs.ar[qtnResponse[q]].trim() != answer.ar[q].trim()) {
+                                    isAllCorrect = false;
                                     break;
                                 }
                             }
                             else {
-                                if(Specs.en[qtnResponse[q]].trim() != answer.en[q].trim()){
-                                    isAllCorrect=false;
+                                if (Specs.en[qtnResponse[q]].trim() != answer.en[q].trim()) {
+                                    isAllCorrect = false;
                                     break;
                                 }
                             }
                         }
                     }
-                    //TODO : Pending to update below code
 
-                    let ctl = '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">';
-
+                    let ctl = '';
                     let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                    for (let i = 0; i < optionsCount; i++) {
-                        let txtChecked = '';
-                        for (let q = 0; q < qtnResponse.length; q++) {
-                            if (i == parseInt(qtnResponse[q])) {
-                                txtChecked = "-check"; break;
+                    if (ENTQuiz.Response.quiz.AllowViewResponse) {
+                        ctl = '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">';
+                        ctl += '<div class="' + (isAllCorrect ? ' correctAns ' : ' wrongAns ') + '">';
+                        ctl += '<table dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '" style="width:100%">';
+
+                        for (let i = 0; i < optionsCount; i++) {
+                            let txtChecked5 = '';
+                            let txtChecked10 = '';
+                            let txtChecked15 = '';
+                            let txtChecked20 = '';
+                            if (optionsCount <= 5) {
+                                for (let q = 0; q < qtnResponse.length; q++) {
+                                    if (i == parseInt(qtnResponse[q])) {
+                                        txtChecked5 = "-check"; break;
+                                    }
+                                }
+                                ctl += '<tr><td class="multiChkBoxStyle" style="100%"><i class="far fa' +
+                                    txtChecked5 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                    ' </td></tr>';
+                            }
+                            else if (optionsCount <= 10) {
+                                for (let q = 0; q < qtnResponse.length; q++) {
+                                    if (i == parseInt(qtnResponse[q])) {
+                                        txtChecked5 = "-check"; break;
+                                    }
+                                    if ((i + 5) == parseInt(qtnResponse[q])) {
+                                        txtChecked10 = "-check"; break;
+                                    }
+                                }
+                                ctl += '<tr><td class="multiChkBoxStyle" style="50%"><i class="far fa' +
+                                    txtChecked5 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                    ' </td>';
+                                if ((i + 5) < optionsCount) {
+                                    ctl += '<td class="multiChkBoxStyle" style="50%"><i class="far fa' +
+                                        txtChecked10 + '-square" /> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 5].trim() : Specs.en[i + 5].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    ctl += '<td class="multiChkBoxStyle" style="50%"></td></tr>';
+                                }
+                            }
+                            else if (optionsCount <= 15) {
+                                for (let q = 0; q < qtnResponse.length; q++) {
+                                    if (i == parseInt(qtnResponse[q])) {
+                                        txtChecked5 = "-check"; break;
+                                    }
+                                    if ((i + 5) == parseInt(qtnResponse[q])) {
+                                        txtChecked10 = "-check"; break;
+                                    }
+                                    if ((i + 10) == parseInt(qtnResponse[q])) {
+                                        txtChecked15 = "-check"; break;
+                                    }
+                                }
+                                ctl += '<tr><td class="multiChkBoxStyle" style="33%"><i class="far fa' +
+                                    txtChecked5 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                    ' </td>';
+                                ctl += '<td class="multiChkBoxStyle" style="33%"><i class="far fa' +
+                                    txtChecked10 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 5].trim() : Specs.en[i + 5].trim()) +
+                                    ' </td>';
+                                if ((i + 10) < optionsCount) {
+                                    ctl += '<td class="multiChkBoxStyle" style="33%"><i class="far fa' +
+                                        txtChecked15 + '-square" /> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 10].trim() : Specs.en[i + 10].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    ctl += '<td class="multiChkBoxStyle" style="33%"></td></tr>';
+                                }
+                            }
+                            else if (optionsCount <= 20) {
+                                for (let q = 0; q < qtnResponse.length; q++) {
+                                    if (i == parseInt(qtnResponse[q])) {
+                                        txtChecked5 = "-check"; break;
+                                    }
+                                    if ((i + 5) == parseInt(qtnResponse[q])) {
+                                        txtChecked10 = "-check"; break;
+                                    }
+                                    if ((i + 10) == parseInt(qtnResponse[q])) {
+                                        txtChecked15 = "-check"; break;
+                                    }
+                                    if ((i + 15) == parseInt(qtnResponse[q])) {
+                                        txtChecked20 = "-check"; break;
+                                    }
+                                }
+                                ctl += '<tr><td class="multiChkBoxStyle" style="25%"><i class="far fa' +
+                                    txtChecked5 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                    ' </td>';
+                                ctl += '<td class="multiChkBoxStyle" style="25%"><i class="far fa' +
+                                    txtChecked10 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 5].trim() : Specs.en[i + 5].trim()) +
+                                    ' </td>';
+                                ctl += '<td class="multiChkBoxStyle" style="25%"><i class="far fa' +
+                                    txtChecked15 + '-square" /> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 10].trim() : Specs.en[i + 10].trim()) +
+                                    ' </td></tr>';
+                                if ((i + 15) < optionsCount) {
+                                    ctl += '<td class="multiChkBoxStyle" style="25%"><i class="far fa' +
+                                        txtChecked20 + '-square" /> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i + 15].trim() : Specs.en[i + 15].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    ctl += '<td class="multiChkBoxStyle" style="25%"></td></tr>';
+                                }
                             }
                         }
-                        ctl += '<div style="margin:1%;color:#D9D9D9;"><i class="far fa' + txtChecked + '-square" /> &nbsp;  ' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) + ' </div>';
+                        ctl += '</table>';
+                        ctl += '</div>';
+                        ctl += '</div>';
                     }
-                    ctl += '</div>';
+                    if (ENTQuiz.Response.quiz.AllowViewAnswers) {
+                        answer_ctl += '<div><table dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '" style="width:100%">';
+
+                        for (let i = 0; ii < 5 && i < answer_optionsCount; i++) {
+
+                            if (answer_optionsCount <= 5) {
+
+                                answer_ctl += '<tr><td class="answer_multiChkBoxStyle" style="100%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i].trim() : answer.en[i].trim()) +
+                                    ' </td></tr>';
+                            }
+                            else if (answer_optionsCount <= 10) {
+                                answer_ctl += '<tr><td class="answer_multiChkBoxStyle" style="50%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i].trim() : answer.en[i].trim()) +
+                                    ' </td>';
+                                if ((i + 5) < answer_optionsCount) {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="50%"> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 5].trim() : answer.en[i + 5].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="50%"></td></tr>';
+                                }
+                            }
+                            else if (answer_optionsCount <= 15) {
+                                answer_ctl += '<tr><td class="answer_multiChkBoxStyle" style="33%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i].trim() : answer.en[i].trim()) +
+                                    ' </td>';
+
+                                answer_ctl += '<td class="answer_multiChkBoxStyle" style="33%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 5].trim() : answer.en[i + 5].trim()) +
+                                    ' </td>';
+                                if ((i + 10) < answer_optionsCount) {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="33%"> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 10].trim() : answer.en[i + 10].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="33%"></td></tr>';
+                                }
+                            }
+                            else if (answer_optionsCount <= 20) {
+                                answer_ctl += '<tr><td class="answer_multiChkBoxStyle" style="25%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i].trim() : answer.en[i].trim()) +
+                                    ' </td>';
+
+                                answer_ctl += '<td class="answer_multiChkBoxStyle" style="25%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 5].trim() : answer.en[i + 5].trim()) +
+                                    ' </td>';
+                                answer_ctl += '<td class="answer_multiChkBoxStyle" style="25%"> &nbsp;  ' +
+                                    (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 10].trim() : answer.en[i + 10].trim()) +
+                                    ' </td>';
+                                if ((i + 15) < answer_optionsCount) {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="25%"> &nbsp;  ' +
+                                        (ENTQuiz.Response.userLanguage == 1 ? answer.ar[i + 15].trim() : answer.en[i + 15].trim()) +
+                                        ' </td></tr>';
+                                }
+                                else {
+                                    answer_ctl += '<td class="answer_multiChkBoxStyle" style="25%"></td></tr>';
+                                }
+                            }
+                        }
+                        answer_ctl += '</table>';
+                        answer_ctl += '</div>';
+
+                        ctl += '<div class="entQuizAnswerContainer"><div>Correct Answer is : ' + answer_ctl + '</div></div>';
+
+                    }
+                    if (isAllCorrect) ENTQuiz.Response.scoreCount++;
 
                     return ctl;
                 }
@@ -435,25 +608,65 @@
                         qtnResponse = (modQuestionResponse[0].QuestionResponse != undefined && modQuestionResponse[0].QuestionResponse != "" ? $.parseJSON(modQuestionResponse[0].QuestionResponse) : []);
                     }
 
-                    let ctl = '<div >';
-                    let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                    for (let i = 0; i < optionsCount; i++) {
-                        let qtnResponse_Row = $.grep(qtnResponse, function (qtnResponseItem) {
-                            return (i == qtnResponseItem.RowID);
-                        });
-                        ctl += '<div class="RankingQuestionRow">' +
-                            '<select name="ent_mod_q' + qtn.ID + '_' + i + '"  disabled>';
-                        for (let j = 0; j < optionsCount; j++) {
-                            if (qtnResponse_Row != undefined && qtnResponse_Row.length > 0 &&
-                                qtnResponse_Row[0].RowResponse == (j + 1))
-                                ctl += '<option value="' + (j + 1) + '" >' + (j + 1) + '</option>';
+                    let answer = $.parseJSON(qtn.Answer);
+                    let isAllCorrect = true;
+                    if (qtnResponse == undefined || qtnResponse.length != answer.length)
+                        isAllCorrect = false;
+                    else {
+                        for (let a = 0; a < answer.ans.length; a++) {
+                            if (qtnResponse[a].RowResponse != answer.ans[a]) {
+                                isAllCorrect = false;
+                                breaak;
+                            }
                         }
-                        ctl += '</select> &nbsp; &nbsp; ' +
-                            '<span class="RankingQuestion">' +
-                            (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
-                            '</span></div>';
                     }
-                    ctl += '</div>';
+
+
+                    let ctl = '';
+                    let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
+                    if (ENTQuiz.Response.quiz.AllowViewResponse) {
+                        ctl += '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">';
+                        ctl += '<div class="' + (isAllCorrect ? ' correctAns ' : ' wrongAns ') + '">';
+
+                        for (let i = 0; i < optionsCount; i++) {
+                            let qtnResponse_Row = $.grep(qtnResponse, function (qtnResponseItem) {
+                                return (i == qtnResponseItem.RowID);
+                            });
+                            ctl += '<div class="RankingQuestionRow">' +
+                                '<select name="ent_mod_q' + qtn.ID + '_' + i + '"  disabled >';
+
+                            ctl += '<option value="' + qtnResponse_Row[0].RowResponse + '" >' + qtnResponse_Row[0].RowResponse + '</option>';
+
+                            ctl += '</select> &nbsp; &nbsp; ' +
+                                '<span class="RankingQuestion">' +
+                                (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                '</span></div>';
+                        }
+                        ctl += '</div>';
+                        ctl += '</div>';
+                    }
+
+                    if (ENTQuiz.Response.quiz.AllowViewAnswers) {
+                        var answer_ctl = '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '" style="width:100%;margin-top:1%;">';
+
+                        for (let i = 0; i < optionsCount; i++) {
+
+                            answer_ctl += '<div class="RankingQuestionRow">' +
+                                '<select name="ent_mod_q' + qtn.ID + '_' + i + '"  disabled >';
+
+                            answer_ctl += '<option value="' + answer.ans[i] + '" >' + answer.ans[i] + '</option>';
+
+                            answer_ctl += '</select> &nbsp; &nbsp; ' +
+                                '<span class="RankingQuestion_Ans">' +
+                                (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) +
+                                '</span></div>';
+                        }
+                        answer_ctl += '</div>';
+                        ctl += '<div class="siaQuizAnswerContainer"><div>Correct Answer is: ' +
+                            answer_ctl +
+                            '</div></div>';
+                    }
+                    if (isAllCorrect) ENTQuiz.Response.scoreCount++;
 
                     return ctl;
                 }
@@ -491,88 +704,41 @@
                     let qtnCntrDisplay = 0;
                     let htmlQuizQuestions = this.quiz.Questions.map(function (o, idx) {
 
-                        if (o.ParentBranchID == 0) {
-                            qtnCntrDisplay++;
-                            let htmlQuizQuestion = '';
-                            if (o.DataTypeID != 4) {
-                                htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
-                                    '<div class="entQuizQuestion">' + (qtnCntrDisplay) + ' . &nbsp; ' +
-                                    (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
-                                    '</div>' +
-                                    '<div class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" >' +
-                                    ENTQuiz.Response.getQuestionControlWithValue(o) +
-                                    '</div>' +
-                                    '</div>';
-                            }
-                            else {
+                        qtnCntrDisplay++;
+                        let htmlQuizQuestion = '';
+                        let htmlQuizQuestionControl = '';
+                        htmlQuizQuestionControl = ENTQuiz.Response.getQuestionControlWithValue(o);
 
-                                //checkbox
-                                htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
-                                    '<div class="entQuizQuestion" >' + (qtnCntrDisplay) + ' . &nbsp; ' +
-                                    '<span class="entQuizQuestionControl" style="padding:1%;" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" style="padding:1%;" > ' +
-                                    ENTQuiz.Response.getQuestionControlWithValue(o) +
-                                    '</span>' +
-                                    (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
-                                    '</div>' +
-                                    '</div>';
-                            }
-
-                            let htmlQuizQuestionBranches = '';
-                            if (o.DataTypeID == 13) {
-
-                                let quizResponse = ENTQuiz.Response.quizResult.quizResponses[0];
-                                let Specs = $.parseJSON(o.Specs);
-
-                                let qtnResponse = -1;
-                                let style_Displayblock = ' style="display:block;" ';
-
-                                if (quizResponse != undefined &&
-                                    quizResponse.QuizQuestionResponses != undefined &&
-                                    quizResponse.QuizQuestionResponses.length > 0) {
-                                    let modQuestionResponse = $.grep(quizResponse.QuizQuestionResponses, function (oQuizQuestionResponse) {
-                                        return (oQuizQuestionResponse.ID == qtn.ID);
-                                    });
-                                    qtnResponse = (modQuestionResponse[0].QuestionResponse != undefined ? parseInt(modQuestionResponse[0].QuestionResponse) : -1);
-                                }
-
-                                let branchQuestions = $.grep(ENTQuiz.Response.quiz.Questions, function (qtn) {
-                                    return qtn.ParentBranchID == o.ID;
-                                });
-
-                                if (branchQuestions != undefined && branchQuestions.length > 0) {
-                                    let optionsCount = (ENTQuiz.Response.userLanguage ? Specs.ar.length : Specs.en.length);
-                                    for (let i = 0; i < optionsCount; i++) {
-                                        let branchValueQuestions = $.grep(branchQuestions, function (qtn) { return qtn.ParentBranchValueID == i; });
-                                        if (branchValueQuestions != undefined && branchValueQuestions.length > 0) {
-                                            htmlQuizQuestionBranches += '<div class="branchStyle" data-branchID="' + o.ID + '_' + i + '" ' + (i == qtnResponse ? style_Displayblock : '') + '>';
-
-                                            for (let j = 0; j < branchValueQuestions.length; j++) {
-                                                htmlQuizQuestionBranches += '<div class="'((j + 1) != branchValueQuestions.length ? 'entQuizQuestionContainer' : 'entQuizQuestionContainerBranched') + '">' +
-                                                    '<div class="quizQuestion">(' + qtnCntrDisplay + '.' + (j + 1) + '). &nbsp; ' +
-                                                    (ENTQuiz.Response.userLanguage == 1 ? branchValueQuestions[j].Question : branchValueQuestions[j].Question_En) +
-                                                    '</div>' +
-                                                    '<div class="entQuizQuestionControl" data-qtnid="' + branchValueQuestions[j].ID + '" data-datatypeid="' + branchValueQuestions[j].DataTypeID + '" >' +
-                                                    ENTQuiz.Response.getQuestionControlWithValue(branchValueQuestions[j]) +
-                                                    '</div>' +
-                                                    '</div>';
-                                            }
-                                            htmlQuizQuestionBranches += "</div>";
-                                        }
-                                    }
-                                }
-                            }
-
-                            return htmlQuizQuestion + htmlQuizQuestionBranches;
+                        if (ENTQuiz.Response.quiz.AllowViewResponse ||
+                            ENTQuiz.Response.quiz.AllowViewAnswers) {
+                            htmlQuizQuestion += '<div class="entQuizQuestionContainer">' +
+                                '<div class="entQuizQuestion">' + (qtnCntrDisplay) + ' . &nbsp; ' +
+                                (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
+                                '</div>' +
+                                '<div class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" >' +
+                                htmlQuizQuestionControl +
+                                '</div>' +
+                                '</div>';
                         }
+
+                        return htmlQuizQuestion;
 
                     }).join('');
                     $('.entQuizHeaderContainer').html(htmlQuizHeader);
                     $('.entQuizQuestionsContainer').html(htmlQuizQuestions);
+                    $('.entQuizScoreContainer').html('' +
+                        '<div class="entQuizScore">Score : ' + ENTQuiz.Response.scoreCount + ' / ' +
+                        ENTQuiz.Response.quiz.Questions.length + '</div>' +
+                        '<div class="entQuizPassScore">Pass Score : ' + this.quiz.PassScore + '</div>' +
+                        '<div class="entQuizResult' + (ENTQuiz.Response.scoreCount >= this.quiz.PassScore ? 'Pass' : 'Fail') + '">' +
+                        (ENTQuiz.Response.scoreCount >= this.quiz.PassScore ? 'Pass' : 'Fail') +
+                        '</div>');
+
 
                 }
             },
             cancelQuiz: function () {
-                window.location = '/pages/quiz/MyResponses.aspx';
+                window.location = '/';
             },
         };
     })();

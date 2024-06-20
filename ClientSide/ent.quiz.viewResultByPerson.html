@@ -1,119 +1,350 @@
-<html>
+<script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.viewResultByPerson.js" type="text/javascript"></script>
+<link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
+<style>
+    input[type="radio"][disabled]:checked {
+        background-color: green;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        appearance: none;
+    }
 
-<head>
-    <script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
-    <script src="/SiteAssets/Quiz/ent.quiz.viewResult.js" type="text/javascript"></script>
-    <link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
-    <style>
-        input[type="radio"][disabled]:checked {
-            background-color: green;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            appearance: none;
-        }
+    input[type="checkbox"][disabled]:checked {
+        background-color: green;
+        height: 16px;
+        width: 16px;
+        appearance: none;
+    }
 
-        input[type="checkbox"][disabled]:checked {
-            background-color: green;
-            height: 16px;
-            width: 16px;
-            appearance: none;
-        }
+    .quizHBarB {
+        background-color: #CCCCCC;
+        height: 15px;
+    }
 
-        .quizHBarB {
-            background-color: #CCCCCC;
-            height: 15px;
-        }
+    .quizHBar {
+        background-color: #3966BF;
+        height: 15px;
+    }
 
-        .quizHBar {
-            background-color: #3966BF;
-            height: 15px;
-        }
+    .quizVBarB {
+        background-color: #CCCCCC;
+        height: 40pt;
+        width: 10pt;
+        position: relative;
+    }
 
-        .quizVBarB {
-            background-color: #CCCCCC;
-            height: 40pt;
-            width: 10pt;
-            position: relative;
-        }
+    .quizVBar {
+        background-color: #3966BF;
+        width: 10pt;
+        position: absolute;
+        bottom: 0;
+    }
 
-        .quizVBar {
-            background-color: #3966BF;
-            width: 10pt;
-            position: absolute;
-            bottom: 0;
-        }
+    .MatrixCheckPercent {
+        white-space: nowrap;
+    }
+</style>
 
-        .MatrixCheckPercent {
-            white-space: nowrap;
-        }
-    </style>
-</head>
+<div class="container">
+    <div class="row index">
+        <div class="entQuizResponseCountContainer" style="display:none;">
+            <div class="row" style="margin:1% 25%">
+                <div class="entQuizResponseCountHeader col-sm-8">Response Count</div>
+                <div class="entQuizResponseCount col-sm-4"></div>
+            </div>
+            <div class="row" style="margin:1% 25%">
+                <div class="entQuizResponseCountHeader col-sm-8">Average Score</div>
+                <div class="entQuizResponseAvgScore col-sm-4"></div>
+            </div>
+            <div class="row" style="margin:1% 25%">
+                <div class="entQuizResponseCountHeader col-sm-8">Highest Score</div>
+                <div class="entQuizResponseHighScore col-sm-4"></div>
+            </div>
+            <div class="row" style="margin:1% 25%">
+                <div class="entQuizResponseCountHeader col-sm-8">Lowest Score</div>
+                <div class="entQuizResponseLowScore col-sm-4"></div>
+            </div>
+            <div class="row" style="margin:1% 25%">
+                <div class="entQuizResponseCountHeader col-sm-8">Pass Rate</div>
+                <div class="entQuizResponsePassRate col-sm-4"></div>
+            </div>
 
-<body>
-    <div class="container">
-        <div class="row index">
-            <div class="entQuizContainer">
-                <div class="entQuizDataLoaderMessage">
-                    <div
-                        style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
-                        Loading Quiz Questions, please wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif"
-                            alt="" />
-                    </div>
-                </div>
+        </div>
+        <div class="page-content-wrapper page-content-wrapper_MOD" dir="rtl" style="direction:rtl">
+            <div class="container-fluid">
+                <section class="section">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <h1>
+                                <span class="d-flex align-items-center" style="color:#fff;font-weight:bold">
+                                    Results By Person
+                                </span>
+                            </h1>
+                        </div>
+                        <div>
+                            <div class="modlistcontainer">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card-body">
+                                            <div>
+                                                <div class="row pageCounterRow" style="clear:both">
+                                                    <div class="col-10 col-sm-12 col-lg-10">
+                                                        <button class="modBtnStyle"
+                                                            onclick="ENTQuiz.Response.viewManageQuiz(); return false;">
+                                                            Manage Quiz
+                                                        </button>
+                                                        <button class="modBtnStyle"
+                                                            onclick="ENTQuiz.Response.viewResultByQuestion(); return false;">
+                                                            Result By Question
+                                                        </button>
+                                                        <button class="modBtnStyle"
+                                                            onclick="ENTQuiz.Response.exportToExcel(); return false;">
+                                                            Export to Excel
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-2 col-sm-12 col-lg-2">
+                                                        <div>
+                                                            <input
+                                                                class="form-control form-control-md ListFilterTextBox"
+                                                                style="display:inline-block;width:65%;"
+                                                                onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                type="search" data-filter="Keyword_MOD"
+                                                                placeholder="Search..." />
+                                                            <span class="fa fa-search"
+                                                                style="font-size:18px;vertical-align:middle;cursor:pointer;">&nbsp;</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row pageCounterRow pageCounterRow_MOD">
+                                                    <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                        <div style="padding-top:3%">
+                                                            Showing <span class="fromRecordNum_MOD">0</span> to
+                                                            <span class="toRecordNum_MOD">0</span> of
+                                                            <span class="resultsCount_MOD">0</span> entries
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 d-none d-lg-inline d-xl-inline text-center">
+                                                        <div style="white-space:nowrap">
+                                                            <label>
+                                                                Show entries
+                                                                <select id="ddlPageDisplayItemsLimit_MOD"
+                                                                    arid-controls="PageDisplayItemsLimit_MOD"
+                                                                    style="width:65px;"
+                                                                    class="custom-select custom-select-sm form-control form-control-md">
+                                                                    <option value="10">10</option>
+                                                                    <option value="25">25</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="100">100</option>
+                                                                </select>
+                                                            </label>
+                                                        </div>
+                                                    </div>
 
-                <div class="entQuizLanguage">
-                    <h3>Select Language</h3>
-                    <br />
-                    <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(1); return false;">Arabic</button>
-                    <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(2); return false;">English</button>
-                </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-3" style="display:none">
+                                                        <div>
+                                                            <div
+                                                                class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                                <div class="firstPageLink firstPageLink_MOD page-link"
+                                                                    onclick="ENTQuiz.Manage.ShowFirstPage()"
+                                                                    title="First Page">
+                                                                </div>
+                                                                <div class="prevPageLink prevPageLink_MOD page-link"
+                                                                    onclick="ENTQuiz.Manage.ShowPreviousPage()"
+                                                                    title="Previous Page">
+                                                                </div>
+                                                                <div class="curPageInfo curPageInfo_MOD page-link">
+                                                                    Page
+                                                                    1
+                                                                </div>
+                                                                <div class="nextPageLink nextPageLink_MOD page-link"
+                                                                    onclick="ENTQuiz.Manage.ShowNextPage()"
+                                                                    title="Next Page">
+                                                                </div>
+                                                                <div class="lastPageLink lastPageLink_MOD page-link"
+                                                                    onclick="ENTQuiz.Manage.ShowLastPage()"
+                                                                    title="Last Page">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div>
+                                                            <div class="row HeaderRowDiv">
+                                                                <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="ID">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>#
+                                                                    </div>
+                                                                </div>
+                                                                <div class="HeaderDiv col-md-3 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="Name">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>Name
+                                                                    </div>
+                                                                </div>
+                                                                <div class="HeaderDiv col-md-1 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="Score">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>Score
+                                                                    </div>
+                                                                </div>
+                                                                <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="Score">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>
+                                                                        Percent
+                                                                    </div>
+                                                                </div>
+                                                                <div class="HeaderDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="Score">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>Result
+                                                                    </div>
+                                                                </div>
+                                                                <div class="HeaderDiv col-md-3 col-lg-3 col-xl-3 d-none d-md-inline d-xl-inline d-lg-inline"
+                                                                    onclick="ENTQuiz.Manage.sortResults(this)"
+                                                                    data-fieldName="SubmittedDate">
+                                                                    <div class="nestedHeaderDiv">
+                                                                        <div class="sortIconLTR fa fa-sort"></div>
+                                                                        Submitted Date
+                                                                    </div>
 
-                <div class="entQuizResponseContainer">
-                    <input type="hidden" value="0" id="ent_quizId" />
+                                                                </div>
 
-                    <div class="entQuizHeaderContainer"></div>
-                    <div class="entQuizQuestionsContainer">
-                        Loading Questions ...
-                    </div>
+                                                                <div class="row HeaderRowDiv" id="byGridCols_MOD"
+                                                                    style="display:none;">
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="QuizId_MOD"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-3 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <input type="text" data-filter="Title_MOD"
+                                                                            class="form-control form-control-md ListFilterTextBox"
+                                                                            onchange="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onkeyup="ENTQuiz.Manage.onFilterSelected()"
+                                                                            onfocusout="ENTQuiz.Manage.onFilterSelected()"
+                                                                            style="width:90%;display:inline;" />
+                                                                        <a href="javascript:void(0)"
+                                                                            class="fa fa-filter bluecolor"></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-1 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-1 col-xl-1 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                    </div>
+                                                                    <div
+                                                                        class="FilterDiv col-md-4 col-lg-2 col-xl-2 d-none d-md-inline d-xl-inline d-lg-inline">
+                                                                        <span class="ClearChecks"
+                                                                            onclick="ENTQuiz.Manage.clearAllInputs('byGridCols_MOD')">Clear
+                                                                            Filters</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div id="divItems_MOD">
+                                                                    <div
+                                                                        style="display:block;text-align:center;height:100%;width:100%;opacity:0.8;padding-top:15%;top:30%;">
+                                                                        Loading quiz results, please wait ... <img
+                                                                            src="/SiteAssets/Quiz/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                    <div class="entQuizSubmit">
+                                                    <div class="row pageCounterRow pageCounterRow_MOD">
+                                                        <div class="col-sm-12 col-md-5">
+                                                            <div style="padding:3% 0">
+                                                                Showing <span class="fromRecordNum_MOD">0</span> to
+                                                                <span class="toRecordNum_MOD">0</span> of
+                                                                <span class="resultsCount_MOD">0</span> entries
 
-                        &nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>&nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.exportToExcel(); return false;">Export To Excel</button>&nbsp;
-
-                    </div>
-                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-7">
+                                                            <div>
+                                                                <div
+                                                                    class="pageCouter pageCounter_MOD col-lg-12 pagination">
+                                                                    <div class="firstPageLink firstPageLink_MOD page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowFirstPage()"
+                                                                        title="First Page">
+                                                                    </div>
+                                                                    <div class="prevPageLink prevPageLink_MOD page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowPreviousPage()"
+                                                                        title="Previous Page">
+                                                                    </div>
+                                                                    <div class="curPageInfo curPageInfo_MOD page-link">
+                                                                        Page
+                                                                        1
+                                                                    </div>
+                                                                    <div class="nextPageLink nextPageLink_MOD page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowNextPage()"
+                                                                        title="Next Page">
+                                                                    </div>
+                                                                    <div class="lastPageLink lastPageLink_MOD page-link"
+                                                                        onclick="ENTQuiz.Manage.ShowLastPage()"
+                                                                        title="Last Page">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_MOD">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Question Responses
-                        <button class="close" data-dismiss="modal" aria-lable="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </h3>
-                </div>
-                <div class="modal-body">
-                    <div class="detailsContainer_View_MOD">
+<div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_MOD">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Question Responses
+                    <button class="close" data-dismiss="modal" aria-lable="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="detailsContainer_View_MOD">
 
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>

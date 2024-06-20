@@ -3,17 +3,21 @@
         'use strict';
         ENTQuiz.Response = {
 
-            userLanguage: 0,
+            fetched: false,
+            items_all: [],
+            items: [],
+            currentPage: 1,
+            lastPage: 1,
+
             apiPath: "",
             quiz: {},
             quizResult: {},
-            fetched: false,
 
             initializePage: function () {
                 this.fetched = false;
                 if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
                     let quizId = ENTQuiz.Common.getUrlParams("quizId");
-                    let apiPath_item = this.apiPath + '/getQuizResponses?quizId=' + quizId + '&absolutePath=' + location.pathname;
+                    let apiPath_item = this.apiPath + '/getQuizResponsesByPerson?quizId=' + quizId + '&absolutePath=' + location.pathname;
                     this.getQuizResponseFromDB(apiPath_item);
                 }
                 else {
@@ -48,12 +52,7 @@
                     },
                 });
             },
-            SetUserLanguage: function (langID) {
-                this.userLanguage = langID;
-                $(".entQuizLanguage").hide();
-                this.renderQuiz();
-                return false;
-            },
+
             OnGetQuizResponse_Success: function (data_item) {
                 //console.log("OnGetQuizResponse_Success");
                 //console.log(data_item);
@@ -62,489 +61,449 @@
                     this.quiz = data_item.quiz;
                     this.fetched = true;
 
-                    if (this.quiz.Language == 3) {
-                        $(".entQuizDataLoaderMessage").hide();
-                        $(".entQuizLanguage").show();
+                    $(".entQuizDataLoaderMessage").hide();
+                    for (let i = 0; i < this.quizResult.quizResponses.length; i++) {
+                        let item = {
+                            ID: 0,
+                            Username: '',
+                            Name: '',
+                            Score: 0,
+                            Percent: 0,
+                            Result: '',
+                            ModifiedDate: '',
+                        };
+                        item.ID = this.quizResult.quizResponses[i].ID;
+                        item.Username = this.quizResult.quizResponses[i].Username;
+                        item.Name = this.quizResult.quizResponses[i].DisplayName;
+                        item.ModifiedDate = this.quizResult.quizResponses[i].ModifiedDate;
+                        let score = this.getScore(this.quizResponses.quizResponses[i]);
+                        this.scores.push(score);
+                        item.Score = score;
+                        item.Percent = (score * 100.0 / this.quiz.Questions.length).toFixed(2) + '%';
+                        item.Result = (score >= this.quiz.PassScore) ? 'Pass' : 'Fail';
+                        this.items_all.push(item);
+                        if (score >= this.quiz.PassScore) this.passCount++;
                     }
-                    else {
-                        $(".entQuizDataLoaderMessage").hide();
-                        this.SetUserLanguage(this.quiz.Language);
+                    this.items = this.items_all;
+                    this.currentPage = 1;
+                    this.lastPage = 1;
+                    if (this.items.length > 0) {
+                        this.lastPage = parseInt(this.items.length / this.pageDisplayItemsLimit) + (this.items.length % this.pageDisplayItemsLimit != 0 ? 1 : 0);
+                        if (this.currentPage < this.lastPage) {
+                            $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                            $(".lastPageLink_MOD").css({ "visibility": "visible" });
+                        }
+                        else {
+                            $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                            $(".lastPageLink_MOD").css({ "visibility": "hidden" });
+
+                        }
+
+                        $(".pageCounterRow_MOD").css({ "visibility": "visible" });
+                        this.renderItems(this.currentPage);
+                    } else {
+                        $("#divItems_MOD").html('<div class="NoRecordsFound>No records found matching the given search</div>');
+
+                        $(".pageCounterRow_MOD").css({ "visibility": "hidden" });
                     }
 
                 }
                 else {
-                    $(".entQuizContainer").html("<div class='ErrorDiv'>Sorry ! Error occured while fetching Quiz questions. Please try again after some time. <br/> If Problem persists, contact IT Helpdesk</div><div style='margin:5%;color:coral'>" + data_item.ErrorMessage + "</div>");
+                    $(".page-content-wrapper_MOD").html("<div style='margin:5%;color:coral'>" + data_item.ErrorMessage + "</div>");
 
                 }
             },
-            getQuestionControlWithValue: function (qtn) {
 
-                let qtnResponse = '';
-                let modQuestionResponses = [];
-
-                if (ENTQuiz.Response.quizResult.QuizQuestionAllResponses != undefined &&
-                    ENTQuiz.Response.quizResult.QuizQuestionAllResponses.length > 0) {
-                    modQuestionResponses = $.grep(ENTQuiz.Response.quizResult.QuizQuestionAllResponses, function (oQuizQuestionResponse) {
-                        return (oQuizQuestionResponse.ID == qtn.ID);
-                    });
+            getScore: function (quizResponse) {
+                let score = 0;
+                for (let i = 0; i < quizResponse.QuizQuestionResponses.length; i++) {
+                    let isCorrect = true;
+                    isCorrect = this.validateQuizQuestionResponse(quizResponse.QuizQuestionResponses[i]);
+                    if (isCorrect) score++;
                 }
 
+                return score;
 
-                //Textbox
-                if (qtn.DataTypeID == 1 ||
-                    qtn.DataTypeID == 2 ||
-                    qtn.DataTypeID == 3) {
+            },
+            validateQuizQuestionResponse: function (quizQuestionResponse) {
+                let isCorrect = false;
+                let qtnList = $.grep(ENTQuiz.Response.quiz.Questions, function (data_item) {
+                    return data_item.ID == quizQuestionResponse.ID
+                });
+                if (qtnList != null && qtnList.length > 0) {
+                    let qtn = qtnList[0];
 
-                    if (modQuestionResponses.length > 0) {
-                        $(modQuestionResponses).each(function (idx, resp) {
-                            if (idx > 0) qtnResponse += '<br /><hr />';
-                            qtnResponse += '<span class="entModCtlValue">' + resp.QuestionResponse + '</span>';
-                        });
-                    }
-                    if (qtnResponse == '') qtnResponse = ' - ';
-                    else {
-
-                        let modQtn = $.grep(ENTQuiz.Response.quiz.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square"/> Show Responses</span><div style="display:none"><h3>' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-                    }
-
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
-
-                }
-                //Checkbox
-                else if (qtn.DataTypeID == 4) {
-
-                    if (modQuestionResponses.length > 0) {
-                        let checkedCount = 0;
-                        let uncheckedCount = 0;
-                        let checkedPercent = 0;
-                        checkedCount = $.grep(modQuestionResponses, function (oQuizQuestionResponse) {
-                            return oQuizQuestionResponse.QuestionResponse.toLowercase() == "true";
-                        }).length;
-                        uncheckedCount = modQuestionResponseslength - checkedCount;
-                        checkedPercent = (checkedCount * 100.0 / modQuestionResponses.length).toFixed(2);
-                        qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                            '<div>Yes - ' + checkedCount + '(' + checkedPercent + '%) </div>' +
-                            '<div class="quizHBarB">' +
-                            (checkedPercent > 0 ? '<div class="quizHBar" style="width:' + checkedPercent + '%;"></div>' : '&nbsp;') +
-                            '</div>' +
-                            '<div style="margin-bottom:2%"></div>' +
-                            '<div>No - ' + uncheckedCount + '(' + (100.0 - checkedPercent).toFixed(2) + '%)</div>' +
-                            '<div class="quizHBarB">' +
-                            ((100.0 - checkedPercent) > 0 ? '<div class="quizHBar" style="width:' + (100.0 - checkedPercent) + '%;"></div>' : '&nbsp;') +
-                            '</div>' +
-                            '</div>';
-                    }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + '" </div>';
-
-                }
-
-                //Dropdown //RadioButtons //Branching
-                else if (qtn.DataTypeID == 5 ||
-                    qtn.DataTypeID == 6 ||
-                    qtn.DataTypeID == 13) {
-                    let Specs = $.parseJSON(qtn.Specs);
-                    if (modQuestionResponses.length > 0) {
-                        let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                        for (let i = 0; i < optionsCount; i++) {
-                            let selectedOptionCount = $.grep(modQuestionResponses, function (omodQuestionResponse) {
-                                return omodQuestionResponse.QuestionResponse == '' + i;
-                            }).length;
-
-                            let selectedOptionPercent = (selectedOptionCount * 100.0 / modQuestionResponses.length).toFixed(2);
-
-                            qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                '<div>' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en.trim()) + ' - ' +
-                                selectedOptionCount + ' (' + selectedOptionPercent + '%) </div>' +
-                                '<div class="quizHBarB">' +
-                                (selectedOptionPercent > 0 ? '<div class="quizHBar" style="width:' + selectedOptionPercent + '%;"></div>' : '&nbsp;') +
-                                '</div>' +
-                                '</div>';
+                    //Radiobutton 
+                    if (qtn.DataTypeID == 1) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined ? parseInt(quizQuestionResponse.QuestionResponse) : -1;
+                        let answer = $.parseJSON(qtn.Answer);
+                        if (qtnResponse >= 0) {
+                            isCorrect = (ENTQuiz.Response.quiz.Language == 1 ? (Specs.ar[qtnResponse].trim() == answer.ar.trim() ? true : false) : (Specs.en[qtnResponse].trim() == answer.en.trim() ? true : false));
                         }
+                        return isCorrect;
                     }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
+                    //ImageChoice
+                    else if (qtn.DataTypeID == 2) {
+                        //let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined &&
+                            quizQuestionResponse.QuestionResponse != "" ? parseInt(quizQuestionResponse.QuestionResponse) : "";
 
-                }
+                        if (qtn.Answer != undefined && qtn.Answer != "") {
+                            let oAnswer = $.parseJSON(qtn.Answer);
+                            let answer = $.parseJSON(oAnswer.ans);
+                            if (qtnResponse == (answer))
+                                isCorrect = true;
 
-
-                //MultiCheckboxes
-                else if (qtn.DataTypeID == 7) {
-                    let Specs = $.parseJSON(qtn.Specs);
-                    if (modQuestionResponses.length > 0) {
-                        let modQuestionResponsesAggregated = [];
-                        $(modQuestionResponses).each(function (idx, omodQuestionResponses) {
-                            let omodQuestionResponsesArray = $.parseJSON(omodQuestionResponses.QuestionResponse);
-                            $(omodQuestionResponsesArray).each(function (idx2, omodQuestionResponse) {
-                                modQuestionResponsesAggregated.push(omodQuestionResponse);
-                            });
-                        });
-                        let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                        for (let i = 0; i < optionsCount; i++) {
-                            let selectedOptionCount = $.grep(modQuestionResponsesAggregated, function (omodQuestionResponse) {
-                                return omodQuestionResponse == '' + i;
-                            }).length;
-                            let selectedOptionPercent = (selectedOptionCount * 100.0 / modQuestionResponses.length).toFixed(2);
-
-                            qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                '<div>' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en.trim()) + ' - ' +
-                                selectedOptionCount + ' (' + selectedOptionPercent + '%) </div>' +
-                                '<div class="quizHBarB">' +
-                                (selectedOptionPercent > 0 ? '<div class="quizHBar" style="width:' + selectedOptionPercent + '%;"></div>' : '&nbsp;') +
-                                '</div>' +
-                                '</div>';
                         }
+                        return isCorrect;
                     }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
-                }
+                    //Date 
+                    else if (qtn.DataTypeID == 3) {
 
-                //RatingByNumbers //Slider
-                else if (qtn.DataTypeID == 8 ||
-                    qtn.DataTypeID == 10) {
-                    let Specs = $.parseJSON(qtn.Specs);
-                    let minRating = Specs.min;
-                    let maxRating = Specs.max;
-                    let stepRating = Specs.step;
+                        let qtnResponse = '';
+                        qtnResponse = quizQuestionResponse.QuestionResponse;
 
-                    if (modQuestionResponses.length > 0) {
-                        for (let i = minRating; i <= maxRating; i = i + stepRating) {
-                            let selectedRatingCount = $.grep(modQuestionResponses, function (omodQuestionResponse) {
-                                return omodQuestionResponse.QuestionResponse == '' + i;
-                            }).length;
-                            let selectedRatingPercent = (selectedRatingCount * 100.0 / modQuestionResponses.length).toFixed(2);
+                        let answer = $.parseJSON(qtn.Answer);
+                        let date_answer = answer.ans;
+                        if (qtnResponse.trim() == date_answer.trim())
+                            isCorrect = true;
 
-                            qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                '<div> Rating:' + i + ' - ' +
-                                selectedRatingCount + ' (' + selectedRatingPercent + '%) </div>' +
-                                '<div class="quizHBarB">' +
-                                (selectedRatingPercent > 0 ? '<div class="quizHBar" style="width:' + selectedRatingPercent + '%;"></div>' : '&nbsp;') +
-                                '</div>' +
-                                '</div>';
-                        }
+                        return isCorrect;
                     }
+                    //Dropdown
+                    else if (qtn.DataTypeID == 4) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = -1;
+                        qtnResponse = parseInt(quizQuestionResponse.QuestionResponse);
 
-                    if (qtnResponse == '') qtnResponse = ' - ';
-                    else {
-                        let modQtn = $.grep(ENTQuiz.Response.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses</span><div style="display:none;"><h3 >' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
+                        let answer = $.parseJSON(qtn.Answer);
+                        isCorrect = (ENTQuiz.Response.quiz.Language == 1 ? (Specs.ar[qtnResponse].trim() == answer.ar.trim() ? true : false) : (Specs.en[qtnResponse].trim() == answer.en.trim() ? true : false));
+
+                        return isCorrect;
                     }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + '" </div>';
+                    //Multicheckboxes
+                    else if (qtn.DataTypeID == 5) {
+                        let Specs = $.parseJSON(qtn.Specs);
+                        let qtnResponse = [];;
 
-                }
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined && quizQuestionResponse.QuestionResponse != "" ? $.parseJSON(quizQuestionResponse.QuestionResponse) : [];
+                        let answer = $.parseJSON(qtn.Answer);
+                        let answer_optionsCount = (ENTQuiz.Response.quiz.Language == 1 ? answer.ar.length : answer.en.length);
 
-                //5 - Emojis
-                else if (qtn.DataTypeID == 14) {
+                        let isAllCorrect = true;
 
-                    let emojis = ["fas fa-frown", "far fa-frown", "far fa-meh", "far fa-smile", "fas fa-smile"];
-
-                    if (modQuestionResponses.length > 0) {
-                        for (let i = 0; i <= 5; i = i++) {
-                            let selectedRatingCount = $.grep(modQuestionResponses, function (omodQuestionResponse) {
-                                return omodQuestionResponse.QuestionResponse == '' + i;
-                            }).length;
-                            let selectedRatingPercent = (selectedRatingCount * 100.0 / modQuestionResponses.length).toFixed(2);
-
-                            qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                '<div> <span class="RatingByEmojiDisabled ' + emojis[i] + '"></span>&nbsp; :' + i + ' - ' +
-                                selectedRatingCount + ' (' + selectedRatingPercent + '%) </div>' +
-                                '<div class="quizHBarB">' +
-                                (selectedRatingPercent > 0 ? '<div class="quizHBar" style="width:' + selectedRatingPercent + '%;"></div>' : '&nbsp;') +
-                                '</div>' +
-                                '</div>';
-                        }
-                    }
-
-
-                    if (qtnResponse == '') qtnResponse = ' - ';
-                    else {
-                        let modQtn = $.grep(ENTQuiz.Response.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses</span><div style="display:none;"><h3>' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-                    }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
-
-                }
-
-                //MatrixQuestion
-                else if (qtn.DataTypeID == 9) {
-
-                    let matrix = $.parseJSON(qtn.Specs);
-                    let cols = (ENTQuiz.Response.userLanguage == 1 ? matrix.Cols.ar : matrix.Cols.en);
-                    let rows = (ENTQuiz.Response.userLanguage == 1 ? matrix.Rows.ar : matrix.Rows.en);
-
-                    let colsCount = cols.length;
-                    let rowsCount = rows.length;
-                    let questionColLengthCSS = ' col-sm-' + (12 - colsCount);
-
-                    if (colsCount <= 3) questionColLengthCSS = 'col-sm-6';
-
-                    let qtnResponse = '';
-                    if (modQuestionResponses.length > 0) {
-                        let modQuestionResponsesAggregated = [];
-                        $(modQuestionResponses).each(function (idx, omodQuestionResponses) {
-                            let omodQuestionResponseArray = $.parseJSON(omodQuestionResponses.QuestionResponse);
-                            $(omodQuestionResponseArray).each(function (idx2, omodQuestionResponse) {
-                                modQuestionResponsesAggregated.push(omodQuestionResponse);
-                            });
-                        });
-
-                        qtnResponse += '<div class="row">';
-                        qtnResponse += '<span class="' + questionColLengthCSS + ' MatrixCell" ' + (ENTQuiz.Response.userLanguage == 1 ? ' style="float:right" ' : '') + '><span>';
-                        for (let i = 0; i < colsCount; i++) {
-                            if (colsCount <= 3)
-                                qtnResponse += '<span class="col-sm-2 MatrixCell MatrixCellHeader " ' + (ENTQuiz.Response.userLanguage == 1 ? ' style="float:right;" ' : '') + '>' + cols[i].trim() + '</span>';
-                            else
-                                qtnResponse += '<span class="col-sm-1 MatrixCell ' + (ENTQuiz.Response.userLanguage == 1 ? ' MatrixCellHeader_AR ' : ' MatrixCellHeader_EN ') + ' " ' + (ENTQuiz.Response.userLanguage == 1 ? ' style="float:right;" ' : '') + '>' + cols[i].trim() + '</span>';
-                        }
-                        qtnResponse += "</div>";
-                        for (let r = 0; r < rowsCount; r++) {
-                            qtnResponse += '<div class="row MatrixRow" style="padding:2% 0;">';
-                            let qtnResponse_Row = $.grep(modQuestionResponsesAggregated, function (qtnResponseItem) {
-                                return (r == qtnResponseItem.RowID);
-                            });
-                            for (let i = 0; i < colsCount; i++) {
-                                if (i == 0)
-                                    qtnResponse += '<span class="' + questionColLengthCSS +
-                                        ' MatrixCell " style="line-height:50pt;" ' +
-                                        (ENTQuiz.Response.userLanguage == 1 ? 'float:right;' : '') + '" >' + rows[r].trim() + '</span>';
-
-                                let checkedCount = 0;
-                                let checkedPercent = 0;
-                                if (qtnResponse_Row != undefined && qtnResponse_Row.length > 0) {
-                                    checkedCount = $.grep(qtnResponse_Row, function (qtnResponse_RowItem) {
-                                        return qtnResponse_RowItem.RowResponse == (i + 1);
-                                    }).length;
-                                    checkedPercent = ((checkedCount * 100.0 / qtnResponse_Row.length) * 0.4).toFixed(2);
+                        if (answer_optionsCount != qtnResponse.length) isAllCorrect = false;
+                        else {
+                            for (let q = 0; q < qtnResponse.length; q++) {
+                                if (ENTQuiz.Response.quiz.Language == 1) {
+                                    if (Specs.ar[qtnResponse[q]].trim() != answer.ar[q].trim()) {
+                                        isAllCorrect = false;
+                                        break;
+                                    }
                                 }
-
-                                if (colsCount <= 3)
-                                    qtnResponse += '<span class="col-sm-2 MatrixCell" ' + (ENTQuiz.Response.userLanguage == 1 ? ' style="float:right" ' : ' ') + '>' +
-                                        '<div class="MatrixCheckPercent">' + (checkedPercent / 0.4).toFixed(2) + '%</div>' +
-                                        '<div class="quizVBarB">' +
-                                        (checkedPercent > 0 ? '<div class="quizVBar" style="height:' + checkedPercent + 'pt;"></div>' : '&nbsp;') +
-                                        '</div>' +
-                                        '</span>';
-                                else
-                                    qtnResponse += '<span class="col-sm-1 MatrixCell" ' + (ENTQuiz.Response.userLanguage == 1 ? ' style="float:right" ' : ' ') + '>' +
-                                        '<div class="MatrixCheckPercent">' + (checkedPercent / 0.4).toFixed(2) + '%</div>' +
-                                        '<div class="quizVBarB">' +
-                                        (checkedPercent > 0 ? '<div class="quizVBar" style="height:' + checkedPercent + 'pt;"></div>' : '&nbsp;') +
-                                        '</div>' +
-                                        '</span>';
+                                else {
+                                    if (Specs.en[qtnResponse[q]].trim() != answer.en[q].trim()) {
+                                        isAllCorrect = false;
+                                        break;
+                                    }
+                                }
                             }
-                            qtnResponse += "</div>";
-                        }
-                        qtnResponse += "</div>";
-                    }
-                    let modQtn = $.grep(ENTQuiz.Response.quiz.Questions, function (oQuestion) {
-                        return (oQuestion.ID == qtn.ID);
-                    });
-
-                    if (qtnResponse != '')
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses</span><div style="display:none;"><h3>' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-                    else
-                        qtnResponse = ' - ';
-
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
-
-                }
-
-                //FileAttachment
-                else if (qtn.DataTypeID == 11) {
-                    let modResponseFiles = [];
-                    if (ENTQuiz.Response.quizResult.responseFiles != undefined &&
-                        ENTQuiz.Response.quizResult.responseFiles.length > 0) {
-                        modResponseFiles = $.grep(ENTQuiz.Response.quizResult.responseFiles, function (oresponseFile) {
-                            return (oresponseFile.QuestionId == qtn.ID);
-                        });
-                    }
-
-                    if (modResponseFiles.length > 0) {
-                        $(modResponseFiles).each(function (idx, respFile) {
-                            let quizId = ENTQuiz.Common.getUrlParams("quizId");
-                            let responseId = respFile.ResponseId;
-                            let getFileURL = ENTQuiz.Response.apiPath + '/getResponseFile?fileId=' + respFile.ID + '&quizId=' + quizId + '&responseId=' + responseId + '&absolutePath=' + location.pathname;
-                            if (idx > 0) qtnResponse += '<br /><hr />';
-                            qtnResponse += '<span class="entModQtnCtlValue"><a href="' + getFileURL + '" style="color:#fff">' + respFile.FileName + ' &nbsp; &nbsp; <i class="fas fa-download"></i></a></span>';
-                        });
-                    }
-
-                    if (qtnResponse == '') qtnResponse = ' - ';
-                    else {
-                        let modQtn = $.grep(ENTQuiz.Response.quiz.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses </span><div style="display:none"><h3>' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-
-                    }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
-
-                }
-
-                //RankingQuestion
-                else if (qtn.DataTypeID == 12) {
-
-                    let Specs = $.parseJSON(qtn.Specs);
-
-                    if (modQuestionResponses.length > 0) {
-                        let modQuestionResponsesAggregated = [];
-                        $(modQuestionResponses).each(function (idx, omodQuestionResponses) {
-                            let omodQuestionResponsesArray = $.parseJSON(omodQuestionResponses.QuestionResponse);
-                            $(omodQuestionResponsesArray).each(function (idx2, omodQuestionResponse) {
-                                modQuestionResponsesAggregated.push(omodQuestionResponse);
-                            });
-                        });
-                        let optionsCount = (ENTQuiz.Response.userLanguage == 1 ? Specs.ar.length : Specs.en.length);
-                        for (let i = 0; i < optionsCount; i++) {
-
-                            let qtnResponse_Row = $.grep(modQuestionResponsesAggregated, function (qtnResponseItem) {
-                                return (i == qtnResponseItem.RowID);
-                            });
-                            qtnResponse += '<div>' + (ENTQuiz.Response.userLanguage == 1 ? Specs.ar[i].trim() : Specs.en[i].trim()) + '</div>';
-
-                            for (let j = 0; j < optionsCount; j++) {
-
-                                let selectedOptionCount = $.grep(qtnResponse_Row, function (qtnResponse_RowItem) {
-                                    return qtnResponse_RowItem.RowResponse == (j + 1);
-                                }).length;
-                                let selectedOptionPercent = (selectedOptionCount * 100.0 / qtnResponse_Row.length).toFixed(2);
-
-                                qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                    '<div> Rank - ' + (j + 1) + ' - ' +
-                                    selectedOptionCount + ' (' + selectedOptionPercent + '%) </div>' +
-                                    '<div class="quizHBarB">' +
-                                    (selectedOptionPercent > 0 ? '<div class="quizHBar" style="width:' + selectedOptionPercent + '%;"></div>' : '&nbsp;') +
-                                    '</div>' +
-                                    '</div>';
-                            }
-
                         }
 
-
-                        let modQtn = $.grep(ENTQuiz.Response.quiz.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses </span><div style="display:none"><h3>' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-
-                        return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + ' </div>';
+                        return isAllCorrect;
                     }
-                }
+                    //RankingQuestion
+                    else if (qtn.DataTypeID == 6) {
+                        let qtnResponse = [];
+                        qtnResponse = quizQuestionResponse.QuestionResponse != undefined && quizQuestionResponse.QuestionResponse != "" ? $.parseJSON(quizQuestionResponse.QuestionResponse) : [];
 
-                //Image Choices
-                else if (qtn.DataTypeID == 15) {
-                    let qtnImageChoices = $.grep(ENTQuiz.Response.quiz.ImageChoices, function (imageFile) {
-                        return imageFile.QuestionId == qtn.ID;
-                    });
+                        let answer = $.parseJSON(qtn.Answer);
 
-                    if (modQuestionResponses.length > 0) {
-                        if (qtnImageChoices.length > 0) {
-                            for (let i = 0; i <= qtnImageChoices.length; i++) {
-                                let selectedRatingCount = $.grep(modQuestionResponses, function (omodQuestionResponse) {
-                                    return omodQuestionResponse.QuestionResponse == '' + i;
-                                }).length;
-                                let selectedRatingPercent = (selectedRatingCount * 100.0 / modQuestionResponses.length).toFixed(2);
-
-                                qtnResponse += '<div class="entModQtnCtlValue" style="font-weight:bold;padding:2%">' +
-                                    '<div> <img src="data:image/jpg;base64,' + qtnImageChoices[i].FileContentAsBytes + '" title="' + qtnImageChoices[i].FileName + '" class="ImageChoiceDisabled" /> ' + '   ' +
-                                    selectedRatingCount + ' (' + selectedRatingPercent + '%) </div>' +
-                                    '<div class="quizHBarB">' +
-                                    (selectedRatingPercent > 0 ? '<div class="quizHBar" style="width:' + selectedRatingPercent + '%;"></div>' : '&nbsp;') +
-                                    '</div>' +
-                                    '</div>';
-                            }
+                        if (qtnResponse == undefined || qtnResponse.length != answer.ans.length) {
+                            return false;
                         }
                         else {
-                            qtnResponse += '<div style="color:coral;font-size:15px;font-weight:bold;">Image files not found</div>';
+                            for (let a = 0; a < answer.ans.length; a++) {
+                                if (qtnResponse[a].RowResponse != answer.ans[a]) {
+                                    return false;
+                                }
+                            }
+                            return true;
                         }
+
                     }
-
-                    if (qtnResponse == '') qtnResponse = ' - ';
-                    else {
-                        let modQtn = $.grep(ENTQuiz.Response.Questions, function (oQuestion) {
-                            return (oQuestion.ID == qtn.ID);
-                        });
-                        qtnResponse = '<div onclick="ENTQuiz.Response.ShowQuestionResponses(this)"><span style="font-weight:bold;cursor:pointer;color:#fff;padding:2%;"><i class="fa fa-plus-square" /> Show Responses</span><div style="display:none;"><h3 >' + (ENTQuiz.Response.userLanguage == 1 ? modQtn[0].Question : modQtn[0].Question_En) + '</h3>' + qtnResponse + '</div></div>';
-                    }
-                    return '<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + qtnResponse + '" </div>';
-
-
                 }
 
-
-                return "";
+                return false;
             },
-            ShowQuestionResponses: function (questionResponseBlock) {
-                $(".detailsContainer_View_MOD").html('');
-                (".detailsContainer_View_MOD").html('<div dir="' + (ENTQuiz.Response.userLanguage == 1 ? 'rtl' : 'ltr') + '">' + ($(questionResponseBlock).find("div").html()) + '</div>');
-                $("#mslDialog_View_MOD").modal("show");
 
-            },
-            renderQuiz: function () {
-                if (this.quiz != undefined &&
-                    this.quiz.Questions != undefined &&
-                    this.quiz.Questions.length > 0) {
-                    let quizId = this.quiz.ID;
-                    $("#ent_quizId").val(quizId);
 
-                    $(".entQuizResponseContainer").show();
+            filterData: function () {
 
-                    if (this.userLanguage == 1) {
-                        $(".entQuizResponseContainer").removeClass("DirectionLTR");
-                        $(".entQuizResponseContainer").addClass("DirectionRTL");
-                        $(".entQuizResponseContainer").attr("dir", "rtl");
+                this.items = $.grep(this.items_all, function (e) { return ENTQuiz.Response.isMatchingResult(e); });
+                this.currentPage = 1;
+                this.lastPage = 1;
+
+                $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+                $(".prevPageLink_MOD").css({ "visibility": "hidden" });
+                if (this.items.length > 0) {
+                    this.lastPage = parseInt(this.items.length / this.pageDisplayItemsLimit) + (this.items.left % this.pageDisplayItemsLimit != 0 ? 1 : 0);
+
+                    $(".curPageInfo_MOD").css({ "visibility": "visible" });
+
+                    if (this.currentPage < this.lastPage) {
+                        $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                        $(".lastPageLink_MOD").css({ "visibility": "visible" });
                     }
                     else {
-
-                        $(".entQuizResponseContainer").removeClass("DirectionRTL");
-                        $(".entQuizResponseContainer").addClass("DirectionLTR");
-                        $(".entQuizResponseContainer").attr("dir", "ltr");
+                        $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                        $(".lastPageLink_MOD").css({ "visibility": "hidden" });
                     }
 
-                    let htmlQuizHeader = '<div class="entQuizHeader">' +
-                        (this.userLanguage == 1 ? this.quiz.Title : this.quiz.Title_En) +
-                        '</div>' +
-                        '<div class="entQuizDescription">' +
-                        (this.userLanguage == 1 ? this.quiz.Description : this.quiz.Description_En) +
-                        '</div>' +
-                        '<div class="entQuizResponseCountContainer">' +
-                        (this.userLanguage == 1 ? '<div class="entQuizResponseCountHeader">ResponseCount-arabic</div>' : '<div class="entQuizResponseCountHeader">Response Count</div>') +
-                        '<div class="entQuizResponseCount">' + Math.round(ENTQuiz.Response.quizResult.QuizQuestionAllResponses.length / ENTQuiz.Response.quiz.Questions.length) + '</div>' +
-                        '</div>';
+                    this.renderItems(this.currentPage);
+
+                }
+                else {
+                    $("#divItems_MOD").html("<div class='NoRecorsFound'>No records found matching the given search</div>");
+                    $(".curPageInfo_MOD").css({ "visibility": "hidden" });
+                    $(".nextPageInfo_MOD").css({ "visibility": "hidden" });
+                    $(".lastPageInfo_MOD").css({ "visibility": "hidden" });
+
+                    $(".fromRecordNum_MOD").text(0);
+                    $(".toRecordNum_MOD").text(0);
+                    $(".resultsCount_MOD").text(0);
+                }
+            },
+            sortField: '',
+            sortResults: function (elem) {
+                var asc = true;
+                var prop = $(elem).data('fieldname');
+                if (prop.indexOf('StartDate') == 0) prop = prop.replace('StartDate', 'StartDateValue');
+                if (prop + '#' == this.sortField) {
+                    this.sortField = prop;
+                    asc = false;
+                }
+                else {
+                    this.sortField = prop + '#';
+                }
+                this.items_all.sort(function (a, b) {
+                    if (isNaN(a[prop])) {
+                        if (asc)
+                            return (a[prop].toLowercase() > b[prop].toLowercase()) ? 1 : ((a[prop].toLowerCase() < b[prop].toLowercase()) ? -1 : 0);
+                        else
+                            return (b[prop].toLowercase() > a[prop].toLowercase()) ? 1 : ((b[prop].toLowerCase() < a[prop].toLowercase()) ? -1 : 0);
+                    }
+                    else {
+                        if (asc)
+                            return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+                        else
+                            return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+                    }
+                });
+                this.onFilterSelected();
+
+                $(".sortIconLTR").removeClass("fa-sort-up");
+                $(".sortIconLTR").removeClass("fa-sort-down");
+                $(".sortIconLTR").addClass("fa-sort");
 
 
-                    let htmlQuizQuestions = this.quiz.Questions.map(function (o, idx) {
+                if (asc) {
+                    $(elem).find(".sortIconLTR").removeClass("fa-sort");
+                    $(elem).find(".sortIconLTR").addClass("fa-sort-up");
+                }
+                else {
+                    $(elem).find(".sortIconLTR").removeClass("fa-sort");
+                    $(elem).find(".sortIconLTR").addClass("fa-sort-down");
+                }
 
-                        let htmlQuizQuestion = '<div class="entQuizQuestionContainer">' +
-                            '<div class="entQuizQuestion">' + (qtnCntrDisplay) + ' . &nbsp; ' +
-                            (ENTQuiz.Response.userLanguage == 1 ? o.Question : o.Question_En) +
-                            '</div>' +
-                            '<div class="entQuizQuestionControl" data-qtnid="' + o.ID + '" data-datatypeid="' + o.DataTypeID + '" >' +
-                            ENTQuiz.Response.getQuestionControlWithValue(o) +
-                            '</div>' +
-                            '</div>';
+            },
+            //Page Navigation 
+            ShowFirstPage: function () {
 
-                        return htmlQuizQuestion;
+                this.currentPage = 1;
+                $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+                $(".prevPageLink_MOD").css({ "visibility": "hidden" });
+                if (this.currentPage < this.lastPage) {
+                    $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                    $(".lastPageLink_MOD").css({ "visibility": "visible" });
+                }
+                else {
+                    $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                    $(".lastPageLink_MOD").css({ "visibility": "hidden" });
+                }
+                this.renderItems(this.currentPage);
+            },
+            showPreviousPage: function () {
+                if (this.currentPage > 1) {
+                    this.currentPage--;
+                    if (this.currentPage > 1) {
+                        $(".firstPageLink_MOD").css({ "visibility": "visible" });
+                        $(".prevPageLink_MOD").css({ "visibility": "visible" });
+                    }
+                    else {
+                        $(".firstPageLink_MOD").css({ "visibility": "hidden" });
+                        $(".prevPageLink_MOD").css({ "visibility": "hidden" });
+                    }
+                    if (this.currentPage < this.lastPage) {
+                        $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                        $(".lastPageLink_MOD").css({ "visibility": "visible" });
+                    }
+                    else {
+                        $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                        $(".lastPageLink_MOD").css({ "visibility": "hidden" });
+                    }
+                    this.renderItems(this.currentPage);
+                }
+            },
 
+            showNextPage: function () {
+
+                this.currentPage++;
+
+                $(".firstPageLink_MOD").css({ "visibility": "visible" });
+                $(".prevPageLink_MOD").css({ "visibility": "visible" });
+
+
+                if (this.currentPage < this.lastPage) {
+                    $(".nextPageLink_MOD").css({ "visibility": "visible" });
+                    $(".lastPageLink_MOD").css({ "visibility": "visible" });
+                }
+                else {
+                    $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                    $(".lastPageLink_MOD").css({ "visibility": "hidden" });
+                }
+                this.renderItems(this.currentPage);
+
+            },
+
+            ShowLastPage: function () {
+
+                this.currentPage = this.lastPage;
+                $(".firstPageLink_MOD").css({ "visibility": "visible" });
+                $(".prevPageLink_MOD").css({ "visibility": "visible" });
+
+                $(".nextPageLink_MOD").css({ "visibility": "hidden" });
+                $(".lastPageLink_MOD").css({ "visibility": "hidden" });
+
+                this.renderItems(this.currentPage);
+            },
+            pageDisplayItemsLimit: 10,
+            filterPersonId: 0,
+            filterName: '',
+            filterScore: '',
+            filterKeyword: '',
+
+            onFilterSelected: function () {
+                this.filterQuizId = $("[data-filter='QuizId_MOD']").val().toLowerCase();
+                this.filterTitle = $("[data-filter='Title_MOD']").val().toLowerCase();
+                this.filterLanguage = $("[data-filter='Language_MOD']").val().toLowerCase();
+                this.filterKeyword = $("[data-filter='Keyword_MOD']").val().toLowerCase();
+                this.filterData();
+            },
+            selectAllChecks: function (columnname) {
+                $('#' + columnname + ' input:checkbox').prop('checked', true);
+                this.onFilterSelected();
+            },
+            clearAllChecks: function (columnname) {
+                $('#' + columnname + ' input:checkbox').prop('checked', false);
+                this.onFilterSelected();
+            },
+            clearAllInputs: function (columnname) {
+                $('#' + columnname + ' input').prop('value', '');
+                this.onFilterSelected();
+            },
+            isMatchingResult: function (e) {
+
+                let fmtModifiedDate;
+                if (!IsNullOrUndefined(e.ModifiedDate)) fmtModifiedDate = new Date(e.ModifiedDate);
+
+                return (this.filterKeyword == ''
+                    || (e.Name != null && e.Name.toLowerCase().indexOf(this.filterKeyword) >= 0)
+                    || fmtModifiedDate.format("ddd dd MMM yyyy").toLowerCase().indexOf(this.filterKeyword) >= 0
+
+                );
+            },
+            scores: [],
+            passCount: 0,
+            renderItems: function (displayPagenum) {
+                if (this.items != undefined && this.items.length > (displayPagenum - 1) * this.pageDisplayItemsLimit) {
+                    $(".pageCounter_MOD").show();
+                    var startIndex = (displayPagenum - 1) * this.pageDisplayItemsLimit;
+                    var endIndex = startIndex + (this.pageDisplayItemsLimit - 1);
+
+                    $(".fromRecordNum_MOD").text(startIndex + 1);
+                    $(".resultsCount_MOD").text(this.items.length);
+                    $(".entQuizResponseCount").text(this.items_all.length);
+
+                    const average = array => array.reduce((a, b) => a + b) / array.length * 1.0;
+                    $(".entQuizResponseAvgScore").html(average(ENTQuiz.Response.scores).toFixed(2));
+                    $(".entQuizResponseHighScore").html(Math.max(...ENTQuiz.Response.scores));
+                    $(".entQuizResponseLowScore").html(Math.min(...ENTQuiz.Response.scores));
+                    $(".entQuizResponsePassRate").html((this.passCount * 100.0 / this.items_all.length).toFixed(2));
+                    $(".entQuizResponseCountContainer").show();
+
+                    var htmlText = this.items.map(function (o, idx) {
+                        if (idx < startIndex || idx > endIndex) return "";
+
+                        $(".toRecordNum_MOD").text(idx + 1);
+
+                        var fmtModifiedDate;
+                        if (!IsNullOrUndefined(e.ModifiedDate))
+                            fmtModifiedDate = new Date(e.ModifiedDate);
+
+                        return `
+                        <div class="${((idx % 2) == 0 ? 'div-container2' : 'div-container2')} row"
+                            <div data-title="ResponseId" class="ColCenterDiv col-sm-1 col-lg-1 col-xl-1" 
+                                onclick="ENTQuiz.Response.ShowItem(${o.ID})> ${idx + 1} </div>
+                        
+                            <div data-title="Name" class="ColDiv col-sm-12 col-md-5 col-lg-5 col-xl-5" 
+                                onclick="ENTQuiz.Response.ShowItem(${o.ID})> 
+                            
+                                <span class="tooltipParent" 
+                                    onmouseover="ENTQuiz.Common.showTooltip(event,this)">
+                                    ${o.Name}
+                                    <span class="tooltiptext">
+                                    ${o.Name}
+                                    </span>
+                                </span>                        
+                            </div>
+                            <div data-title="Score" class="ColCenterDiv col-sm-12 col-md-1 col-lg-1 col-xl-1" 
+                                onclick="ENTQuiz.Response.ShowItem(${o.ID})> ${o.Score} </div>
+                            <div data-title="Percent" class="ColCenterDiv col-sm-12 col-md-1 col-lg-1 col-xl-1" 
+                                onclick="ENTQuiz.Response.ShowItem(${o.ID})> ${o.Percent} </div>
+                            <div data-title="Result" class="ColCenterDiv col-sm-12 col-md-1 col-lg-1 col-xl-1" 
+                                    onclick="ENTQuiz.Response.ShowItem(${o.ID})> ${o.Result} </div>
+                                                     
+                            <div data-title="ModifiedDate" class="ColCenterDiv  col-md-4 col-lg-1 col-xl-1" 
+                                onclick="ENTQuiz.Response.ShowItem(${o.ID})> 
+                                ${fmtModifiedDate.format("ddd dd MMM yyyy")}
+                                </div>
+                        </div>`;
 
                     }).join('');
-                    $('.entQuizHeaderContainer').html(htmlQuizHeader);
-                    $('.entQuizQuestionsContainer').html(htmlQuizQuestions);
-
+                    $("#divItems_MOD").html(htmlText);
+                    $(".curPageInfo_MOD").html("Page " + this.currentPage);
                 }
             },
-            cancelQuiz: function () {
-                window.location = 'ManageQuizs.aspx';
-            },
-            exportToExcel: function(){
-                if(ENTQuiz.Common.getUrlParams("quizId")!= undefined){
+            exportToExcel: function () {
+                if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
                     let quizId = ENTQuiz.Common.getUrlParams("quizId");
-                    let apiPath_item = this.apipath + '/getQuizResponses_Export?quizId='+quizId + '&absolutePath=' + location.pathname;
+                    let apiPath_item = this.apipath + '/getQuizResponses_Export?quizId=' + quizId + '&absolutePath=' + location.pathname;
                     window.location = apiPath_item;
                 }
+            },
+            viewResultByQuestion: function () {
+                if (ENTQuiz.Common.getUrlParams("quizId") != undefined) {
+                    let quizId = ENTQuiz.Common.getUrlParams("quizId");
+                    window.location = 'viewResultByQuestion.aspx?quizId=' + quizId;
+                }
+            },
+            viewResultByQuestion: function () {
+                window.location = 'ManageQuizs.aspx';
+
             },
         };
     })();

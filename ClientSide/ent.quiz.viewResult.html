@@ -1,119 +1,110 @@
-<html>
+<script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
+<script src="/SiteAssets/Quiz/ent.quiz.viewResult.js" type="text/javascript"></script>
+<link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
+<style>
+    input[type="radio"][disabled]:checked {
+        background-color: green;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        appearance: none;
+    }
 
-<head>
-    <script src="/SiteAssets/Quiz/ent.quiz.common.js" type="text/javascript"></script>
-    <script src="/SiteAssets/Quiz/ent.quiz.viewResult.js" type="text/javascript"></script>
-    <link href="/SiteAssets/Quiz/ent.quiz.css" type="text/css" rel="stylesheet" />
-    <style>
-        input[type="radio"][disabled]:checked {
-            background-color: green;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            appearance: none;
-        }
+    input[type="checkbox"][disabled]:checked {
+        background-color: green;
+        height: 16px;
+        width: 16px;
+        appearance: none;
+    }
 
-        input[type="checkbox"][disabled]:checked {
-            background-color: green;
-            height: 16px;
-            width: 16px;
-            appearance: none;
-        }
+    .quizHBarB {
+        background-color: #CCCCCC;
+        height: 15px;
+    }
 
-        .quizHBarB {
-            background-color: #CCCCCC;
-            height: 15px;
-        }
+    .quizHBar {
+        background-color: #3966BF;
+        height: 15px;
+    }
 
-        .quizHBar {
-            background-color: #3966BF;
-            height: 15px;
-        }
+    .quizVBarB {
+        background-color: #CCCCCC;
+        height: 40pt;
+        width: 10pt;
+        position: relative;
+    }
 
-        .quizVBarB {
-            background-color: #CCCCCC;
-            height: 40pt;
-            width: 10pt;
-            position: relative;
-        }
+    .quizVBar {
+        background-color: #3966BF;
+        width: 10pt;
+        position: absolute;
+        bottom: 0;
+    }
 
-        .quizVBar {
-            background-color: #3966BF;
-            width: 10pt;
-            position: absolute;
-            bottom: 0;
-        }
+    .MatrixCheckPercent {
+        white-space: nowrap;
+    }
+</style>
 
-        .MatrixCheckPercent {
-            white-space: nowrap;
-        }
-    </style>
-</head>
+<div class="container">
+    <div class="row index">
+        <div class="entQuizContainer">
+            <div class="entQuizDataLoaderMessage">
+                <div style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
+                    Loading Quiz Questions, please wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif" alt="" />
+                </div>
+            </div>
 
-<body>
-    <div class="container">
-        <div class="row index">
-            <div class="entQuizContainer">
-                <div class="entQuizDataLoaderMessage">
-                    <div
-                        style="font-size:20px;display:block;text-align:center;height:100%;width:100%;opacity:0.8;top:30%;">
-                        Loading Quiz Questions, please wait ... <img src="/SiteAssets/Quiz/images/ajax-loader.gif"
-                            alt="" />
-                    </div>
+            <div class="entQuizLanguage">
+                <h3>Select Language</h3>
+                <br />
+                <button class="modBtnStyle"
+                    onclick="return ENTQuiz.Response.SetUserLanguage(1); return false;">Arabic</button>
+                <button class="modBtnStyle"
+                    onclick="return ENTQuiz.Response.SetUserLanguage(2); return false;">English</button>
+            </div>
+
+            <div class="entQuizResponseContainer">
+                <input type="hidden" value="0" id="ent_quizId" />
+
+                <div class="entQuizHeaderContainer"></div>
+                <div class="entQuizQuestionsContainer">
+                    Loading Questions ...
                 </div>
 
-                <div class="entQuizLanguage">
-                    <h3>Select Language</h3>
-                    <br />
+                <div class="entQuizSubmit">
+
+                    &nbsp;
                     <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(1); return false;">Arabic</button>
-                    <button class="modBtnStyle"
-                        onclick="return ENTQuiz.Response.SetUserLanguage(2); return false;">English</button>
-                </div>
+                        onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>&nbsp;
+                    <button class="modBtnStyle" 
+                    onclick="return ENTQuiz.Response.exportToExcel(); return false;">Export
+                        To Excel</button>&nbsp;
 
-                <div class="entQuizResponseContainer">
-                    <input type="hidden" value="0" id="ent_quizId" />
-
-                    <div class="entQuizHeaderContainer"></div>
-                    <div class="entQuizQuestionsContainer">
-                        Loading Questions ...
-                    </div>
-
-                    <div class="entQuizSubmit">
-
-                        &nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.cancelQuiz(); return false;">Cancel</button>&nbsp;
-                        <button class="modBtnStyle"
-                            onclick="return ENTQuiz.Response.exportToExcel(); return false;">Export To Excel</button>&nbsp;
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_MOD">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Question Responses
-                        <button class="close" data-dismiss="modal" aria-lable="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </h3>
-                </div>
-                <div class="modal-body">
-                    <div class="detailsContainer_View_MOD">
+<div class="modal" tabindex="-1" role="dialog" id="mdlDialog_View_MOD">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Question Responses
+                    <button class="close" data-dismiss="modal" aria-lable="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="detailsContainer_View_MOD">
 
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>
